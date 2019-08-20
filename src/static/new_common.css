@@ -1,0 +1,74 @@
+/* 搜索输入框 */
+.container .search-box .form-item .el-input {
+  width: 240px;
+  height: 32px;
+}
+.container .search-box .form-item .el-input .el-input__inner {
+  height: 32px;
+  line-height: 32px;
+}
+.container .search-box .form-item .el-input .el-input__icon{
+  line-height: 32px;
+}
+/* 表单输入框 */
+.form .el-input {
+  width: 415px;
+  height: 32px;
+}
+/* 按钮 */
+.el-button--small {
+  min-width: 64px;
+  height: 32px;
+  font-size: 14px;
+  padding: 9px 10px;
+}
+.el-button--medium {
+  min-width: 80px;
+  height: 32px;
+  font-size: 14px;
+  padding: 10px;
+}
+.el-button--small span, .el-button--medium span {
+ display: inline-block;
+ max-width: 84px;
+ overflow: hidden;
+ vertical-align: middle;
+}
+.el-button--small i, .el-button--medium i {
+  vertical-align: middle;
+ }
+
+.el-button--primary:focus, .el-button--primary:hover {
+  background: #4184e7;
+  border-color: #4184e7;
+}
+.el-button--primary.is-active, .el-button--primary:active {
+  background: #3070cf;
+  border-color: #3070cf;
+}
+/* 表格 */
+.el-table {
+  color: #666;
+}
+/* .el-table .cell {
+  max-height: 33px !important;
+} */
+.el-table th {
+  color: #333 !important;
+  font-size: 12px;
+  font-weight: bold !important;
+  text-align: center;
+}
+.el-table .is-left .cell {
+  padding-left: 15px;
+}
+.el-table .is-right .cell {
+  padding-right: 15px;
+}
+
+/* 弹窗 */
+.el-dialog__header {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+
