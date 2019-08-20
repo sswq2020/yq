@@ -12,19 +12,22 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                // target: 'https://beidou.hletong.com/',
-                target: 'http://192.168.4.16:25084/',// 周杨
-                //  target: 'http://192.168.4.16:25091/',// 佘慧
-                // target: 'http://192.168.4.16:25092/',// 尹凯
-                // target:'http://10.1.15.119:8202/',
-                // target:'http://192.168.4.16:25083/',//liudongcai serve
+                 target: 'http://test.hletong.com/hhgs',
+                // target: 'http://test.hletong.com/hhgs-test',
+                // target: 'https://yq.hletong.com',
+
+                // target: 'http://192.168.4.16:25084/hhgs',// 周杨
+                // target: 'http://192.168.4.16:25091/hhgs',// 佘慧
+                // target: 'http://192.168.4.16:25092/hhgs',// 尹凯
+                // target:'http://10.1.15.119:8202/'
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
                     '^/api': ''
                 },
                 headers: {
-                    // "Cookie": "__sid=623B92BA9CB54433A288E39FF0C3A0F6", // 超级管理员
+                     "Cookie": "JSESSIONID=F7CF2D541BC247753A08CC6FF72E8A16; __sid=4D649C255317490E8BDF59FA12987DBE", // 超级管理员
+                    //  "X-Auth-Token": "817F96BFE62A4745B9C1D48B484B182E"
                     // "Authorization":'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiV0VCUyJdLCJ1c2VyX2lkIjoxLCJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbImFsbCJdLCJleHAiOjE1NDIyODcxNDcsImF1dGhvcml0aWVzIjpbInN1cGVyIiwiYWRtaW4iXSwianRpIjoiYzJkOGRkYTAtZjAwNy00NDdjLTg4Y2EtMTgwMjRhOWJlZGI2IiwiY2xpZW50X2lkIjoiemhlbmctdXBtcy1zZXJ2ZXIifQ.cqfCHUn8zCcTpVK-BOBNnZE5mgaczaQhAXE3Kb2Mcss'
                 }
             }

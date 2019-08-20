@@ -15,7 +15,7 @@ let Authorization = cookies.HLETTYPE + ' ' + cookies.HLETID
 let uploadUrl = '/apis';
 let validUrl = 'http://10.1.15.106:8102';
 
-let oilURL = '';
+let hhgsURL = '';
 
 
 // window.globelApi2 = 'http://10.1.15.106:8445'//test环境
@@ -28,18 +28,18 @@ switch (env) {
         baseURL = '/api';
         redirectUrl = 'http://localhost:8080/';
         loginUrl = 'http://localhost:3000/index.html';
-        oilURL = ''
+        hhgsURL = ''
         break;
     case 'production':
         loginUrl = 'https://login.hletong.com/';
         redirectUrl = 'https://cloudStorage.hletong.com/';
-        oilURL = ''
+        hhgsURL = ''
         break;
     case 'test':
         baseURL = 'http://10.1.15.106:8445';
         redirectUrl = 'http://oilhui.hlet.com';
         loginUrl = 'http://login.hlet.com';
-        oilURL = 'oilhui'
+        hhgsURL = 'hhgs'
         break;
     default:
         break;
@@ -75,6 +75,7 @@ let instance = axios.create({
 * */
 instance.interceptors.request.use((config) => {
     config.headers['Authorization'] = Authorization;
+    config.headers['X-Auth-Token'] = "3F31F273857C433EA2125058943A3197"   
     config.headers['Accept'] = '';
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     return config;
@@ -331,13 +332,22 @@ export default {
         return fetch('/system/manage/user/getUserRole', { userId }, 'get')
     },
 
+    // 测试接口是否可用
+    /**
+     * @author sswq
+     * @description 测试专用
+     * */
+    getTest(params) {
+        return fetch(hhgsURL + '/action/gs/queryGasStationInfoPage', params, 'get')
+    },
+
     // #region  字典项
     /**
      * @author sswq
      * @description 查询所有基础信息下拉数据源
      * */
     getAllBaseInfo() {
-        return fetch(oilURL + '/web/yc/inventory/transfer/base', '', 'get')
+        return fetch(hhgsURL + '/web/yc/inventory/transfer/base', '', 'get')
     },
     /**
      * @author xh
@@ -351,7 +361,7 @@ export default {
      * @description 获取银行列表
      * */
     getBankList(params) {
-        return fetch(oilURL + '/web/yc/bank/info', params, 'get')
+        return fetch(hhgsURL + '/web/yc/bank/info', params, 'get')
     },
     /**
      * @author sswq
