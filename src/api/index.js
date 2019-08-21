@@ -341,6 +341,23 @@ export default {
         return fetch(hhgsURL + '/action/gs/queryGasStationInfoPage', params, 'get')
     },
 
+    // #region  日常管理
+    /**
+     * @author sswq
+     * @description 平台加注明细分页查询
+     * */
+    getPlantFillUpDetail(params){
+        return fetch(hhgsURL + '/web/pageTaggingQuery', params, 'post')
+    },
+    /**
+     * @author sswq
+     * @description 加油站加注明细分页查询
+     * */
+    getOilVIPFillUpDetail(params){
+        return fetch(hhgsURL + '/web/pageTaggingHasRoleQuery', params, 'post')
+    },
+    // #endregion    
+
     // #region  字典项
     /**
      * @author sswq

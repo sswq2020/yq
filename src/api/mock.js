@@ -22,8 +22,8 @@ export const imgHost = {
 };
 
 
-const IS_MOCK = false;
-const oilURL = ""
+const IS_MOCK = true;
+const hhgsURL = ""
 
 const dict = { 'SUCCESS': "000000" }
 
@@ -50,17 +50,19 @@ const body_fail = {
 }
 
 
-const commodityOnSaleList = {
+const InfoList = {
     "id|+1": "@INTEGER(1,2019690999)",
-    "price": "@INTEGER(1,2019690999)", // 售价
-    "totalWeightInventory": "@INTEGER(1000,5000)", // 库存数量
-    "volumeWeightSold": "@INTEGER(1000,5000)", // 总销量
-    "firstCatalogName": "@CTITLE(2,4)", // 商品名称
-    "secondCatalogName": "@CTITLE(2,4)", // 商品名称
-    "emissionStandardEnum": { text: "惠龙排放标准1" },
-    "serialNumber": "@INTEGER(1,2019690999)", // 商品编码
-    "createdTime": '@DATE("yyyy-MM-dd HH:mm:ss")', // 发布时间
-    "fileId": "@INTEGER(1,2019690999)"
+    "createdTime": '@DATE("yyyy-MM-dd HH:mm:ss")',
+    "fuelVolume": "@INTEGER(1,20)",
+    "gsName": "@CTITLE(2)加油站",
+    "modelType": "@PICK('0','1')",
+    "oilMemberPrice": "@INTEGER(1,20)",
+    "oilModelName": "@PICK('92','95','98')",
+    "oilRetailPrice": "@INTEGER(1,20)",
+    "oilUnit": "@PICK('kg','L')",
+    "totalPrice": "@INTEGER(1,20)",
+    "userId": "@INTEGER(1,200009)",
+    "userPlate": "苏L@INTEGER(100,999)"
 }
 
 const commodityOrderList = {
@@ -99,7 +101,7 @@ const pageSellerList = {
 }
 
 const EnterpriseList = {
-    "id|+1":"@INTEGER(1,2019690999)",
+    "id|+1": "@INTEGER(1,2019690999)",
     "extInfo": {
         "address": '@PROVINCE()@CITY()@CTITLE(2,10)@INTEGER(1,100)号', // 地址
         "bizIdNo": "@INTEGER(321102199108120001,321102200208120034)",  //业务联系人身份证号
@@ -122,14 +124,14 @@ const agreementList = {
     "agreementTypeCode": "@PICK('0','1')", // 协议类型   0线上  1线下
     "dueTime": null, // 到期时间
     "effectTime": new Date(), // 生效时间
-    "fileIdList":new Array(4).fill('984ffb1bcd4145e4951d47573f037415'), // 图片的fileId数组
-    "picUrlList":new Array(4).fill('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'), // 图片的fileId数组对应的URL
-    "id|+1":"@INTEGER(1,2019690999)", // 每一行的主键，但是新增的没有
+    "fileIdList": new Array(4).fill('984ffb1bcd4145e4951d47573f037415'), // 图片的fileId数组
+    "picUrlList": new Array(4).fill('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'), // 图片的fileId数组对应的URL
+    "id|+1": "@INTEGER(1,2019690999)", // 每一行的主键，但是新增的没有
 }
 
 const VIPInfoData = {
     ...EnterpriseList.extInfo,
-    "agreementList|2-3":[agreementList]
+    "agreementList|2-3": [agreementList]
 }
 
 
@@ -356,7 +358,7 @@ const MockRole = {
     "phone": "",
     "realname": "",
     "userId": 0,
-    "userInfo": `${Math.random > 0.5} ? null : {a:"b"}`     ,
+    "userInfo": `${Math.random > 0.5} ? null : {a:"b"}`,
     "username": ""
 }
 
@@ -420,7 +422,7 @@ const mockRouterMap = {
             result() {
                 return {
                     ...body,
-                    data:MockRole
+                    data: MockRole
                 };
             }
         },
@@ -428,27 +430,65 @@ const mockRouterMap = {
 
         // #endregion
 
-        // #region  出售中的商品列表
+        // #region  平台加注明细分页查询
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/product/product/page',
+            router: '/web/pageTaggingQuery',
             result(params) {
                 return {
                     ...body,
                     data: {
-                        'list|4-7': [commodityOnSaleList],
+                        'list|10-20': [InfoList],
                         "paginator": {
                             "currentPage": params.page,
                             "pageSize": params.pageSize,
                             "totalCount": 1000,
                             "totalPage": 1000 / params.pageSize
-                        }
+                        },
+                        "currAir": "20.000",
+                        "currAirMoney": "180.000",
+                        "currOil": "10.000",
+                        "currOilMoney": "50.00",
+                        "totleAir": "0.000",
+                        "totleAirMoney": "0.000",
+                        "totleOil": "0.000",
+                        "totleOilMoney": "0.00",
                     },
                 };
             }
         },
         // #endregion     
+
+        // #region  加油站加注明细分页查询
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/pageTaggingHasRoleQuery',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|10-20': [InfoList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        },
+                        "currAir": "20.000",
+                        "currAirMoney": "180.000",
+                        "currOil": "10.000",
+                        "currOilMoney": "50.00",
+                        "totleAir": "0.000",
+                        "totleAirMoney": "0.000",
+                        "totleOil": "0.000",
+                        "totleOilMoney": "0.00",
+                    },
+                };
+            }
+        },
+        // #endregion 
 
         // #region  订单管理列表
         {
@@ -514,7 +554,7 @@ const mockRouterMap = {
                         emissionStandard: "0",
                         density: 'mock',
                         serialNumber: 'mock',
-                        addressProvince:"@PROVINCE()",
+                        addressProvince: "@PROVINCE()",
                         manufacturerId: "0",
                         price: '23',
                         totalWeightInventory: "12",
@@ -591,7 +631,7 @@ const mockRouterMap = {
             result(params) {
                 return {
                     ...body,
-                    data:{...VIPInfoData,userId:params.userId}                                          
+                    data: { ...VIPInfoData, userId: params.userId }
                 };
             }
         },
