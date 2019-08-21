@@ -1,4 +1,4 @@
-const DICT = {};
+const DICT = Object.create(null);
 /** 成功 */
 DICT.SUCCESS = '000000';
 /** 导入 */
@@ -16,15 +16,15 @@ DICT.APP_INFO = {
 }
 
 
-/**买房会员*/
-DICT.BUYER_VIP = '2'
-/**卖房会员*/
-DICT.SELLER_VIP = '1'
+/**平台端用户*/
+DICT.PLANT_USER = '2'
+/**油站会员*/
+DICT.OIL_VIP = '1'
 
-/**会员类型*/
-DICT.VIP_TYPE = {
-    [DICT.BUYER_VIP]: "买方会员",
-    [DICT.SELLER_VIP]: "卖方会员"
+/**当前用户角色*/
+DICT.ROLE_TYPE = {
+    [DICT.PLANT_USER]: "平台端用户",
+    [DICT.OIL_VIP]: "油站会员"
 }
 
 /**会员状态禁用*/
