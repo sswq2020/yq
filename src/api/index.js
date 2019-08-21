@@ -75,7 +75,7 @@ let instance = axios.create({
 * */
 instance.interceptors.request.use((config) => {
     config.headers['Authorization'] = Authorization;
-    config.headers['X-Auth-Token'] = "3F31F273857C433EA2125058943A3197"   
+//    config.headers['X-Auth-Token'] = "DE52A26D7DAA47488C7E0FD6A63D6BD3"   
     config.headers['Accept'] = '';
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     return config;
@@ -327,9 +327,9 @@ export default {
         // return formDataRequest(`${validUrl}/mc-client/sms/template/smsService/verifiCode`, params)
         return formDataRequest(`/sms/mc-client/sms/template/smsService/verifiCode`, params)
     },
-    // #region 根据userId判断角色是货主还是仓库管理人员
-    getUserRole(userId) {
-        return fetch('/system/manage/user/getUserRole', { userId }, 'get')
+    // #region 只有登陆后请求时自带的token获取当前会员用户信息,平台用户没有userinfo字段
+    getUserRole() {
+        return fetch('/userinfo/current/userinfo/get', '', 'get')
     },
 
     // 测试接口是否可用

@@ -6,6 +6,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import Dict from "util/dict.js";
 export default {
   name: "app",
   computed: {
@@ -15,15 +16,19 @@ export default {
     ...mapMutations("app",["SET_ROLE","SET_USER_ID","SET_USER_NAME"]),
     async getInfo() {
       const res = await this.$api.getUser();
-      if (res.code === "000000") {
+      if (res.code === Dict.SUCCESS) {
         const userId = res.data.userId;
         const username = res.data.username;
         this.SET_USER_ID(userId);
         this.SET_USER_NAME(username);
-        // const response = await this.$api.getUserRole(userId);
-        // if(response.code === "000000") {
-        //     this.SET_ROLE(response.data.role);
-        // }
+        const response = await this.$api.getUserRole();
+        if(response.code === Dict.SUCCESS) {
+            if(response.userInfo){  // 存在userInfo且不为null,则为油站会员
+              this.SET_ROLE(Dict.OIL_VIP)
+            }else{                  // 否则是平台会员
+              this.SET_ROLE(Dict.PLANT_USER)
+            }
+        }
       }
     }
   },

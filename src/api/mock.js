@@ -349,7 +349,15 @@ const deliveryStoreMap = { "bc5ecc7158f44eccae90cada6e986165": "仓库1", "bc5ec
 const pilePositionMap = { "bc5ecc7158f44eccae90cada6e986165": "区桩A", "bc5ecc7158f44ecc56": "区桩B" }
 
 const MockRole = {
-    role: "@PICK('1','2')"  // 货主 1,仓管员 2
+    "avatar": "",
+    "avatarUrl": "",
+    "locked": 0,
+    "locked_": "",
+    "phone": "",
+    "realname": "",
+    "userId": 0,
+    "userInfo": `${Math.random > 0.5} ? null : {a:"b"}`     ,
+    "username": ""
 }
 
 const mockRouterMap = {
@@ -408,13 +416,11 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'get',
-            router: '/system/manage/user/getUserRole',
+            router: '/userinfo/current/userinfo/get',
             result() {
                 return {
                     ...body,
-                    data: {
-                        ...MockRole
-                    }
+                    data:MockRole
                 };
             }
         },
