@@ -12,10 +12,10 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                 target: 'http://test.hletong.com/hhgs',
+                // target: 'http://test.hletong.com/hhgs',
                 // target: 'http://test.hletong.com/hhgs-test',
                 // target: 'https://yq.hletong.com',
-
+                target: 'http://192.168.4.16:25098',// 周杨
                 // target: 'http://192.168.4.16:25084/hhgs',// 周杨
                 // target: 'http://192.168.4.16:25091/hhgs',// 佘慧
                 // target: 'http://192.168.4.16:25092/hhgs',// 尹凯
