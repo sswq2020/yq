@@ -356,6 +356,13 @@ export default {
     getOilVIPFillUpDetail(params){
         return fetch(hhgsURL + '/web/pageTaggingHasRoleQuery', params, 'post')
     },
+    /**
+     * @author sswq
+     * @description 调价历史分页查询
+     * */
+    getAdjustOilHistory(params){
+        return fetch(hhgsURL + '/web/base/oilHistory/page', params, 'post')
+    },
     // #endregion    
 
     // #region  字典项

@@ -65,19 +65,18 @@ const InfoList = {
     "userPlate": "苏L@INTEGER(100,999)"
 }
 
-const commodityOrderList = {
-    "orderId|+1": "@INTEGER(1,2019690999)",
-    "picUrl": "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-    "productPrice": "@INTEGER(1,200)", // 单价
-    "productTotal": "@INTEGER(2019690999,2219690999)", // 金额
-    "productWeight": "@INTEGER(3489,20196)", // 数量
-    "payer": "@INTEGER(13702260943,18702260943)", // 买家
-    "productName": "@CTITLE(2,4)", // 商品名称
-    "serialNumber": "@INTEGER(1,2019690999)", // 商品编码
-    "orderTime": '@DATE("yyyy-MM-dd HH:mm:ss")', // 发布时间
-    "orderCode": "@INTEGER(6237657823644,6997657823644)", // 订单号
-    "exTime": "@INTEGER(1565748967680,1568798967690)",
-    "isInvalid": "@PICK('0','1')" // '0'是正常 '1'是失效
+const adjustOilHistoryList = {
+    "id|+1": "@INTEGER(1,2019690999)",
+    "applyTime": '@DATE("yyyy-MM-dd HH:mm:ss")',
+    "effectTime": '@DATE("yyyy-MM-dd HH:mm:ss")',
+    "gsId": "@INTEGER(1,2019690999)",
+    "gsName": "@CTITLE(2)加油站",
+    "gsOilModelId": "@INTEGER(1,200009)",
+    "oilMemberAgio": "@float(0.5,0.99)",
+    "oilMemberDiscount": "@INTEGER(1,200009)",
+    "oilMemberPrice": "@float(6,7)",
+    "oilModelName": "@PICK('92','95','98')",
+    "oilRetailPrice": "@float(6,7)"
 }
 
 const dealDueForeWarnList = {
@@ -134,199 +133,6 @@ const VIPInfoData = {
     "agreementList|2-3": [agreementList]
 }
 
-
-const classData = [
-    {
-        "id": 1,
-        "name": "汽油",
-        "sort": "1"
-    },
-    {
-        "id": 10,
-        "name": "98",
-        "parentId": "1",
-        "path": "1/",
-        "sort": "3"
-    },
-    {
-        "id": 11,
-        "name": "5",
-        "parentId": "2",
-        "path": "2/",
-        "sort": "1"
-    },
-    {
-        "id": 12,
-        "name": "0",
-        "parentId": "2",
-        "path": "2/",
-        "sort": "2"
-    },
-    {
-        "id": 13,
-        "name": "-10",
-        "parentId": "2",
-        "path": "2/",
-        "sort": "3"
-    },
-    {
-        "id": 14,
-        "name": "-20",
-        "parentId": "2",
-        "path": "2/",
-        "sort": "4"
-    },
-    {
-        "id": 300,
-        "name": "-300",
-        "parentId": "3",
-        "path": "3/",
-        "sort": "5"
-    },
-    {
-        "id": 301,
-        "name": "-301",
-        "parentId": "3",
-        "path": "3/",
-        "sort": "6"
-    },
-    {
-        "id": 302,
-        "name": "-302",
-        "parentId": "3",
-        "path": "3/",
-        "sort": "7"
-    },
-    {
-        "id": 400,
-        "name": "-400",
-        "parentId": "4",
-        "path": "4/",
-        "sort": "5"
-    },
-    {
-        "id": 401,
-        "name": "-401",
-        "parentId": "4",
-        "path": "4/",
-        "sort": "6"
-    },
-    {
-        "id": 402,
-        "name": "-402",
-        "parentId": "4",
-        "path": "4/",
-        "sort": "7"
-    },
-    {
-        "id": 500,
-        "name": "-500",
-        "parentId": "5",
-        "path": "5/",
-        "sort": "5"
-    },
-    {
-        "id": 501,
-        "name": "-501",
-        "parentId": "5",
-        "path": "5/",
-        "sort": "6"
-    },
-    {
-        "id": 502,
-        "name": "-502",
-        "parentId": "5",
-        "path": "5/",
-        "sort": "7"
-    },
-    {
-        "id": 600,
-        "name": "-600",
-        "parentId": "6",
-        "path": "6/",
-        "sort": "6"
-    },
-    {
-        "id": 601,
-        "name": "-601",
-        "parentId": "6",
-        "path": "6/",
-        "sort": "7"
-    },
-    {
-        "id": 602,
-        "name": "-602",
-        "parentId": "6",
-        "path": "6/",
-        "sort": "8"
-    },
-    {
-        "id": 700,
-        "name": "-700",
-        "parentId": "7",
-        "path": "7/",
-        "sort": "7"
-    },
-    {
-        "id": 701,
-        "name": "-701",
-        "parentId": "7",
-        "path": "7/",
-        "sort": "8"
-    },
-    {
-        "id": 702,
-        "name": "-702",
-        "parentId": "7",
-        "path": "7/",
-        "sort": "9"
-    },
-    {
-        "id": 2,
-        "name": "柴油",
-        "sort": "2"
-    },
-    {
-        "id": 3,
-        "name": "燃料类",
-        "sort": "3"
-    },
-    {
-        "id": 4,
-        "name": "石脑油",
-        "sort": "4"
-    },
-    {
-        "id": 5,
-        "name": "MTBE",
-        "sort": "5"
-    },
-    {
-        "id": 6,
-        "name": "航空煤油",
-        "sort": "6"
-    },
-    {
-        "id": 7,
-        "name": "粗白油",
-        "sort": "7"
-    },
-    {
-        "id": 8,
-        "name": "92",
-        "parentId": "1",
-        "path": "1/",
-        "sort": "1"
-    },
-    {
-        "id": 9,
-        "name": "95",
-        "parentId": "1",
-        "path": "1/",
-        "sort": "2"
-    },
-
-]
 
 const paramsData =
 {
@@ -422,7 +228,6 @@ const mockRouterMap = {
             methods: 'get',
             router: '/userinfo/current/userinfo/get',
             result() {
-                debugger
                 return {
                     ...body,
                     data: MockRole
@@ -493,16 +298,16 @@ const mockRouterMap = {
         },
         // #endregion 
 
-        // #region  订单管理列表
+        // #region  调价历史分页查询
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/shopping/order/seller',
+            router: '/web/base/oilHistory/page',
             result(params) {
                 return {
                     ...body,
                     data: {
-                        'list|4-5': [commodityOrderList],
+                        'list|4-5': [adjustOilHistoryList],
                         "paginator": {
                             "currentPage": params.page,
                             "pageSize": params.pageSize,
@@ -754,17 +559,6 @@ const mockRouterMap = {
                         }
 
                     ]
-                };
-            }
-        },
-        {
-            isMock: IS_MOCK,
-            methods: 'get',
-            router: '/productInterface/getClassify',
-            result() {
-                return {
-                    ...body,
-                    data: classData
                 };
             }
         },
