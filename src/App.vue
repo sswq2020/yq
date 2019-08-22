@@ -23,7 +23,7 @@ export default {
         this.SET_USER_NAME(username);
         const response = await this.$api.getUserRole();
         if(response.code === Dict.SUCCESS) {
-            if(response.userInfo){  // 存在userInfo且不为null,则为油站会员
+            if(response.data.userInfo){  // 存在userInfo且不为null,则为油站会员
               this.SET_ROLE(Dict.OIL_VIP)
             }else{                  // 否则是平台会员
               this.SET_ROLE(Dict.PLANT_USER)

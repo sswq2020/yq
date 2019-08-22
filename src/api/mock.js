@@ -358,7 +358,9 @@ const MockRole = {
     "phone": "",
     "realname": "",
     "userId": 0,
-    "userInfo": `${Math.random > 0.5} ? null : {a:"b"}`,
+    "userInfo": {
+        a:'22'
+    },
     "username": ""
 }
 
@@ -420,6 +422,7 @@ const mockRouterMap = {
             methods: 'get',
             router: '/userinfo/current/userinfo/get',
             result() {
+                debugger
                 return {
                     ...body,
                     data: MockRole

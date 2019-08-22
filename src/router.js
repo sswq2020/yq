@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// #region 日常管理
+/**加注明细*/
+const GasInfoList = () => import('views/dailyManage/gasInfoList.vue')
+// #endregion
+
 
 Vue.use(Router)
 
@@ -13,10 +18,10 @@ let globelRoutes = [
 ]
 
 let commonRoutes = {
-	path:'/main',
-	name:'main',
-	component:() => import(/* webpackChunkName: "about" */ '@/views/main/main'),
-	children:[
+    path: '/main',
+    name: 'main',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/main/main'),
+    children: [
         {
             path: '/test',
             name: 'test',
@@ -26,7 +31,22 @@ let commonRoutes = {
             path: '/personal',
             name: 'personal',
             component: () => import(/* webpackChunkName: "avatar" */ '@/views/personal/index'),
-        }
+        },
+        // #region  日常管理    
+        {
+            path: '/web/pageTaggingQuery',
+            name: 'plantGasInfoList',
+            component: GasInfoList
+        },
+        {
+            path: '/web/pageTaggingHasRoleQuery',
+            name: 'oilVIPGasInfoList',
+            component: GasInfoList
+        },
+        // #endregion           
+
+
+
     ]
 }
 
@@ -45,6 +65,6 @@ router.beforeEach((to, from, next) => {
     if (commonRoutesCluster.includes(to.name) || globalRoutesCluster.includes(to.name)) {
         next()
     } else {
-        next({name: 'test'})
+        next({ name: 'test' })
     }
 })
