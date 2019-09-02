@@ -79,6 +79,33 @@ const adjustOilHistoryList = {
     "oilRetailPrice": "@float(6,7)"
 }
 
+const gasStationList = {
+adminCard: "320921199205059118",
+adminName: "程清",
+contactPhone: "18021219822",
+createTime: 1561071704000,
+deleted: 0,
+editTime: 1562223626000,
+gsBusinessTime: "全天",
+gsCityName: "镇江市",
+gsCode: "WBJYZ00044",
+gsContact: "程清",
+gsDetailAddress: "金山物流园",
+gsEmail: "cq@hletong.com",
+gsLatitude: 32.172366,
+gsLongitude: 119.374228,
+gsName: "程清加油站",
+gsPhone: "18021219822",
+gsProvinceName: "江苏省",
+gsQrCode: "0F770FEAD39D43C887A02164D2575303",
+gsRegionName: "润州区",
+id: "10699e52cd174cd0a8d7e1a4d699753d",
+isBan: "0",
+isBanText: "激活",
+isMemberOnline: "0",
+memberName: "18021219822",
+}
+
 const dealDueForeWarnList = {
     "id|+1": "@INTEGER(1,2019690999)",
     "mock1": "@INTEGER(13012819898,18912819898)",
@@ -215,7 +242,7 @@ const mockRouterMap = {
                             "path": "http://oilhui.hlet.com",
                             "systemCode": "oilhui",
                             "systemId": "166948708439556096",
-                            "systemName": "惠油网"
+                            "systemName": "互惠互利加油加气"
                         }],
                 }
             }
@@ -319,6 +346,29 @@ const mockRouterMap = {
             }
         },
         // #endregion     
+
+        // #region  油气站分页查询
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/gasStation/page',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|4-5': [gasStationList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion    
+
 
         // #region  修改商品
         {
