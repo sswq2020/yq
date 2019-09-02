@@ -1,0 +1,227 @@
+<template>
+  <div class="gsStationglass">
+    <div @click.stop="">   
+    <el-input placeholder="请选择" readonly :value="gsName" size="small">
+        <template slot="append"><i @click="open" style="padding:9px 14px;margin:-9px -14px" class="el-icon-search"></i></template>
+    </el-input>
+    </div>
+    <el-dialog
+      title="油气站"
+      width="1200px"
+      :visible.sync="visible"
+      :center="true"
+      @close="cancel"
+      :close-on-click-modal="false"
+    >
+      <div class="search-box">
+        <div class="form-item">
+          <label>油气站名称</label>
+          <div class="form-control">
+            <el-input v-model="form.gsName" placeholder="请输入" size="small"></el-input>
+          </div>
+        </div>
+        <div class="form-item">
+          <el-button
+            type="primary"
+            :loading="isListDataLoading"
+            @click="getListDataBylistParams"
+            size="small"
+          >查询</el-button>
+          <el-button size="small" @click="clearListParams">重置</el-button>
+        </div>
+      </div>
+      <el-table
+        stylestripe
+        border
+        highlight-current-row
+        :data="listData.list"
+        @current-change="handleCurrentChange"
+      >
+        <el-table-column
+          :prop="item.prop"
+          :label="item.label"
+          :width="item.width || 'auto'"
+          :align="item.align || 'center'"
+          header-align="center"
+          :key="index"
+          v-for="(item,index) in tableHeader"
+        >
+          <template slot-scope="scope">
+            <span>{{listData.list[scope.$index][item.prop]}}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="tb_pagination">
+        <el-pagination
+          @current-change="changePage"
+          :current-page="listParams.page"
+          :page-size="listParams.pageSize"
+          layout="total, prev, pager, next"
+          :total="listData.paginator.totalCount"
+        ></el-pagination>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="comfirm">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+<script>
+import Dict from "util/dict.js";
+const defaultFormData = {
+  gsName: null
+};
+
+const defaultListParams = {
+  pageSize: 5,
+  currentPage:1 // 临时
+  // page: 1  主要的
+};
+const defaultListData = {
+  paginator: {
+    totalCount: 0,
+    totalPage: 1
+  },
+  list: []
+};
+
+const defaultAuditResultTableHeader = [
+  {
+    prop: "gsCode",
+    label: "油气站编号"
+  },
+  {
+    prop: "gsName",
+    label: "油气站名称"
+  },
+  {
+    prop: "gsPhone",
+    label: "油气站电话"
+  },
+  {
+    prop: "gsContact",
+    label: "油气站联系人"
+  },
+  {
+    prop: "gsDetailAddress",
+    label: "油气站地址"
+  },
+  {
+    prop: "isBan",
+    label: "加油站状态"
+  }
+];
+
+const rowAdapter = list => {
+  if (!list) {
+    return [];
+  }
+  if (list.length > 0) {
+    list = list.map(row => {
+      return (row = {
+        ...row
+      });
+    });
+  }
+  return list;
+};
+
+export default {
+  name: "gsStationglass",
+  props: {
+      gsName:{
+          type: String,
+          default:''
+      }
+  },
+  data() {
+    return {
+      visible: false,
+      isListDataLoading: false,
+      listParams: { ...defaultListParams }, // 页数
+      form: { ...defaultFormData }, // 查询参数
+      listData: { ...defaultListData }, // 返回list的数据结构
+      tableHeader: [...defaultAuditResultTableHeader],
+      currentRow:null //选中的那一行数据
+    };
+  },
+  methods: {
+    changePage(page) {
+      this.listParams.page = page;
+      this.getListData();
+    },
+    changePageSize(pageSize) {
+      this.listParams = { ...defaultListParams, pageSize: pageSize };
+      this.getListData();
+    },
+    getListDataBylistParams() {
+      this.listParams = { ...defaultListParams };
+      this.getListData();
+    },
+    clearListParams() {
+      this.currentRow = null;
+      this.form = { ...defaultFormData };
+      this.listParams = { ...defaultListParams };
+      this.listData = { ...defaultListData };
+      this.getListData();
+    },
+    async getListData() {
+      this.isListDataLoading = true;
+      const res = await this.$api.queryGasStation({
+        ...this.listParams,
+        ...this.form
+      });
+      this.isListDataLoading = false;
+      switch (res.code) {
+        case Dict.SUCCESS:
+          this.listData = { ...res.data, list: rowAdapter(res.data.list) };
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
+    open() {
+      this.visible = true;
+    },
+    cancel() {
+      this.visible = false;
+    },
+    comfirm() {
+      if(!this.currentRow) {
+        this.$messageError("必须选中一行才能确认");
+        return
+      }
+      this.$emit('gsStationSelect',this.currentRow);
+      this.cancel();
+    },
+    handleCurrentChange(row) {
+      this.currentRow = row;
+    }
+  },
+  watch: {
+    visible(newV) {
+      if (newV) {
+        this.clearListParams();
+      }
+    }
+  }
+};
+</script>
+
+<style scoped lang="less">
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0px 20px;
+  background-color: white;
+  font-size: 14px;
+}
+.tb_pagination {
+  text-align: right;
+}
+</style>
+
