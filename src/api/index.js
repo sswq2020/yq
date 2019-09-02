@@ -372,6 +372,17 @@ export default {
     },
     // #endregion    
 
+    // #region 预警管理
+    /**
+     * @author sswq
+     * @param params
+     * @description 协议到期预警列表
+     * */
+    getDealDueForeWarnList(params) {
+        return fetch(hhgsURL + '/web/hyw/agreement/pageWarn', params)
+    },
+    // #endregion 
+
     // #region  字典项
     /**
      * @author sswq

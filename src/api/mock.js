@@ -525,7 +525,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/member/agreement/page',
+            router: '/web/hyw/member/agreement/pageWarn',
             result(params) {
                 return {
                     ...body,
