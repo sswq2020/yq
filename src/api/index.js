@@ -75,7 +75,7 @@ let instance = axios.create({
 * */
 instance.interceptors.request.use((config) => {
     config.headers['Authorization'] = Authorization;
-//    config.headers['X-Auth-Token'] = "DE52A26D7DAA47488C7E0FD6A63D6BD3"   
+    config.headers['X-Auth-Token'] = "DAF69A409CDD47A69AEB8FDD8E3503EF"   
     config.headers['Accept'] = '';
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     return config;
@@ -362,6 +362,13 @@ export default {
      * */
     getAdjustOilHistory(params){
         return fetch(hhgsURL + '/web/base/oilHistory/page', params, 'post')
+    },
+    /**
+     * @author sswq
+     * @description 油气站分页查询
+     * */
+    queryGasStation(params){
+        return fetch(hhgsURL + '/web/base/gasStation/page', params, 'get')
     },
     // #endregion    
 
