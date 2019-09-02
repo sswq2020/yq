@@ -12,7 +12,7 @@
       <div class="form-item" v-if="!IS_OILVIP">
         <label>油气站名称</label>
         <div class="form-control">
-          <el-input v-model="form.gsId" placeholder="请输入" size="small"></el-input>
+          <gsStationglass :gsName="form.gsName" @gsStationSelect="getGs"></gsStationglass>
         </div>
       </div>
       <div class="form-item">
@@ -63,10 +63,12 @@ import Dict from "util/dict.js";
 import heltable from "components/hl_table";
 import hlBreadcrumb from "components/hl-breadcrumb";
 import moment from "moment"
+import gsStationglass from "components/gsStationglass";
 
 const defaultFormData = {
   createdTime: moment().format("YYYY-MM"),
   gsId: null,
+  gsName:null,
   userPlate: null
 };
 const defaultListParams = {
@@ -133,7 +135,8 @@ export default {
   name: "gasInfoList",
   components: {
     heltable,
-    hlBreadcrumb
+    hlBreadcrumb,
+    gsStationglass
   },
   computed: {
     ...mapGetters("app", ["IS_OILVIP", "userId"])
@@ -173,6 +176,10 @@ export default {
     getListDataBylistParams() {
       this.listParams = { ...defaultListParams };
       this.getListData();
+    },
+    getGs(obj){
+      this.form.gsId = obj.gsId;
+      this.form.gsName = obj.gsName;
     },
     async getListData() {
       const url = this.IS_OILVIP
