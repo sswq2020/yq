@@ -4,6 +4,8 @@ import Router from 'vue-router'
 // #region 日常管理
 /**加注明细*/
 const GasInfoList = () => import('views/dailyManage/gasInfoList.vue')
+/**调价历史*/
+const AdjustHistory = () => import('views/dailyManage/adjustHistory.vue')
 // #endregion
 
 
@@ -42,6 +44,11 @@ let commonRoutes = {
             path: '/web/pageTaggingHasRoleQuery',
             name: 'oilVIPGasInfoList',
             component: GasInfoList
+        },
+        {
+            path: '/web/base/oilHistory/page',
+            name: 'plantAdjustHistory',
+            component: AdjustHistory
         },
         // #endregion           
 
