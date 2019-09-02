@@ -60,4 +60,14 @@ DICT.PAY_STATUS = {
     [DICT.PAY_RECEIVED]: "已付款",
 }
 
+/**折扣比例 */
+DICT.ADJUST_BY_DISCOUNT = '0';
+/**折扣金额 */
+DICT.ADJUST_BY_CHEAP = '1';
+/**调价方式*/
+DICT.ADJUST_PRICE_TYPE = {
+   [DICT.ADJUST_BY_DISCOUNT]:"折扣比例",
+   [DICT.ADJUST_BY_CHEAP]:"折扣金额"
+}
+
 export default DICT;

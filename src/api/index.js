@@ -358,10 +358,17 @@ export default {
     },
     /**
      * @author sswq
+     * @description 调价申请分页查询
+     * */
+    getAdjustApply(params){
+        return fetch(hhgsURL + '/web/base/oilHistory/page', params, 'post')
+    },
+    /**
+     * @author sswq
      * @description 调价历史分页查询
      * */
     getAdjustOilHistory(params){
-        return fetch(hhgsURL + '/web/base/oilHistory/page', params, 'post')
+        return fetch(hhgsURL + '/web/base/adjustApply/page', params, 'post')
     },
     /**
      * @author sswq
