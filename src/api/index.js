@@ -365,6 +365,13 @@ export default {
     },
     /**
      * @author sswq
+     * @description 更新调价申请
+     * */    
+    updateGasOilMode(params){
+        return fetch(hhgsURL + '/web/base/adjustApply/update', params)
+    },
+    /**
+     * @author sswq
      * @description 调价历史分页查询
      * */
     getAdjustOilHistory(params){
