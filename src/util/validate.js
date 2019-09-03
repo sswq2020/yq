@@ -27,9 +27,13 @@ export const phoneCheck = (str)=>{
 export const number3 = (str) =>{
     let reg = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,3})?$/
     return reg.test(str)
-}   
+}
 
-
+/**正数可以包含2位小数**/
+export const number2 = (str) =>{
+    let reg = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/
+    return reg.test(str)
+}  
 
 export const initValidate = (options)=>{
     let checkFn = Object.create(null);
