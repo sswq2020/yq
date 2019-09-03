@@ -369,66 +369,6 @@ const mockRouterMap = {
         },
         // #endregion    
 
-        // #region  调价申请
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/base/adjustApply/page',
-            result(params) {
-                return {
-                    ...body,
-                    data: {
-                        'list': [
-                            {
-                                createTime: 1561071704000,
-                                deleted: 0,
-                                editTime: 1562223619000,
-                                effectPrice: 9,
-                                effectTime: 1561071704000,
-                                gsId: "10699e52cd174cd0a8d7e1a4d699753d",
-                                id: "282c3c355ea348feaf4e5e4d413b90b3",
-                                isSelected: "0",
-                                oilChangeType: "0",
-                                oilMemberAgio: 90,
-                                oilMemberPrice: 9,
-                                oilModelId: "b46ef3c1595f48fb952eb92042e2a8f6",
-                                oilModelName: "0号",
-                                oilRetailPrice: 10,
-                                oilRetailWarn: 10,
-                                oilUnit: "L",
-                                version: 0
-                            },{
-                                createTime: 1561345304000,
-                                deleted: 0,
-                                editTime: 1562223619000,
-                                effectPrice: 13.5,
-                                effectTime: 1561345304000,
-                                gsId: "10699e52cd174cd0a8d7e1a4d699753d",
-                                id: "bd11e32bb782453aada10a5679a7b1eb",
-                                isSelected: "0",
-                                oilChangeType: "0",
-                                oilMemberAgio: 90,
-                                oilMemberPrice: 13.5,
-                                oilModelId: "3e2858e91f4a42fe89d5aa45f820e9b2",
-                                oilModelName: "气1",
-                                oilRetailPrice: 15,
-                                oilRetailWarn: 2,
-                                oilUnit: "kg",
-                                version: 0
-                            }
-
-                        ],
-                        "paginator": {
-                            "currentPage": params.page,
-                            "pageSize": params.pageSize,
-                            "totalCount": 1000,
-                            "totalPage": 1000 / params.pageSize
-                        }
-                    },
-                };
-            }
-        },
-        // #endregion    
 
         // #region  修改商品
         {
@@ -789,7 +729,7 @@ export const isMock = ({ url, methods, params = {}, host = "", version = "" }) =
         isMock: false
     };
     const path = version !== "" ? `/${version}url` : url;
-    if (mockRouterMap[host] !== undefined) {		
+    if (mockRouterMap[host] !== undefined) {
         mockRouterMap[host].forEach(routerObject => {
             if (routerObject.methods.toUpperCase() === methods.toUpperCase() && routerObject.isMock === true) {
                 if (pathToRegexp(routerObject.router).exec(path) !== null) {
