@@ -55,6 +55,9 @@
       :cancelCb="()=>{this.applyVisible = false}"
       :confirmCb="(data)=>{this._updateApply(data)}"
     ></applyDialog>
+
+    <adjustHistoryDialog ref="history" :gsOilModelId="setId"></adjustHistoryDialog>
+
   </div>
 </template>
 
@@ -63,6 +66,7 @@ import Dict from "util/dict.js";
 import heltable from "components/hl_table";
 import hlBreadcrumb from "components/hl-breadcrumb";
 import applyDialog from "./applyDialog";
+import adjustHistoryDialog from "./adjustHistoryDialog";
 
 const defaultFormData = {
   gsId: null,
@@ -136,7 +140,8 @@ export default {
   components: {
     heltable,
     hlBreadcrumb,
-    applyDialog
+    applyDialog,
+    adjustHistoryDialog
   },
   data() {
     return {
@@ -149,7 +154,8 @@ export default {
       tableHeader: defaulttableHeader,
       showOverflowTooltip: true,
       applyVisible: false,
-      applyData: {}
+      applyData: {},
+      setId:null
     };
   },
   methods: {
@@ -157,7 +163,10 @@ export default {
       this.applyData = row;
       this.applyVisible = true;
     },
-    history() {},
+    history(row) {
+      this.setId = row.id
+      this.$refs.history.open(); 
+    },
     clearListParams() {
       this.form = { ...defaultFormData };
       this.listParams = { ...defaultListParams };
