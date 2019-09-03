@@ -28,13 +28,13 @@
         <el-input :value="applyFormParams.oilMemberPrice" readonly size="small"></el-input>
       </el-form-item>
 
-      <el-form-item label="生效日期" prop="effectTime" :rules="[{ required: true, message: '必选'  }]">
+      <el-form-item label="生效日期" prop="effectTime" :rules="validateDate()">
         <el-date-picker
           size="small"
           v-model="applyFormParams.effectTime"
-          type="date"
+          type="datetime"
           placeholder="选择日期"
-          format="yyyy-MM-dd"
+          format="yyyy-MM-dd HH:mm:ss"
         ></el-date-picker>
       </el-form-item>
     </el-form>
@@ -92,6 +92,24 @@ export default {
     };
   },
   methods: {
+    validateDate(){
+      return [
+        {
+          required: true,
+          message: "必填",
+          trigger: "blur"
+        },
+        {
+          validator(rule, value, callback) {
+            const lastDay = new Date().setDate(new Date().getDate() - 1 )            
+            if(value.valueOf() < lastDay) {
+              callback(new Error(`不可选过去日`));
+            }
+            callback();
+          }
+        }
+      ];      
+    },
     cancle() {
       this.cancelCb();
     },
