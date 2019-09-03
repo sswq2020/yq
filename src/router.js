@@ -6,7 +6,7 @@ import Router from 'vue-router'
 const GasInfoList = () => import('views/dailyManage/gasInfoList.vue')
 /**调价历史*/
 const AdjustHistory = () => import('views/dailyManage/adjustHistory.vue')
-/**调价申请*/s
+/**调价申请*/
 const AdjustApply = () => import('views/dailyManage/adjustApply.vue')
 
 

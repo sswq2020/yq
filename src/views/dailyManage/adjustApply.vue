@@ -40,6 +40,13 @@
           <span>{{listData.list[scope.$index][item.prop]}}</span>
         </template>
       </el-table-column>
+	  
+	  <el-table-column label="操作" fixed="right" width="150px" align="left">
+			<template slot-scope="scope">
+			  <el-button type="text" @click="apply(listData.list[scope.$index])">调价申请</el-button>
+			  <el-button type="text" @click="history(listData.list[scope.$index])">调价历史</el-button>
+			</template>
+      </el-table-column>	  	  
     </heltable>
   </div>
 </template>
@@ -73,7 +80,11 @@ const defaulttableHeader = [
     label: "油气品分类"
   },
   {
-    prop: "oilRetailPrice",
+    prop: "oilChangeTypeText",
+    label: "调价方式"
+  },
+  {
+    prop: "oilRetailPriceText",
     label: "挂牌零售价"
   },
   {
@@ -81,21 +92,39 @@ const defaulttableHeader = [
     label: "会员价"
   },
   {
-    prop: "oilMemberAgio",
-    label: "会员折扣"
+    prop: "oilMemberAgioText",
+    label: "会员折扣(%)"
   },
   {
-    prop: "oilMemberDiscount",
+    prop: "oilMemberDiscountText",
     label: "会员优惠(元)"
   }
 ];
+
+const rowAdapter = list => {
+  if (!list) {
+    return [];
+  }
+  if (list.length > 0) {
+    list = list.map(row => {
+      return (row = {
+        ...row,
+		oilMemberAgioText: `${row.oilChangeType===Dict.ADJUST_BY_DISCOUNT ? row.oilMemberAgio : "/"}`  ,
+		oilMemberDiscountText:  `${row.oilChangeType===Dict.ADJUST_BY_CHEAP? row.oilMemberAgio : "/"}`,
+		oilRetailPriceText:`${row.oilRetailPrice}L/元`,
+        oilChangeTypeText: `${Dict.ADJUST_PRICE_TYPE[row.oilChangeType]}`
+      });
+    });
+  }
+  return list;
+};
+
 
 export default {
   name: "adjustApply",
   components: {
     heltable,
-    hlBreadcrumb,
-    gsStationglass
+    hlBreadcrumb
   },
   data() {
     return {
@@ -109,15 +138,12 @@ export default {
     };
   },
   methods: {
-    _filter() {
-      const { timeRange } = this.form;
-      const _reqParams_ = requestParamsByTimeRange(
-        this.form,
-        timeRange,
-        ...EXTRA_PARAMS_KEYS
-      );
-      return _.clone(Object.assign({}, _reqParams_, this.listParams));
-    },
+   apply(){
+   
+   },
+   history(){
+   
+   },
     clearListParams() {
       this.form = { ...defaultFormData };
       this.listParams = { ...defaultListParams };
@@ -137,13 +163,12 @@ export default {
       this.getListData();
     },
     async getListData() {
-      let obj = this._filter();
       this.isListDataLoading = true;
-      const res = await this.$api.getAdjustOilHistory(obj);
+      const res = await this.$api.getAdjustApply({...this.form,...this.listParams});
       this.isListDataLoading = false;
       switch (res.code) {
         case Dict.SUCCESS:
-          this.listData = res.data;
+          this.listData = { ...res.data, list: rowAdapter(res.data.list) };
           break;
         default:
           this.$messageError(res.mesg);

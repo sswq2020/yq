@@ -372,7 +372,7 @@ const mockRouterMap = {
         // #region  调价申请
         {
             isMock: IS_MOCK,
-            methods: 'get',
+            methods: 'post',
             router: '/web/base/adjustApply/page',
             result(params) {
                 return {
@@ -789,7 +789,7 @@ export const isMock = ({ url, methods, params = {}, host = "", version = "" }) =
         isMock: false
     };
     const path = version !== "" ? `/${version}url` : url;
-    if (mockRouterMap[host] !== undefined) {
+    if (mockRouterMap[host] !== undefined) {		
         mockRouterMap[host].forEach(routerObject => {
             if (routerObject.methods.toUpperCase() === methods.toUpperCase() && routerObject.isMock === true) {
                 if (pathToRegexp(routerObject.router).exec(path) !== null) {

@@ -347,28 +347,28 @@ export default {
      * @description 平台加注明细分页查询
      * */
     getPlantFillUpDetail(params){
-        return fetch(hhgsURL + '/web/pageTaggingQuery', params, 'post')
+        return fetch(hhgsURL + '/web/pageTaggingQuery', params)
     },
     /**
      * @author sswq
      * @description 加油站加注明细分页查询
      * */
     getOilVIPFillUpDetail(params){
-        return fetch(hhgsURL + '/web/pageTaggingHasRoleQuery', params, 'post')
+        return fetch(hhgsURL + '/web/pageTaggingHasRoleQuery', params)
     },
     /**
      * @author sswq
      * @description 调价申请分页查询
      * */
     getAdjustApply(params){
-        return fetch(hhgsURL + '/web/base/oilHistory/page', params, 'post')
+        return fetch(hhgsURL + '/web/base/adjustApply/page', params)
     },
     /**
      * @author sswq
      * @description 调价历史分页查询
      * */
     getAdjustOilHistory(params){
-        return fetch(hhgsURL + '/web/base/adjustApply/page', params, 'post')
+        return fetch(hhgsURL + '/web/base/oilHistory/page', params)
     },
     /**
      * @author sswq
