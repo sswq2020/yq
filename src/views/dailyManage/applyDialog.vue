@@ -54,7 +54,7 @@ const defaultApplyFormParams = {
   oilRetailPrice: null,
   oilMemberAgio: null,
   oilMemberPrice: null,
-  effectTime: null,
+  effectTime: new Date(),
   oilChangeType:null,
   id: null
 };
