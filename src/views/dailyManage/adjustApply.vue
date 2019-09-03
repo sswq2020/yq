@@ -40,23 +40,29 @@
           <span>{{listData.list[scope.$index][item.prop]}}</span>
         </template>
       </el-table-column>
-	  
-	  <el-table-column label="操作" fixed="right" width="150px" align="left">
-			<template slot-scope="scope">
-			  <el-button type="text" @click="apply(listData.list[scope.$index])">调价申请</el-button>
-			  <el-button type="text" @click="history(listData.list[scope.$index])">调价历史</el-button>
-			</template>
-      </el-table-column>	  	  
+
+      <el-table-column label="操作" fixed="right" width="150px" align="left">
+        <template slot-scope="scope">
+          <el-button type="text" @click="apply(listData.list[scope.$index])">调价申请</el-button>
+          <el-button type="text" @click="history(listData.list[scope.$index])">调价历史</el-button>
+        </template>
+      </el-table-column>
     </heltable>
+    <applyDialog
+      :loading="isApplyLoading"
+      :visible="applyVisible"
+      :data="applyData"
+      :cancelCb="()=>{this.applyVisible = false}"
+      :confirmCb="(data)=>{this._updateApply(data)}"
+    ></applyDialog>
   </div>
 </template>
 
 <script>
-import { requestParamsByTimeRange } from "common/util.js";
-import _ from "lodash";
 import Dict from "util/dict.js";
 import heltable from "components/hl_table";
 import hlBreadcrumb from "components/hl-breadcrumb";
+import applyDialog from "./applyDialog";
 
 const defaultFormData = {
   gsId: null,
@@ -109,9 +115,15 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-		oilMemberAgioText: `${row.oilChangeType===Dict.ADJUST_BY_DISCOUNT ? row.oilMemberAgio : "/"}`  ,
-		oilMemberDiscountText:  `${row.oilChangeType===Dict.ADJUST_BY_CHEAP? row.oilMemberAgio : "/"}`,
-		oilRetailPriceText:`${row.oilRetailPrice}L/元`,
+        oilMemberAgioText: `${
+          row.oilChangeType === Dict.ADJUST_BY_DISCOUNT
+            ? row.oilMemberAgio
+            : "/"
+        }`,
+        oilMemberDiscountText: `${
+          row.oilChangeType === Dict.ADJUST_BY_CHEAP ? row.oilMemberAgio : "/"
+        }`,
+        oilRetailPriceText: `${row.oilRetailPrice}L/元`,
         oilChangeTypeText: `${Dict.ADJUST_PRICE_TYPE[row.oilChangeType]}`
       });
     });
@@ -119,31 +131,33 @@ const rowAdapter = list => {
   return list;
 };
 
-
 export default {
   name: "adjustApply",
   components: {
     heltable,
-    hlBreadcrumb
+    hlBreadcrumb,
+    applyDialog
   },
   data() {
     return {
       breadTitle: ["日常管理", "调价申请"],
+      isApplyLoading:false,
       isListDataLoading: false,
       listParams: { ...defaultListParams }, // 页数
       form: { ...defaultFormData }, // 查询参数
       listData: { ...defaultListData }, // 返回list的数据结构
       tableHeader: defaulttableHeader,
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      applyVisible: false,
+      applyData: {}
     };
   },
   methods: {
-   apply(){
-   
-   },
-   history(){
-   
-   },
+    apply(row) {
+      this.applyData = row;
+      this.applyVisible = true;
+    },
+    history() {},
     clearListParams() {
       this.form = { ...defaultFormData };
       this.listParams = { ...defaultListParams };
@@ -164,7 +178,10 @@ export default {
     },
     async getListData() {
       this.isListDataLoading = true;
-      const res = await this.$api.getAdjustApply({...this.form,...this.listParams});
+      const res = await this.$api.getAdjustApply({
+        ...this.form,
+        ...this.listParams
+      });
       this.isListDataLoading = false;
       switch (res.code) {
         case Dict.SUCCESS:
@@ -174,6 +191,24 @@ export default {
           this.$messageError(res.mesg);
           break;
       }
+    },
+    async _updateApply(data){
+      this.isApplyLoading = true;
+      const res = await this.$api.updateGasOilMode(data);
+      this.isApplyLoading = false;     
+      switch (res.code) {
+        case Dict.SUCCESS:
+          this.$messageSuccess("调价申请成功");
+          this.applyVisible = false;
+          this.applyData = {}
+          this.getListData();
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }      
+      
+
     },
     getGs(obj) {
       this.form.gsId = obj.gsId;
