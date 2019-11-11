@@ -1,10 +1,14 @@
 <template>
   <div class="gsStationglass">
-    <div @click.stop="">   
-    <el-input placeholder="请选择" readonly :value="gsName" size="small">
-        <template slot="append"><i @click="open" style="padding:9px 14px;margin:-9px -14px" class="el-icon-search"></i></template>
+    <el-input placeholder="请选择" :value="value" readonly class="input-with-select">
+      <el-button
+        style="margin: -10px -20px;"
+        :disabled="disabled"
+        slot="append"
+        icon="el-icon-search"
+        @click="open"
+      ></el-button>
     </el-input>
-    </div>
     <el-dialog
       title="油气站"
       width="1200px"
@@ -31,6 +35,7 @@
         </div>
       </div>
       <el-table
+        v-loading="isListDataLoading"
         stylestripe
         border
         highlight-current-row
@@ -75,7 +80,7 @@ const defaultFormData = {
 
 const defaultListParams = {
   pageSize: 5,
-  currentPage:1 // 临时
+  currentPage: 1 // 临时
   // page: 1  主要的
 };
 const defaultListData = {
@@ -130,10 +135,10 @@ const rowAdapter = list => {
 export default {
   name: "gsStationglass",
   props: {
-      gsName:{
-          type: String,
-          default:''
-      }
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -143,7 +148,8 @@ export default {
       form: { ...defaultFormData }, // 查询参数
       listData: { ...defaultListData }, // 返回list的数据结构
       tableHeader: [...defaultAuditResultTableHeader],
-      currentRow:null //选中的那一行数据
+      currentRow: null, //选中的那一行数据
+      value:null
     };
   },
   methods: {
@@ -188,12 +194,16 @@ export default {
     cancel() {
       this.visible = false;
     },
+    clearValue(){
+      this.value = ""
+    },    
     comfirm() {
-      if(!this.currentRow) {
+      if (!this.currentRow) {
         this.$messageError("必须选中一行才能确认");
-        return
+        return;
       }
-      this.$emit('gsStationSelect',this.currentRow);
+      this.value = this.currentRow.gsName || "";
+      this.$emit("gsStationSelect", this.currentRow);
       this.cancel();
     },
     handleCurrentChange(row) {
