@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle"></hlBreadcrumb>
+    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
         <label>油气品名称</label>
@@ -64,7 +64,6 @@
 <script>
 import Dict from "util/dict.js";
 import heltable from "components/hl_table";
-import hlBreadcrumb from "components/hl-breadcrumb";
 import applyDialog from "./applyDialog";
 import adjustHistoryDialog from "./adjustHistoryDialog";
 
@@ -139,7 +138,6 @@ export default {
   name: "adjustApply",
   components: {
     heltable,
-    hlBreadcrumb,
     applyDialog,
     adjustHistoryDialog
   },

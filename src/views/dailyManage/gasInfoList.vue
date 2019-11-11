@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page">
-    <hlBreadcrumb :data="breadTitle"></hlBreadcrumb>
+    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
         <label>加注日期</label>
@@ -104,7 +104,6 @@
 import { mapMutations, mapGetters } from "vuex";
 import Dict from "util/dict.js";
 import heltable from "components/hl_table";
-import hlBreadcrumb from "components/hl-breadcrumb";
 import moment from "moment";
 import gsStationglass from "components/gsStationglass";
 
@@ -186,7 +185,6 @@ export default {
   name: "gasInfoList",
   components: {
     heltable,
-    hlBreadcrumb,
     gsStationglass
   },
   computed: {
