@@ -19,7 +19,7 @@ argv.forEach(row => {
 
 
 const splitLine = '==================================';
-const now = new Date();
+const now = new Date().getTime();
 
 function testDeploy() {
   shell.echo(splitLine);
@@ -28,13 +28,34 @@ function testDeploy() {
   command('npm run test');
   shell.echo('copy to test server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/oilhui/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/miracle/oilhui/dist');
   command('rm ./dist -rf');
   shell.echo('TECH_TEST_ENV Deployed!');
 }
 
+function YwTestDeploy() {
+  shell.echo(splitLine);
+  shell.echo('YwTesting deploy:');
+  shell.echo(splitLine);
+  shell.echo('Start Shift YWTEST_Env URL');
+  shell.echo(splitLine);   
+  command('npm run appendyw');
+  shell.echo(splitLine);   
+  shell.echo('End Shift YWTEST_Env URL');
+  shell.echo(splitLine);    
+  command('npm run ywtest');
+  shell.echo('copy to ywtest server');
+  shell.echo(splitLine);
+  command('scp -r dist/*  root@10.20.129.28:/home/miracle-test/oilhui/dist');
+  command('rm ./dist -rf');
+  command('git checkout public/index.html');
+  shell.echo('YW_TEST_ENV Deployed!');
+}
+
+
+
 function testZipDeploy() {
-  const zipName = `hlyc_test_${now}.zip`;
+  const zipName = `oilback_test_${now}.zip`;
   shell.echo(splitLine);
   shell.echo('Testing zip deploy:');
   shell.echo(splitLine);
@@ -46,19 +67,31 @@ function testZipDeploy() {
 }
 
 function proZipDeploy() {
-  const zipName = `hlyc_pro_${now}.zip`;
+  const zipName = 'oilhui.zip';
   shell.echo(splitLine);
+  shell.echo('Start Shift Pro_Env URL');
+  shell.echo(splitLine);   
+  command('npm run append');
+  shell.echo('End Shift Pro_Env URL');
+  shell.echo(splitLine);    
   shell.echo('production zip deploy:');
   shell.echo(splitLine);
   command('npm run pro');
   shell.echo(`zip to ${zipName}`);
   shell.echo(splitLine);
   command(`zip -m -r -q ${zipName} ./dist`);
+  command(`scp ${zipName}  share@192.168.4.16:/home/share/front/`);  
+  command('git checkout public/index.html');
   shell.echo('PRODUCTION_ZIP_ENV Deployed!');
 }
 
 if (options.t !== undefined) {
   testDeploy();
+  return;
+}
+
+if (options.y !== undefined) {
+  YwTestDeploy();
   return;
 }
 
