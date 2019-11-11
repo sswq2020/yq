@@ -1,5 +1,5 @@
 import * as type from './mutations-types';
-import api from "api";
+// import api from "api";
 import Dict from "util/dict.js";
 const store = {
     namespaced: true,
@@ -12,7 +12,7 @@ const store = {
       role: state => state.role,
       userId: state => state.userId,
       username: state => state.username,
-      IS_OILVIP: state => state.role === Dict.OIL_VIP, // 判断是否是油站会员,默认平台会员
+      IS_OILVIP: state => state.role === Dict.VIP_USER, // 判断是否是油站会员,默认平台会员
     },
     mutations: {
       [type.SET_ROLE](state,payload){

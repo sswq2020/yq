@@ -17,7 +17,7 @@
       <div class="form-item" v-if="!IS_OILVIP">
         <label>油气站名称</label>
         <div class="form-control">
-          <gsStationglass :gsName="form.gsName" @gsStationSelect="getGs"></gsStationglass>
+          <gsStationglass ref="gsStationglass" @gsStationSelect="getGs"></gsStationglass>
         </div>
       </div>
       <div class="form-item">
@@ -198,8 +198,7 @@ export default {
       form: { ...defaultFormData }, // 查询参数
       listData: { ...defaultListData }, // 返回list的数据结构
       tableHeader: defaulttableHeader,
-      showOverflowTooltip: true,
-      VIP_STATUS_NORMAL: Dict.VIP_STATUS_NORMAL
+      showOverflowTooltip: true
     };
   },
   methods: {
@@ -212,7 +211,12 @@ export default {
       this.form = { ...defaultFormData };
       this.listParams = { ...defaultListParams };
       this.listData = { ...defaultListData };
-      this.getListData();
+      if(this.$refs.gsStationglass) {
+        this.$refs.gsStationglass.clearValue();
+      }
+      setTimeout(()=>{
+        this.getListData();
+      },20)
     },
     changePage(page) {
       this.listParams.page = page;
@@ -226,6 +230,7 @@ export default {
       this.listParams = { ...defaultListParams };
       this.getListData();
     },
+    /**接收传递的对象*/
     getGs(obj) {
       this.form.gsId = obj.gsId;
       this.form.gsName = obj.gsName;
