@@ -1,5 +1,5 @@
 {
-  "name": "hywback",
+  "name": "hhgs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,11 +8,14 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "test": "cross-env NODE_ENV=test vue-cli-service build --mode test",
-    "pro": "cross-env NODE_ENV=pro vue-cli-service build --mode pro"
+    "ywtest": "cross-env NODE_ENV=ywtest vue-cli-service build --mode ywtest", 
+    "appendyw":"cross-env NODE_ENV=ywtest node appended",   
+    "append":"cross-env NODE_ENV=production node appended",
+    "pro": "cross-env NODE_ENV=production vue-cli-service build"
   },
   "dependencies": {
-    "element-ui": "^2.6.1",
-    "hletong-ui": "^0.5.3",
+    "cookie-parse": "^0.4.0",
+    "element-ui": "^2.7.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
     "mockjs": "^1.0.1-beta3",
@@ -22,7 +25,8 @@
     "path-to-regexp": "^2.4.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
-    "vuex": "^3.1.0"
+    "vuex": "^3.1.0",
+    "v-viewer": "^1.4.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
