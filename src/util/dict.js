@@ -16,16 +16,16 @@ DICT.APP_INFO = {
 }
 
 
-/**平台端用户*/
-DICT.PLANT_USER = '2'
-/**油站会员*/
-DICT.OIL_VIP = '1'
+/***内部用户***/
+DICT.INTERNAL_USER = 1;
+/***会员用户***/
+DICT.VIP_USER = 3;
 
-/**当前用户角色*/
-DICT.ROLE_TYPE = {
-    [DICT.PLANT_USER]: "平台端用户",
-    [DICT.OIL_VIP]: "油站会员"
+DICT.USERTYPE = {
+    [DICT.INTERNAL_USER]:'内部用户', // "平台端用户"
+    [DICT.VIP_USER]:'会员用户' // "油站会员"
 }
+
 
 /**会员状态禁用*/
 DICT.VIP_STATUS_FROZEN = '0'
