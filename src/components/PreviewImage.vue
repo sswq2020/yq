@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible">
+  <el-dialog :visible.sync="dialogVisible" append-to-body :modal="false">
     <img width="100%" :src="dialogImageUrl" alt />
   </el-dialog>
 </template>

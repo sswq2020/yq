@@ -9,7 +9,7 @@ export default {
   name: "countdown",
   props: {
     endTime: {
-      type: Number,
+      type: [String,Number],
       default: moment().format("YYYY/MM/DD HH:mm:ss")
     }
   },
@@ -24,7 +24,7 @@ export default {
       clearTimeout(this.timer);
       let oDate = new Date(); //获取日期对象
       let oldTime = oDate.getTime(); //现在距离1970年的毫秒数
-      let newDate = new Date(this.endTime);
+      let newDate = new Date(Number(this.endTime));
       let newTime = newDate.getTime(); //2019年距离1970年的毫秒数
       let second = Math.floor((newTime - oldTime) / 1000); //未来时间距离现在的秒数
       let day = Math.floor(second / 86400); //整数部分代表的是天；一天有24*60*60=86400秒 ；
@@ -34,7 +34,7 @@ export default {
       let minute = Math.floor(second / 60);
       second %= 60;
       this.countdown =`支付倒计时: ${tow(day)}天${tow(hour)}小时${tow(minute)}分钟${tow(second)}秒`
-      if(day < 0 || hour < 0 || minute < 0 && second < 0) {
+      if(day < 0 || hour < 0 || minute < 0 || second < 0) {
         this.countdown = '超时'
         return;
       }

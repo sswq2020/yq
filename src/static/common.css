@@ -212,3 +212,11 @@ textarea {
     font-family: 'Microsoft YaHei, Arial' !important;
 }
 
+.form .el-form-item__content, .form .el-form-item__label {
+    height: auto;
+    line-height: 32px;
+}
+
+.el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
+    padding: 0px;
+}

@@ -107,3 +107,59 @@ export const _toNeedArray_ = (arr) => {
     })
     
 }
+
+/* @description 递归对象数组中,转换为需要的对象字段，专门用于云仓的十个下拉数据源的处理
+* @returns {Array}
+* */
+export const handleFilterSelf = (arr) => {
+    if (!Array.isArray(arr)) {
+        return []
+    }
+    return arr.map(item => {
+        if (item.sonSearchList && item.sonSearchList.length) {
+            item.child = handleFilterSelf(item.sonSearchList)
+        }
+        if (item.child && item.child.length) {
+            return {
+                value: item.id,
+                label: item.text,
+                child: item.child
+            }
+        } else {
+            return {
+                value: item.id,
+                label: item.text
+            }
+        }
+    });
+
+
+}
+
+/* @description 根据value找到index
+* @returns {Number}
+* */
+export const findIndexByValue = (arr, prop) => {
+    if (!Array.isArray(arr)) {
+        return -1
+    }
+    return arr.findIndex((item) => {
+        return item.value === prop
+    })
+}
+
+/* @description 根据value找到label
+* @returns {String}
+* */
+export const findLabelByValue = (arr,id) => {
+    if (!Array.isArray(arr)) {
+        return null
+    }
+    let copy = _.clone(arr);
+    const index = findIndexByValue(copy,id);
+    if (index > -1) {
+      return copy[index].label;
+    } else {
+      return null;
+    }
+}

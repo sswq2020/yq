@@ -10,8 +10,7 @@
                 :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper"
                 :total="total">
-        </el-pagination
-                background>
+        </el-pagination>
     </div>
 </template>
 
