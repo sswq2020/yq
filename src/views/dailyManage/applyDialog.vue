@@ -8,26 +8,12 @@
     title="调价申请"
   >
     <el-form :model="applyFormParams" ref="applyForm" label-position="right" label-width="150px">
-      <el-form-item label="油气名称" prop="oilModelName">
-        <el-input :value="applyFormParams.oilModelName" readonly size="small"></el-input>
-      </el-form-item>
-      <el-form-item
-        label="挂牌零售价"
-        prop="oilRetailPrice"
-        :rules="[
-      { required: true, message: '必选'},
-      { pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,message: '最多保留2位小数'}
-      ]"
-      >
+      <el-form-item label="油气名称" prop="oilModelName">{{applyFormParams.oilModelName}}</el-form-item>
+      <el-form-item label="挂牌零售价" prop="oilRetailPrice" :rules="validatePrice(applyFormParams.oilChangeType,applyFormParams.oilMemberAgio)">
         <el-input v-model="applyFormParams.oilRetailPrice" size="small"></el-input>
       </el-form-item>
-      <el-form-item label="会员折扣" prop="oilMemberAgio">
-        <el-input :value="applyFormParams.oilMemberAgio" readonly size="small"></el-input>
-      </el-form-item>
-      <el-form-item label="会员价" prop="oilMemberPrice">
-        <el-input :value="applyFormParams.oilMemberPrice" readonly size="small"></el-input>
-      </el-form-item>
-
+      <el-form-item :label="applyFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT ? '会员折扣(%)': '会员优惠(元)'" prop="oilMemberAgio">{{applyFormParams.oilMemberAgio}}</el-form-item>
+      <el-form-item label="会员价" prop="oilMemberPrice">{{applyFormParams.oilMemberPrice}}</el-form-item>
       <el-form-item label="生效日期" prop="effectTime" :rules="validateDate()">
         <el-date-picker
           size="small"
@@ -47,15 +33,16 @@
 
 <script>
 // import _ from "lodash";
-import {number2} from 'util/validate.js'
-import NP from 'number-precision'
+import Dict from "util/dict.js";
+import { number2 } from "util/validate.js";
+import NP from "number-precision";
 const defaultApplyFormParams = {
   oilModelName: null,
   oilRetailPrice: null,
   oilMemberAgio: null,
   oilMemberPrice: null,
   effectTime: new Date(),
-  oilChangeType:null,
+  oilChangeType: Dict.ADJUST_BY_DISCOUNT, // 默认按折扣
   id: null
 };
 
@@ -65,7 +52,7 @@ export default {
     data: {
       type: Object,
       default: function() {
-        return {};
+        return Object.create(null);
       }
     },
     loading: {
@@ -88,11 +75,12 @@ export default {
   data() {
     return {
       showClose: false,
-      applyFormParams: { ...defaultApplyFormParams }
+      applyFormParams: { ...defaultApplyFormParams },
+      Dict
     };
   },
   methods: {
-    validateDate(){
+    validateDate() {
       return [
         {
           required: true,
@@ -101,15 +89,39 @@ export default {
         },
         {
           validator(rule, value, callback) {
-            const lastDay = new Date().setDate(new Date().getDate() - 1 )            
-            if(value.valueOf() < lastDay) {
+            const lastDay = new Date().setDate(new Date().getDate() - 1);
+            if (value.valueOf() < lastDay) {
               callback(new Error(`不可选过去日`));
             }
             callback();
           }
         }
-      ];      
+      ];
     },
+    validatePrice(type, agio) {
+      return [
+        {
+          required: true,
+          message: "必填",
+          trigger: "blur"
+        },
+        {
+          pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,
+          message: "最多保留2位小数"
+        },
+        {
+          validator(rule, value, callback) {
+            if(type === Dict.ADJUST_BY_CHEAP){
+               if(Number(value) <= agio) {
+                 callback(new Error(`挂牌价必须大于会员优惠`));
+               }
+            }
+            callback();
+          }
+        }
+      ];
+    },
+
     cancle() {
       this.cancelCb();
     },
@@ -117,9 +129,8 @@ export default {
       this.$refs.applyForm.validate(valid => {
         if (valid) {
           this.confirmCb(this.applyFormParams);
-        } 
-      });      
-
+        }
+      });
     }
   },
   watch: {
@@ -129,19 +140,36 @@ export default {
           this.applyFormParams = JSON.parse(JSON.stringify(this.data));
         } else {
           this.$refs.applyForm.clearValidate();
-          this.applyFormParams = { ...defaultApplyFormParams };          
+          this.applyFormParams = { ...defaultApplyFormParams };
         }
       }
     },
     "applyFormParams.oilRetailPrice": {
       handler(newV) {
-        if(newV && number2(newV)) {
-           let num1 = NP.times(Number(newV),this.applyFormParams.oilMemberAgio,100);
-           let num2 = NP.divide(num1,100,100);
-           let num3 = NP.round(num2,2)
-           this.applyFormParams.oilMemberPrice = num3
-        }else {
-            this.applyFormParams.oilMemberPrice = 0
+        if (newV && number2(newV)) {
+          if (
+            this.applyFormParams.oilChangeType === this.Dict.ADJUST_BY_DISCOUNT
+          ) {
+            let num1 = NP.times(
+              Number(newV),
+              this.applyFormParams.oilMemberAgio,
+              100
+            );
+            let num2 = NP.divide(num1, 100, 100);
+            let num3 = NP.round(num2, 2);
+            this.applyFormParams.oilMemberPrice = num3;
+          } else {
+            if (Number(newV) <= this.applyFormParams.oilMemberAgio) {
+              return;
+            } else {
+              this.applyFormParams.oilMemberPrice = NP.minus(
+                Number(newV),
+                this.applyFormParams.oilMemberAgio
+              );
+            }
+          }
+        } else {
+          this.applyFormParams.oilMemberPrice = 0;
         }
       }
     }

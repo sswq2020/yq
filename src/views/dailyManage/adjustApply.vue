@@ -29,7 +29,7 @@
       :loading="isListDataLoading"
     >
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
         :prop="item.prop"
         :label="item.label"
         :key="item.id"
@@ -94,19 +94,22 @@ const defaulttableHeader = [
   },
   {
     prop: "oilRetailPriceText",
-    label: "挂牌零售价"
+    label: "挂牌零售价",
   },
   {
     prop: "oilMemberPrice",
-    label: "会员价"
+    label: "会员价",
+    align:"right"
   },
   {
     prop: "oilMemberAgioText",
-    label: "会员折扣(%)"
+    label: "会员折扣(%)",
+    align:"right"
   },
   {
     prop: "oilMemberDiscountText",
-    label: "会员优惠(元)"
+    label: "会员优惠(元)",
+    align:"right"
   }
 ];
 
@@ -152,7 +155,7 @@ export default {
       tableHeader: defaulttableHeader,
       showOverflowTooltip: true,
       applyVisible: false,
-      applyData: {},
+      applyData: Object.create(null),
       setId:null
     };
   },
@@ -207,7 +210,7 @@ export default {
         case Dict.SUCCESS:
           this.$messageSuccess("调价申请成功");
           this.applyVisible = false;
-          this.applyData = {}
+          this.applyData = Object.create(null)
           this.getListData();
           break;
         default:

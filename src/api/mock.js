@@ -82,7 +82,7 @@ const adjustOilHistoryList = {
 const adjustApplyList = {
     "id|+1": "@INTEGER(1,2019690999)",
     effectPrice: 9,
-    effectTime: 1561071704000,
+    effectTime: new Date().getTime(),
     gsId: "10699e52cd174cd0a8d7e1a4d699753d",
     isSelected: "0",
     oilChangeType: "@PICK('0','1')",
@@ -90,7 +90,7 @@ const adjustApplyList = {
     oilMemberPrice: 9,
     oilModelId: "@INTEGER(1,2019690999)",
     oilModelName: "@PICK('0号','气1','气2')",
-    oilRetailPrice: "@INTEGER(1,99)",
+    oilRetailPrice: "@INTEGER(200,300)",
     oilRetailWarn: "@INTEGER(1,99)",
     oilUnit: "L",
 }
