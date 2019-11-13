@@ -85,7 +85,7 @@
       :loading="isListDataLoading"
     >
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
         :prop="item.prop"
         :label="item.label"
         :key="item.id"
@@ -147,23 +147,28 @@ const defaulttableHeader = [
   },
   {
     prop: "oilRetailPrice",
-    label: "挂牌零售价"
+    label: "挂牌零售价",
+    align:"right"
   },
   {
     prop: "oilMemberPrice",
-    label: "会员价"
+    label: "会员价",
+    align:"right"
   },
   {
     prop: "fuelVolume",
-    label: "加注量"
+    label: "加注量",
+    align:"right"
   },
   {
     prop: "totalPrice",
-    label: "加注金额"
+    label: "加注金额",
+    align:"right"
   },
   {
     prop: "createdTime",
-    label: "加注日期"
+    label: "加注日期",
+    align:"right"
   }
 ];
 

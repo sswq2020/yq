@@ -42,7 +42,7 @@
       :loading="isListDataLoading"
     >
       <el-table-column
-        align="center"
+        :align="item.align || 'left'"
         :prop="item.prop"
         :label="item.label"
         :key="item.id"
@@ -94,23 +94,28 @@ const defaulttableHeader = [
   },
   {
     prop: "oilRetailPrice",
-    label: "挂牌零售价"
+    label: "挂牌零售价",
+    align:"right"
   },
   {
     prop: "oilMemberPrice",
-    label: "会员价"
+    label: "会员价",
+    align:"right"
   },
   {
     prop: "oilMemberAgio",
-    label: "会员折扣"
+    label: "会员折扣",
+    align:"right"
   },
   {
     prop: "oilMemberDiscount",
-    label: "会员优惠(元)"
+    label: "会员优惠(元)",
+    align:"right"
   },
   {
     prop: "effectTime",
-    label: "生效日期"
+    label: "生效日期",
+    align:"right"
   },
   {
     prop: "applyTime",
