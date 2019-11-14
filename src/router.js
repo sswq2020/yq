@@ -8,8 +8,11 @@ const GasInfoList = () => import('views/dailyManage/gasInfoList.vue')
 const AdjustHistory = () => import('views/dailyManage/adjustHistory.vue')
 /**调价申请*/
 const AdjustApply = () => import('views/dailyManage/adjustApply.vue')
+// #endregion
 
-
+// #region 财务管理
+/**开票信息、寄票地址信息*/
+const BillWithPost = () => import('views/financeManage/billWithPost.vue')
 // #endregion
 
 
@@ -61,6 +64,13 @@ let commonRoutes = {
         },
         // #endregion           
 
+        // #region  财务管理    
+        {
+            path: '/web/base/invoiceAddress/getInvoiceAddress',
+            name: 'billWithPost',
+            component: BillWithPost
+        }
+        // #endregion     
 
 
     ]

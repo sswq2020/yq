@@ -95,34 +95,50 @@ const adjustApplyList = {
     oilUnit: "L",
 }
 
-
+const invoiceAddress = {
+    invoiceDto: {
+      // id:null,
+      invoiceName: '惠龙易通国际物流股份有限公司',
+      invoiceTaxpayer: '92321100661790118F',
+      invoiceAddress: '镇江市长江路758号',
+      invoiceTel: '0511-85110838',
+      invoiceBank: '江苏银行股份有限公司镇江一泉支行',
+      invoiceBankCode: '00025727045012',
+    },
+    receiveAddressDto: {
+      //  id:123213,
+      receivingAddressPerson: '许扬',
+      receivingAddressTel: '18012129898',
+      receivingAddress: '江苏省镇江市长江路758号惠龙易通国际物流股份有限公司',
+    },
+  };
 
 
 const gasStationList = {
-adminCard: "320921199205059118",
-adminName: "程清",
-contactPhone: "18021219822",
-createTime: 1561071704000,
-deleted: 0,
-editTime: 1562223626000,
-gsBusinessTime: "全天",
-gsCityName: "镇江市",
-gsCode: "WBJYZ00044",
-gsContact: "程清",
-gsDetailAddress: "金山物流园",
-gsEmail: "cq@hletong.com",
-gsLatitude: 32.172366,
-gsLongitude: 119.374228,
-gsName: "程清加油站",
-gsPhone: "18021219822",
-gsProvinceName: "江苏省",
-gsQrCode: "0F770FEAD39D43C887A02164D2575303",
-gsRegionName: "润州区",
-id: "10699e52cd174cd0a8d7e1a4d699753d",
-isBan: "0",
-isBanText: "激活",
-isMemberOnline: "0",
-memberName: "18021219822",
+    adminCard: "320921199205059118",
+    adminName: "程清",
+    contactPhone: "18021219822",
+    createTime: 1561071704000,
+    deleted: 0,
+    editTime: 1562223626000,
+    gsBusinessTime: "全天",
+    gsCityName: "镇江市",
+    gsCode: "WBJYZ00044",
+    gsContact: "程清",
+    gsDetailAddress: "金山物流园",
+    gsEmail: "cq@hletong.com",
+    gsLatitude: 32.172366,
+    gsLongitude: 119.374228,
+    gsName: "程清加油站",
+    gsPhone: "18021219822",
+    gsProvinceName: "江苏省",
+    gsQrCode: "0F770FEAD39D43C887A02164D2575303",
+    gsRegionName: "润州区",
+    id: "10699e52cd174cd0a8d7e1a4d699753d",
+    isBan: "0",
+    isBanText: "激活",
+    isMemberOnline: "0",
+    memberName: "18021219822",
 }
 
 const dealDueForeWarnList = {
@@ -211,7 +227,7 @@ const MockRole = {
     "realname": "",
     "userId": 0,
     "userInfo": {
-        a:'22'
+        a: '22'
     },
     "username": ""
 }
@@ -388,8 +404,8 @@ const mockRouterMap = {
         },
         // #endregion    
 
-         // #region  调价申请
-         {
+        // #region  调价申请
+        {
             isMock: IS_MOCK,
             methods: 'post',
             router: '/web/base/adjustApply/page',
@@ -422,6 +438,20 @@ const mockRouterMap = {
             }
         },
         // #endregion 
+
+        // #region  开票,寄票地址信息
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/invoiceAddress/getInvoiceAddress',
+            result() {
+              return {
+                ...body,
+                data: invoiceAddress,
+              };
+            },
+          },
+        // #endregion   
 
         // #region  修改商品
         {

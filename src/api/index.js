@@ -397,6 +397,17 @@ export default {
     },
     // #endregion 
 
+    // #region 财务管理
+    /**
+     * @author sswq
+     * @param params
+     * @description 开票信息、寄票地址信息
+     * */
+    getInvoiceAddress() {
+        return fetch(hhgsURL + '/web/base/invoiceAddress/getInvoiceAddress', '','get')
+    },
+    // #endregion
+
     // #region  字典项
     /**
      * @author sswq
