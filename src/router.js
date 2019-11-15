@@ -13,6 +13,8 @@ const AdjustApply = () => import('views/dailyManage/adjustApply.vue')
 // #region 财务管理
 /**开票信息、寄票地址信息*/
 const BillWithPost = () => import('views/financeManage/billWithPost.vue')
+/**票据对账列表*/
+const BillCheck = () => import('views/financeManage/billCheck.vue')
 // #endregion
 
 
@@ -69,6 +71,11 @@ let commonRoutes = {
             path: '/web/base/invoiceAddress/getInvoiceAddress',
             name: 'billWithPost',
             component: BillWithPost
+        },
+        {
+            path: '/web/base/receiptBill/getBillCheckList',
+            name: 'billCheck',
+            component: BillCheck
         }
         // #endregion     
 

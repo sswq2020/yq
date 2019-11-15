@@ -111,7 +111,17 @@ const invoiceAddress = {
       receivingAddressTel: '18012129898',
       receivingAddress: '江苏省镇江市长江路758号惠龙易通国际物流股份有限公司',
     },
-  };
+};
+
+/**
+ * @sswq 加油站管理/票据对账列表
+ */
+const billCheckList = {
+    'id|+1': 1,
+    month: '@INTEGER(1,12)', // 月份
+    billSum: '￥@INTEGER(10000,30000)', // 发票金额
+    check: '@PICK("0", "1")',
+};
 
 
 const gasStationList = {
@@ -452,6 +462,29 @@ const mockRouterMap = {
             },
           },
         // #endregion   
+
+        // #region  票据对账列表
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/receiptBill/getBillCheckList',
+            result(params) {
+              return {
+                ...body,
+                data: {
+                    'list|4-5': [billCheckList],
+                    "paginator": {
+                        "currentPage": params.page,
+                        "pageSize": params.pageSize,
+                        "totalCount": 1000,
+                        "totalPage": 1000 / params.pageSize
+                    }
+                },
+              };
+            },
+          },
+        // #endregion   
+
 
         // #region  修改商品
         {

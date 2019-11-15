@@ -406,6 +406,14 @@ export default {
     getInvoiceAddress() {
         return fetch(hhgsURL + '/web/base/invoiceAddress/getInvoiceAddress', '','get')
     },
+    /**
+     * @author sswq
+     * @param params
+     * @description 票据对账列表
+     * */
+    billCheckList() {
+        return fetch(hhgsURL + '/web/base/receiptBill/getBillCheckList', '','get')
+    },
     // #endregion
 
     // #region  字典项
