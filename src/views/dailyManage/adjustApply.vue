@@ -18,7 +18,7 @@
         <el-button size="small" @click="clearListParams">重置</el-button>
       </div>
     </div>
-    <heltable
+    <HletongTable
       ref="tb"
       @sizeChange="changePageSize"
       @pageChange="changePage"
@@ -47,7 +47,7 @@
           <el-button type="text" @click="history(listData.list[scope.$index])">调价历史</el-button>
         </template>
       </el-table-column>
-    </heltable>
+    </HletongTable>
     <applyDialog
       :loading="isApplyLoading"
       :visible="applyVisible"
@@ -63,7 +63,6 @@
 
 <script>
 import Dict from "util/dict.js";
-import heltable from "components/hl_table";
 import applyDialog from "./applyDialog";
 import adjustHistoryDialog from "./adjustHistoryDialog";
 
@@ -140,7 +139,6 @@ const rowAdapter = list => {
 export default {
   name: "adjustApply",
   components: {
-    heltable,
     applyDialog,
     adjustHistoryDialog
   },
