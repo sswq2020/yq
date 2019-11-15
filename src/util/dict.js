@@ -70,4 +70,15 @@ DICT.ADJUST_PRICE_TYPE = {
    [DICT.ADJUST_BY_CHEAP]:"折扣金额"
 }
 
+DICT.BillIsNullCheckedStatus = '0';
+DICT.BillIsCheckedStatus = '1';
+/**到票确认状态*/
+DICT.BillCheckedStatus = {
+  [DICT.BillIsNullCheckedStatus]: '否',
+  [DICT.BillIsCheckedStatus]: '是',
+};
+
+
+
+
 export default DICT;
