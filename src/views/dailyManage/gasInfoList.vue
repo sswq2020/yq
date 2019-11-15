@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <heltable
+    <HletongTable
       ref="tb"
       @sizeChange="changePageSize"
       @pageChange="changePage"
@@ -96,21 +96,25 @@
           <span>{{listData.list[scope.$index][item.prop]}}</span>
         </template>
       </el-table-column>
-    </heltable>
+    </HletongTable>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
 import Dict from "util/dict.js";
-import heltable from "components/hl_table";
+// import heltable from "components/hl_table";
 import moment from "moment";
 import gsStationglass from "components/gsStationglass";
 
 const defaultFormData = {
+  /**加注时间*/
   createdTime: moment().format("YYYY-MM"),
+  /**加油站ID*/
   gsId: null,
+  /**加油站名称*/
   gsName: null,
+  /**车牌号*/
   userPlate: null
 };
 const defaultListParams = {
@@ -146,14 +150,12 @@ const defaulttableHeader = [
     label: "油气品分类"
   },
   {
-    prop: "oilRetailPrice",
-    label: "挂牌零售价",
-    align:"right"
+    prop: "oilRetailPriceText",
+    label: "挂牌零售价"
   },
   {
-    prop: "oilMemberPrice",
-    label: "会员价",
-    align:"right"
+    prop: "oilMemberPriceText",
+    label: "会员价"
   },
   {
     prop: "fuelVolume",
@@ -179,7 +181,9 @@ const rowAdapter = list => {
   if (list.length > 0) {
     list = list.map(row => {
       return (row = {
-        ...row
+        ...row,
+        oilRetailPriceText:`${row.oilRetailPrice}元/${row.oilUnit}`,
+        oilMemberPriceText:`${row.oilMemberPrice}元/${row.oilUnit}`
       });
     });
   }
@@ -189,7 +193,7 @@ const rowAdapter = list => {
 export default {
   name: "gasInfoList",
   components: {
-    heltable,
+    // heltable,
     gsStationglass
   },
   computed: {

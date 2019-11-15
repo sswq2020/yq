@@ -53,16 +53,16 @@ const body_fail = {
 const InfoList = {
     "id|+1": "@INTEGER(1,2019690999)",
     "createdTime": '@DATE("yyyy-MM-dd HH:mm:ss")',
-    "fuelVolume": "@INTEGER(1,20)",
-    "gsName": "@CTITLE(2)加油站",
-    "modelType": "@PICK('0','1')",
-    "oilMemberPrice": "@INTEGER(1,20)",
-    "oilModelName": "@PICK('92','95','98')",
-    "oilRetailPrice": "@INTEGER(1,20)",
-    "oilUnit": "@PICK('kg','L')",
-    "totalPrice": "@INTEGER(1,20)",
-    "userId": "@INTEGER(1,200009)",
-    "userPlate": "苏L@INTEGER(100,999)"
+    "fuelVolume": "@INTEGER(1,20)", // 加油加气量
+    "gsName": "@CTITLE(2)加油站", // 加油站名称
+    "modelType": "@PICK('0','1')", // 油品类型
+    "oilMemberPrice": "@INTEGER(1,20)", //会员价
+    "oilModelName": "@PICK('92','95','98')", // 油品名称
+    "oilRetailPrice": "@INTEGER(1,20)", //零售价
+    "oilUnit": "@PICK('kg','L')", //单位
+    "totalPrice": "@INTEGER(1,20)", // 总价
+    "userId": "@INTEGER(1,200009)", // 车主用户ID
+    "userPlate": "苏L@INTEGER(100,999)" //车牌号
 }
 
 const adjustOilHistoryList = {
@@ -316,6 +316,7 @@ const mockRouterMap = {
             methods: 'post',
             router: '/web/pageTaggingQuery',
             result(params) {
+                debugger
                 return {
                     ...body,
                     data: {
@@ -396,7 +397,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'get',
-            router: '/web/base/gasStation/page',
+            router: '/web/base/gas/page',
             result(params) {
                 return {
                     ...body,
@@ -418,7 +419,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/base/adjustApply/page',
+            router: '/web/base/oilsPrice/page',
             result(params) {
                 return {
                     ...body,
@@ -440,7 +441,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/base/adjustApply/update',
+            router: '/web/base/oilsPrice/adjustPrice',
             result() {
                 return {
                     ...body

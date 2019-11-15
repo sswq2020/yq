@@ -60,7 +60,7 @@ let commonRoutes = {
             component: AdjustHistory
         },
         {
-            path: '/web/base/adjustApply/page',
+            path: '/web/base/oilsPrice/page',
             name: 'oilVIPAdjustApply',
             component: AdjustApply
         },

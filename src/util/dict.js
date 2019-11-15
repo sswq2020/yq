@@ -78,6 +78,17 @@ DICT.BillCheckedStatus = {
   [DICT.BillIsCheckedStatus]: '是',
 };
 
+/**油类型*/
+DICT.OIL_TYPE = "0";
+/**气类型*/
+DICT.GAS_TYPE = "1";
+
+/**油品类型*/
+DICT.MODELTYPE = {
+    [DICT.OIL_TYPE]:"油",
+    [DICT.GAS_TYPE]:"气",
+}
+
 
 
 

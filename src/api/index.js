@@ -33,13 +33,13 @@ switch (env) {
     case 'production':
         loginUrl = 'https://login.hletong.com/';
         redirectUrl = 'https://cloudStorage.hletong.com/';
-        hhgsURL = ''
+        hhgsURL = 'yq'
         break;
     case 'test':
         baseURL = 'http://10.1.15.106:8445';
         redirectUrl = 'http://oilhui.hlet.com';
         loginUrl = 'http://login.hlet.com';
-        hhgsURL = 'hhgs'
+        hhgsURL = 'yq'
         break;
     default:
         break;
@@ -361,14 +361,14 @@ export default {
      * @description 调价申请分页查询
      * */
     getAdjustApply(params){
-        return fetch(hhgsURL + '/web/base/adjustApply/page', params)
+        return fetch(hhgsURL + '/web/base/oilsPrice/page', params)
     },
     /**
      * @author sswq
      * @description 更新调价申请
      * */    
     updateGasOilMode(params){
-        return fetch(hhgsURL + '/web/base/adjustApply/update', params)
+        return fetch(hhgsURL + '/web/base/oilsPrice/adjustPrice', params)
     },
     /**
      * @author sswq
@@ -382,7 +382,7 @@ export default {
      * @description 油气站分页查询
      * */
     queryGasStation(params){
-        return fetch(hhgsURL + '/web/base/gasStation/page', params, 'get')
+        return fetch(hhgsURL + '/web/base/gas/page', params, 'get')
     },
     // #endregion    
 
