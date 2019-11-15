@@ -6,22 +6,22 @@
         <div class="form-block">
           <div class="head">开票信息</div>
           <el-row>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="受票方名称:">{{invoiceDto.invoiceName}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="纳税人识别号:">{{invoiceDto.invoiceTaxpayer}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="开户行:">{{invoiceDto.invoiceBank}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="银行账号:">{{invoiceDto.invoiceBankCode}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="联系电话:">{{invoiceDto.invoiceTel}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="地址:">{{invoiceDto.invoiceAddress}}</el-form-item>
             </el-col>
           </el-row>
@@ -29,13 +29,13 @@
         <div class="form-block">
           <div class="head">寄票地址信息</div>
           <el-row>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="寄票地址:">{{receiveAddressDto.receivingAddress}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="收票人:">{{receiveAddressDto.receivingAddressPerson}}</el-form-item>
             </el-col>
-            <el-col :xl="24" :lg="12" :md="24" :sm="24" :xs="24">
+            <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="联系电话:">{{receiveAddressDto.receivingAddressTel}}</el-form-item>
             </el-col>
           </el-row>
