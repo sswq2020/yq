@@ -81,18 +81,20 @@ const adjustOilHistoryList = {
 
 const adjustApplyList = {
     "id|+1": "@INTEGER(1,2019690999)",
-    effectPrice: 9,
-    effectTime: new Date().getTime(),
+    modelType:"@PICK('0','1')", // 0油 1气
+    effectPrice: 9, //生效价格
+    effectTime: new Date().getTime(), //生效时间
     gsId: "10699e52cd174cd0a8d7e1a4d699753d",
     isSelected: "0",
-    oilChangeType: "@PICK('0','1')",
-    oilMemberAgio: "@INTEGER(1,99)",
-    oilMemberPrice: 9,
+    oilChangeType: "@PICK('0','1')", // 调价方式 0折扣比例 1折扣金额
+    oilMemberAgio: "@INTEGER(1,99)", //会员折扣
+    oilMemberDiscount: "@INTEGER(1,99)", //会员优惠
+    oilMemberPrice: 9, //会员价
     oilModelId: "@INTEGER(1,2019690999)",
-    oilModelName: "@PICK('0号','气1','气2')",
-    oilRetailPrice: "@INTEGER(200,300)",
+    oilModelName: "@PICK('0号','气1','气2')", // 油气品分类
+    oilRetailPrice: "@INTEGER(200,300)", //  零售价
     oilRetailWarn: "@INTEGER(1,99)",
-    oilUnit: "L",
+    oilUnit: "L", //单位
 }
 
 const invoiceAddress = {

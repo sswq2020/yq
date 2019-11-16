@@ -96,7 +96,7 @@ const defaulttableHeader = [
     label: "挂牌零售价",
   },
   {
-    prop: "oilMemberPrice",
+    prop: "oilMemberPriceText",
     label: "会员价",
     align:"right"
   },
@@ -120,15 +120,10 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        oilMemberAgioText: `${
-          row.oilChangeType === Dict.ADJUST_BY_DISCOUNT
-            ? row.oilMemberAgio
-            : "/"
-        }`,
-        oilMemberDiscountText: `${
-          row.oilChangeType === Dict.ADJUST_BY_CHEAP ? row.oilMemberAgio : "/"
-        }`,
-        oilRetailPriceText: `${row.oilRetailPrice}L/元`,
+        oilMemberAgioText: `${row.oilMemberAgio ? row.oilMemberAgio: "/"}`,
+        oilMemberDiscountText: `${row.oilMemberDiscount ? row.oilMemberDiscount: "/"}`,
+        oilRetailPriceText: `${row.oilRetailPrice}${row.oilUnit}/元`,
+        oilMemberPriceText: `${row.oilMemberPrice}${row.oilUnit}/元`,
         oilChangeTypeText: `${Dict.ADJUST_PRICE_TYPE[row.oilChangeType]}`
       });
     });
