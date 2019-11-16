@@ -93,10 +93,6 @@ const defaultListData = {
 
 const defaultAuditResultTableHeader = [
   {
-    prop: "gsCode",
-    label: "油气站编号"
-  },
-  {
     prop: "gsName",
     label: "油气站名称"
   },
@@ -109,7 +105,7 @@ const defaultAuditResultTableHeader = [
     label: "油气站联系人"
   },
   {
-    prop: "gsDetailAddress",
+    prop: "AddressTest",
     label: "油气站地址"
   },
   {
@@ -125,7 +121,8 @@ const rowAdapter = list => {
   if (list.length > 0) {
     list = list.map(row => {
       return (row = {
-        ...row
+        ...row,
+        AddressTest:`${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`
       });
     });
   }

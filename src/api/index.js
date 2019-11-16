@@ -382,7 +382,7 @@ export default {
      * @description 油气站分页查询
      * */
     queryGasStation(params){
-        return fetch(hhgsURL + '/web/base/gas/page', params, 'get')
+        return fetch(hhgsURL + '/web/base/gas/page', params)
     },
     // #endregion    
 

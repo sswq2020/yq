@@ -125,26 +125,31 @@ const billCheckList = {
 
 
 const gasStationList = {
+	"id|+1": "@INTEGER(1,2019690999)",
+    name:"@CTITLE(2)", // 公司名称
+    userId:"@INTEGER(1,2019690999)", // 公司id    
+    gsName: "程清加油站", // 加油站名称
+    gsPhone: "18021219822", // 加油站电话
+    gsContact: "程清", // 加油站联系人
+    gsEmail: "cq@hletong.com",  // 加油站邮箱
+    gsQrCode: "0F770FEAD39D43C887A02164D2575303", // 二维码fileId
+    gsLatitude: 32.172366, // 加油站经度
+    gsLongitude: 119.374228, // 加油站纬度
+    contactPhone: "18021219822", // 联系人电话
+    gsProvinceId:"34324", // 省id(区号)
+    gsProvinceName: "江苏省", //省
+    gsCityId: "32432",
+    gsCityName: "镇江市",
+    gsRegionId:"32432", // 区id(区号)
+    gsRegionName:"润州区", //加油站区名
+    gsDetailAddress: "金山物流园", // 加油站详细地址
+    gsBusinessTime:"全天", // 营业开始时间
+    isMemberOnline:'@PICK("0", "1")',   // 是否开通e商茂通(1开通，0未开通)
     adminCard: "320921199205059118",
     adminName: "程清",
-    contactPhone: "18021219822",
     createTime: 1561071704000,
     deleted: 0,
     editTime: 1562223626000,
-    gsBusinessTime: "全天",
-    gsCityName: "镇江市",
-    gsCode: "WBJYZ00044",
-    gsContact: "程清",
-    gsDetailAddress: "金山物流园",
-    gsEmail: "cq@hletong.com",
-    gsLatitude: 32.172366,
-    gsLongitude: 119.374228,
-    gsName: "程清加油站",
-    gsPhone: "18021219822",
-    gsProvinceName: "江苏省",
-    gsQrCode: "0F770FEAD39D43C887A02164D2575303",
-    gsRegionName: "润州区",
-    id: "10699e52cd174cd0a8d7e1a4d699753d",
     isBan: "0",
     isBanText: "激活",
     isMemberOnline: "0",
@@ -396,7 +401,7 @@ const mockRouterMap = {
         // #region  油气站分页查询
         {
             isMock: IS_MOCK,
-            methods: 'get',
+            methods: 'post',
             router: '/web/base/gas/page',
             result(params) {
                 return {
