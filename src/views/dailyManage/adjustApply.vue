@@ -5,7 +5,14 @@
       <div class="form-item">
         <label>油气品名称</label>
         <div class="form-control">
-          <el-input v-model="form.oilModelName" placeholder="请输入" size="small"></el-input>
+          <el-select v-model="form.oilModelId">
+            <el-option
+              v-for="(item,index) in ModelList"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
         </div>
       </div>
       <div class="form-item">
@@ -57,19 +64,17 @@
     ></applyDialog>
 
     <adjustHistoryDialog ref="history" :gsOilModelId="setId"></adjustHistoryDialog>
-
   </div>
 </template>
 
 <script>
 import Dict from "util/dict.js";
 import applyDialog from "./applyDialog";
+// import heltable from "components/hl_table";
 import adjustHistoryDialog from "./adjustHistoryDialog";
 
 const defaultFormData = {
-  gsId: null,
-  gsName: null,
-  timeRange: []
+  oilModelId: null,
 };
 const defaultListParams = {
   pageSize: 20,
@@ -93,22 +98,22 @@ const defaulttableHeader = [
   },
   {
     prop: "oilRetailPriceText",
-    label: "挂牌零售价",
+    label: "挂牌零售价"
   },
   {
     prop: "oilMemberPriceText",
     label: "会员价",
-    align:"right"
+    align: "right"
   },
   {
     prop: "oilMemberAgioText",
     label: "会员折扣(%)",
-    align:"right"
+    align: "right"
   },
   {
     prop: "oilMemberDiscountText",
     label: "会员优惠(元)",
-    align:"right"
+    align: "right"
   }
 ];
 
@@ -120,8 +125,10 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        oilMemberAgioText: `${row.oilMemberAgio ? row.oilMemberAgio: "/"}`,
-        oilMemberDiscountText: `${row.oilMemberDiscount ? row.oilMemberDiscount: "/"}`,
+        oilMemberAgioText: `${row.oilMemberAgio ? row.oilMemberAgio : "/"}`,
+        oilMemberDiscountText: `${
+          row.oilMemberDiscount ? row.oilMemberDiscount : "/"
+        }`,
         oilRetailPriceText: `${row.oilRetailPrice}${row.oilUnit}/元`,
         oilMemberPriceText: `${row.oilMemberPrice}${row.oilUnit}/元`,
         oilChangeTypeText: `${Dict.ADJUST_PRICE_TYPE[row.oilChangeType]}`
@@ -134,13 +141,14 @@ const rowAdapter = list => {
 export default {
   name: "adjustApply",
   components: {
+    // heltable,
     applyDialog,
     adjustHistoryDialog
   },
   data() {
     return {
       breadTitle: ["日常管理", "调价申请"],
-      isApplyLoading:false,
+      isApplyLoading: false,
       isListDataLoading: false,
       listParams: { ...defaultListParams }, // 页数
       form: { ...defaultFormData }, // 查询参数
@@ -149,7 +157,8 @@ export default {
       showOverflowTooltip: true,
       applyVisible: false,
       applyData: Object.create(null),
-      setId:null
+      setId: null,
+      ModelList: []
     };
   },
   methods: {
@@ -158,8 +167,8 @@ export default {
       this.applyVisible = true;
     },
     history(row) {
-      this.setId = row.id
-      this.$refs.history.open(); 
+      this.setId = row.id;
+      this.$refs.history.open();
     },
     clearListParams() {
       this.form = { ...defaultFormData };
@@ -195,23 +204,37 @@ export default {
           break;
       }
     },
-    async _updateApply(data){
+    async _getModelList() {
+      const res = await this.$api.getModelList();
+      switch (res.code) {
+        case Dict.SUCCESS:
+          this.ModelList = res.data.map(item => {
+            return {
+              label: item.oilModelName,
+              value: item.id
+            };
+          });
+          break;
+        default:
+          this.$messageError(res.mesg);
+          break;
+      }
+    },
+    async _updateApply(data) {
       this.isApplyLoading = true;
       const res = await this.$api.updateGasOilMode(data);
-      this.isApplyLoading = false;     
+      this.isApplyLoading = false;
       switch (res.code) {
         case Dict.SUCCESS:
           this.$messageSuccess("调价申请成功");
           this.applyVisible = false;
-          this.applyData = Object.create(null)
+          this.applyData = Object.create(null);
           this.getListData();
           break;
         default:
           this.$messageError(res.mesg);
           break;
-      }      
-      
-
+      }
     },
     getGs(obj) {
       this.form.gsId = obj.gsId;
@@ -221,6 +244,7 @@ export default {
     init() {
       setTimeout(() => {
         this.clearListParams();
+        this._getModelList();
         this.perm();
       }, 20);
       this.perm();

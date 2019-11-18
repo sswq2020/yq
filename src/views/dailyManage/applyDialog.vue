@@ -9,10 +9,11 @@
   >
     <el-form :model="applyFormParams" ref="applyForm" label-position="right" label-width="150px">
       <el-form-item label="油气名称" prop="oilModelName">{{applyFormParams.oilModelName}}</el-form-item>
-      <el-form-item label="挂牌零售价" prop="oilRetailPrice" :rules="validatePrice(applyFormParams.oilChangeType,applyFormParams.oilMemberAgio)">
+      <el-form-item label="挂牌零售价" prop="oilRetailPrice" :rules="validatePrice(applyFormParams.oilChangeType,applyFormParams.oilMemberDiscount)">
         <el-input v-model="applyFormParams.oilRetailPrice" size="small"></el-input>
       </el-form-item>
-      <el-form-item :label="applyFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT ? '会员折扣(%)': '会员优惠(元)'" prop="oilMemberAgio">{{applyFormParams.oilMemberAgio}}</el-form-item>
+      <el-form-item  v-if="applyFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT"  label="会员折扣(%)" prop="oilMemberAgio">{{applyFormParams.oilMemberAgio}}</el-form-item>
+      <el-form-item  v-if="applyFormParams.oilChangeType===Dict.ADJUST_BY_CHEAP"  label="会员优惠(元)" prop="oilMemberDiscount">{{applyFormParams.oilMemberDiscount}}</el-form-item>
       <el-form-item label="会员价" prop="oilMemberPrice">{{applyFormParams.oilMemberPrice}}</el-form-item>
       <el-form-item label="生效日期" prop="effectTime" :rules="validateDate()">
         <el-date-picker
@@ -37,12 +38,13 @@ import Dict from "util/dict.js";
 import { number2 } from "util/validate.js";
 import NP from "number-precision";
 const defaultApplyFormParams = {
-  oilModelName: null,
-  oilRetailPrice: null,
-  oilMemberAgio: null,
-  oilMemberPrice: null,
-  effectTime: new Date(),
-  oilChangeType: Dict.ADJUST_BY_DISCOUNT, // 默认按折扣
+  oilModelName: null, //油气品分类名称
+  oilRetailPrice: null, // 零售价
+  oilMemberAgio: null, // 会员折扣
+  oilMemberDiscount:null, // 会员优惠
+  oilMemberPrice: null, // 会员价
+  effectTime: new Date(), // 生效时间
+  oilChangeType: Dict.ADJUST_BY_DISCOUNT, // 调价方式,默认按折扣
   id: null
 };
 
@@ -98,7 +100,7 @@ export default {
         }
       ];
     },
-    validatePrice(type, agio) {
+    validatePrice(type,discount) {
       return [
         {
           required: true,
@@ -112,7 +114,7 @@ export default {
         {
           validator(rule, value, callback) {
             if(type === Dict.ADJUST_BY_CHEAP){
-               if(Number(value) <= agio) {
+               if(Number(value) <= discount) {
                  callback(new Error(`挂牌价必须大于会员优惠`));
                }
             }
@@ -159,12 +161,12 @@ export default {
             let num3 = NP.round(num2, 2);
             this.applyFormParams.oilMemberPrice = num3;
           } else {
-            if (Number(newV) <= this.applyFormParams.oilMemberAgio) {
+            if (Number(newV) <= this.applyFormParams.oilMemberDiscount) {
               return;
             } else {
               this.applyFormParams.oilMemberPrice = NP.minus(
                 Number(newV),
-                this.applyFormParams.oilMemberAgio
+                this.applyFormParams.oilMemberDiscount
               );
             }
           }
