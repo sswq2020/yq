@@ -62,6 +62,7 @@ import { requestParamsByTimeRange } from "common/util.js";
 import _ from "lodash";
 import Dict from "util/dict.js";
 import gsStationglass from "components/gsStationglass";
+// import heltable from "components/hl_table";
 
 /**只是请求参数的key,页面中的观察属性却不需要，只在请求的那一刻由timeRange赋值*/
 const EXTRA_PARAMS_KEYS = ["startTime", "endTime"];
@@ -103,7 +104,7 @@ const defaulttableHeader = [
   },
   {
     prop: "oilMemberAgio",
-    label: "会员折扣",
+    label: "会员折扣(%)",
     align:"right"
   },
   {
@@ -125,7 +126,8 @@ const defaulttableHeader = [
 export default {
   name: "adjustHistory",
   components: {
-    gsStationglass
+    gsStationglass,
+    // heltable
   },
   data() {
     return {

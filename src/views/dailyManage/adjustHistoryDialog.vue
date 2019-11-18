@@ -70,6 +70,10 @@ const defaultAuditResultTableHeader = [
     label: "会员折扣(%)"
   },
   {
+    prop: "oilMemberDiscount",
+    label: "会员优惠"
+  },
+  {
     prop: "effectTime",
     label: "生效日期"
   },
