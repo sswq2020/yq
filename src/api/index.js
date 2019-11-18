@@ -358,6 +358,13 @@ export default {
     },
     /**
      * @author sswq
+     * @description 油气品分类List(汽油类型List)
+     * */
+    getModelList(){
+        return fetch(hhgsURL + '/web/base/model/get', '','get')
+    },
+    /**
+     * @author sswq
      * @description 调价申请分页查询
      * */
     getAdjustApply(params){

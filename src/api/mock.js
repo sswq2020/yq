@@ -79,6 +79,11 @@ const adjustOilHistoryList = {
     "oilRetailPrice": "@float(6,7)"
 }
 
+const ModelList = {
+    "id|+1": "@INTEGER(1,2019690999)",
+    "oilModelName": "@INTEGER(92,98)#V",
+}
+
 const adjustApplyList = {
     "id|+1": "@INTEGER(1,2019690999)",
     modelType:"@PICK('0','1')", // 0油 1气
@@ -154,7 +159,6 @@ const gasStationList = {
     editTime: 1562223626000,
     isBan: "0",
     isBanText: "激活",
-    isMemberOnline: "0",
     memberName: "18021219822",
 }
 
@@ -323,7 +327,6 @@ const mockRouterMap = {
             methods: 'post',
             router: '/web/pageTaggingQuery',
             result(params) {
-                debugger
                 return {
                     ...body,
                     data: {
@@ -421,6 +424,22 @@ const mockRouterMap = {
             }
         },
         // #endregion    
+
+        // #region  油气品分类List(汽油类型List)
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/model/get',
+            result() {
+                return {
+                    ...body,
+                    'data|4-5':[ModelList]
+                    ,
+                };
+            }
+        },
+        // #endregion  
+
 
         // #region  调价申请
         {
