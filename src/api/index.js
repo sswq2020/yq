@@ -36,11 +36,17 @@ switch (env) {
         hhgsURL = 'yq'
         break;
     case 'test':
-        baseURL = 'http://10.1.15.106:8445';
+        baseURL = 'http://test.hletong.com/apis/';
         redirectUrl = 'http://oilhui.hlet.com';
         loginUrl = 'http://login.hlet.com';
         hhgsURL = 'yq'
         break;
+    case 'ywtest':
+        baseURL = 'http://apis.hletown.com/';
+        redirectUrl = 'http://yc.hletown.com';
+        loginUrl = 'http://login.hletown.com';
+        hhgsURL = 'yq'
+        break;        
     default:
         break;
 

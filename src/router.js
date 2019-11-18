@@ -18,6 +18,11 @@ const BillCheck = () => import('views/financeManage/billCheck.vue')
 // #endregion
 
 
+// #region 基础信息
+/**特色服务管理*/
+const Feature = () => import('views/basicManage/feature.vue')
+// #endregion
+
 Vue.use(Router)
 
 let globelRoutes = [
@@ -65,6 +70,15 @@ let commonRoutes = {
             component: AdjustApply
         },
         // #endregion           
+
+        // #region  基础管理    
+        {
+            path: '/web/base/feature/page',
+            name: 'feature',
+            component: Feature
+        },
+        // #endregion  
+
 
         // #region  财务管理    
         {

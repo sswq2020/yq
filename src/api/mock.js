@@ -7,7 +7,8 @@ export const hostList = {
     development: '//oil.hlet.com/hletoil', // 测试
     // dev: '//192.168.4.16:25091/hletoil', // 佘慧   13888888888   888888       admin 888888
     // dev: '//test.hletong.com/hletoil', // 佘慧   13888888888   888888       admin 888888
-    test: '//10.1.15.106:8445',
+    test: '//test.hletong.com/apis',
+    ywtest: '//apis.hletown.com',
     pro: '//yq.hletong.com',
     default: ""
 };
@@ -123,8 +124,9 @@ const invoiceAddress = {
 
 const FeaturePageList = {
     "id|+1": "@INTEGER(1,2019690999)",
-    "fsIcon":"54354353454353435", // 图片fileId
-    "fsName": "11",
+    "fsIcon":"6F515C38C1AE4ECEB31392300FCE2A2E", // 图片fileId
+    "fsIconUrl":"//test.hletong.com/hhgs-test/action/hletong/file/gasDownload?file_id=6F515C38C1AE4ECEB31392300FCE2A2E",
+    "fsName": "@PICK('11','12','13','18')",
     "isBan":"@PICK('0','1')"
 }
 
