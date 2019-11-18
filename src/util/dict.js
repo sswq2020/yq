@@ -89,6 +89,15 @@ DICT.MODELTYPE = {
     [DICT.GAS_TYPE]:"气",
 }
 
+/**特色服务禁用*/
+DICT.FEATURE_NOT_BAN = "0"
+/**特色服务正常*/
+DICT.FEATURE_BAN = "1"
+/**特色服务是否禁用*/
+DICT.FEATURE_STATUS = {
+    [DICT.FEATURE_NOT_BAN]:"否",
+    [DICT.FEATURE_BAN]:"是",
+}
 
 
 

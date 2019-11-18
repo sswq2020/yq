@@ -358,13 +358,6 @@ export default {
     },
     /**
      * @author sswq
-     * @description 油气品分类List(汽油类型List)
-     * */
-    getModelList(){
-        return fetch(hhgsURL + '/web/base/model/get', '','get')
-    },
-    /**
-     * @author sswq
      * @description 调价申请分页查询
      * */
     getAdjustApply(params){
@@ -392,6 +385,66 @@ export default {
         return fetch(hhgsURL + '/web/base/gas/page', params)
     },
     // #endregion    
+
+    // #region 基础信息
+    /**
+     * @author sswq
+     * @param params
+     * @description 特色服务分页
+     * */
+    getFeaturePage(params) {
+        return fetch(hhgsURL + '/web/base/feature/page', params)
+    },
+    /**
+     * @author sswq
+     * @description 特色服务List
+     * */
+    getFeatureList() {
+        return fetch(hhgsURL + '/web/base/feature/get', '','get')
+    },
+    /**
+     * @author sswq
+     * @description 激活特色服务
+     * */
+    activeFeature(params) {
+        return fetch(hhgsURL + '/web/base/feature/active', params)
+    },
+    /**
+     * @author sswq
+     * @description 禁用特色服务
+     * */
+    banFeature(params) {
+        return fetch(hhgsURL + '/web/base/feature/ban', params)
+    },
+    /**
+     * @author sswq
+     * @description 新增特色服务
+     * */
+    addFeature(params) {
+        return fetch(hhgsURL + '/web/base/feature/add', params)
+    },
+    /**
+     * @author sswq
+     * @description 编辑特色服务
+     * */
+    updateFeature(params) {
+        return fetch(hhgsURL + '/web/base/feature/update', params)
+    },
+    /**
+     * @author sswq
+     * @description 删除特色服务
+     * */
+    deleteFeature(params) {
+        return fetch(hhgsURL + '/web/base/feature/delete', params)
+    },
+    /**
+     * @author sswq
+     * @description 油气品分类List(汽油类型List)
+     * */
+    getModelList(){
+        return fetch(hhgsURL + '/web/base/model/get', '','get')
+    },   
+    // #endregion 
 
     // #region 预警管理
     /**

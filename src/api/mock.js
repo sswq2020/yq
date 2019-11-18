@@ -120,6 +120,14 @@ const invoiceAddress = {
     },
 };
 
+
+const FeaturePageList = {
+    "id|+1": "@INTEGER(1,2019690999)",
+    "fsIcon":"54354353454353435", // 图片fileId
+    "fsName": "11",
+    "isBan":"@PICK('0','1')"
+}
+
 /**
  * @sswq 加油站管理/票据对账列表
  */
@@ -512,6 +520,110 @@ const mockRouterMap = {
           },
         // #endregion   
 
+        // #region  基础信息
+
+        // #region  特色服务分页
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/page',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|4-5': [FeaturePageList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion    
+
+        // #region  特色服务List
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/feature/get',
+            result() {
+                return {
+                    ...body,
+                    'data|4-5': [FeaturePageList]                       
+                };
+            }
+        },
+        // #endregion  
+
+        // #region  激活特色服务
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/active',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  禁用特色服务
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/ban',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+        
+        // #region  新增特色服务
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/add',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  编辑特色服务
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/update',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  删除特色服务
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/feature/delete',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #endregion  
 
         // #region  修改商品
         {
