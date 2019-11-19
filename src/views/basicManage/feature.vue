@@ -12,9 +12,9 @@
     </HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
-        <label>用户名</label>
+        <label>特色服务管理</label>
         <div class="form-control">
-          <el-input v-model="form.username" placeholder="请输入" size="small"></el-input>
+          <el-input v-model="form.fsName" placeholder="请输入" size="small"></el-input>
         </div>
       </div>
       <div class="form-item">
