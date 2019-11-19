@@ -21,6 +21,8 @@ const BillCheck = () => import('views/financeManage/billCheck.vue')
 // #region 基础信息
 /**特色服务管理*/
 const Feature = () => import('views/basicManage/feature.vue')
+/**油气品分类管理*/
+const OilGasSort = () => import('views/basicManage/oilGasSort.vue')
 // #endregion
 
 Vue.use(Router)
@@ -77,6 +79,11 @@ let commonRoutes = {
             name: 'feature',
             component: Feature
         },
+        {
+            path: '/web/base/model/page',
+            name: 'oilGasSort',
+            component: OilGasSort
+        },        
         // #endregion  
 
 

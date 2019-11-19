@@ -106,7 +106,7 @@ DICT.MODEL_NOT_BAN = "0"
 /**油气品分类禁用*/
 DICT.MODEL_BAN = "1"
 /**油气品分类是否禁用*/
-DICT.FEATURE_STATUS = {
+DICT.MODEL_STATUS = {
     [DICT.MODEL_NOT_BAN]:"正常",
     [DICT.MODEL_BAN]:"禁用",
 }
@@ -116,9 +116,9 @@ DICT.MODEL_IS_DEFAULT = "0"
 /**油气品分类非默认*/
 DICT.MODEL_NOT_DEFAULT = "1"
 /**油气品分类是否默认*/
-DICT.FEATURE_STATUS = {
-    [DICT.MODEL_IS_DEFAULT]:"默认",
-    [DICT.MODEL_NOT_DEFAULT]:"非默认",
+DICT.MODEL_TOGGLE_DEFAULT = {
+    [DICT.MODEL_IS_DEFAULT]:"是",
+    [DICT.MODEL_NOT_DEFAULT]:"否",
 }
 
 
