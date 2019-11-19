@@ -89,6 +89,40 @@ DICT.MODELTYPE = {
     [DICT.GAS_TYPE]:"气",
 }
 
+/**千克*/
+DICT.KILOGRAM = 'kg'
+/**升*/
+DICT.LITRE = 'L'
+
+/**油气单位*/
+DICT.MODEL_UNIT_TYPE = {
+    [DICT.KILOGRAM]:"千克",
+    [DICT.LITRE]:"升",
+}
+
+
+/**油气品分类正常*/
+DICT.MODEL_NOT_BAN = "0"
+/**油气品分类禁用*/
+DICT.MODEL_BAN = "1"
+/**油气品分类是否禁用*/
+DICT.FEATURE_STATUS = {
+    [DICT.MODEL_NOT_BAN]:"正常",
+    [DICT.MODEL_BAN]:"禁用",
+}
+
+/**油气品分类默认*/
+DICT.MODEL_IS_DEFAULT = "0"
+/**油气品分类非默认*/
+DICT.MODEL_NOT_DEFAULT = "1"
+/**油气品分类是否默认*/
+DICT.FEATURE_STATUS = {
+    [DICT.MODEL_IS_DEFAULT]:"默认",
+    [DICT.MODEL_NOT_DEFAULT]:"非默认",
+}
+
+
+
 /**特色服务正常*/
 DICT.FEATURE_NOT_BAN = "0"
 /**特色服务禁用*/
@@ -98,6 +132,8 @@ DICT.FEATURE_STATUS = {
     [DICT.FEATURE_NOT_BAN]:"正常",
     [DICT.FEATURE_BAN]:"禁用",
 }
+
+
 
 
 
