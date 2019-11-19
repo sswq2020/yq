@@ -83,6 +83,10 @@ const adjustOilHistoryList = {
 const ModelList = {
     "id|+1": "@INTEGER(1,2019690999)",
     "oilModelName": "@INTEGER(92,98)#V",
+    "oilModelDesc": "@CTITLE(8)",
+    "oilUnit": "@PICK('kg','L')",
+    "isDefault":"@PICK('0','1')",
+    "isBan":"@PICK('0','1')",
 }
 
 const adjustApplyList = {
@@ -435,22 +439,6 @@ const mockRouterMap = {
         },
         // #endregion    
 
-        // #region  油气品分类List(汽油类型List)
-        {
-            isMock: IS_MOCK,
-            methods: 'get',
-            router: '/web/base/model/get',
-            result() {
-                return {
-                    ...body,
-                    'data|4-5':[ModelList]
-                    ,
-                };
-            }
-        },
-        // #endregion  
-
-
         // #region  调价申请
         {
             isMock: IS_MOCK,
@@ -624,6 +612,123 @@ const mockRouterMap = {
             }
         },
         // #endregion 
+
+        // #region  油气品分类分页
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/page',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|4-5': [ModelList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion    
+
+        // #region  油气品分类List(汽油类型List)
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/model/get',
+            result() {
+                return {
+                    ...body,
+                    'data|4-5':[ModelList]
+                    ,
+                };
+            }
+        },
+        // #endregion  
+
+        // #region  激活油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/active',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  禁用油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/ban',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+        
+        // #region  新增油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/add',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  编辑油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/update',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  删除油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/delete',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+        // #region  设置默认油气品分类
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/model/default',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion 
+
+
 
         // #endregion  
 

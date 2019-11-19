@@ -393,6 +393,8 @@ export default {
     // #endregion    
 
     // #region 基础信息
+
+     // #region 特色服务
     /**
      * @author sswq
      * @param params
@@ -443,6 +445,16 @@ export default {
     deleteFeature(params) {
         return fetch(hhgsURL + '/web/base/feature/delete', params)
     },
+     // #endregion
+
+     // #region 油气品分类
+    /**
+     * @author sswq
+     * @description 油气品分类分页
+     * */
+    getModelPage(params){
+        return fetch(hhgsURL + '/web/base/model/page', params)
+    },  
     /**
      * @author sswq
      * @description 油气品分类List(汽油类型List)
@@ -450,6 +462,50 @@ export default {
     getModelList(){
         return fetch(hhgsURL + '/web/base/model/get', '','get')
     },   
+    /**
+     * @author sswq
+     * @description 激活油气品分类
+     * */
+    activeModel(params) {
+        return fetch(hhgsURL + '/web/base/model/active', params)
+    },
+    /**
+     * @author sswq
+     * @description 禁用油气品分类
+     * */
+    banModel(params) {
+        return fetch(hhgsURL + '/web/base/model/ban', params)
+    },
+    /**
+     * @author sswq
+     * @description 新增油气品分类
+     * */
+    addModel(params) {
+        return fetch(hhgsURL + '/web/base/model/add', params)
+    },
+    /**
+     * @author sswq
+     * @description 编辑油气品分类
+     * */
+    updateModel(params) {
+        return fetch(hhgsURL + '/web/base/model/update', params)
+    },
+    /**
+     * @author sswq
+     * @description 删除油气品分类
+     * */
+    deleteModel(params) {
+        return fetch(hhgsURL + '/web/base/model/delete', params)
+    },
+    /**
+     * @author sswq
+     * @description 设置默认油气品分类
+     * */
+    defaultModel(params) {
+        return fetch(hhgsURL + '/web/base/model/default', params)
+    },
+     // #endregion 
+
     // #endregion 
 
     // #region 预警管理
