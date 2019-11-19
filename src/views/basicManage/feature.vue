@@ -27,7 +27,7 @@
         <el-button size="small" @click="clearListParams">重置</el-button>
       </div>
     </div>
-    <heltable
+    <HletongTable
       ref="tb"
       @sizeChange="changePageSize"
       @pageChange="changePage"
@@ -40,8 +40,7 @@
       <el-table-column label="特色服务ICON" width="120px" align="center">
         <template slot-scope="scope">
           <div style="padding: 10px 0px 0px 0px">
-            <img width="48" height="48" :src="listData.list[scope.$index].fsIconUrl"
-            />
+            <img width="48" height="48" :src="listData.list[scope.$index].fsIconUrl" />
           </div>
         </template>
       </el-table-column>
@@ -69,14 +68,23 @@
           >{{listData.list[scope.$index].isBan === Dict.FEATURE_NOT_BAN ? "禁用" : "激活"}}</el-button>
         </template>
       </el-table-column>
-    </heltable>
+    </HletongTable>
+    <featureDialog
+      :data="featureData"
+      :visible="visible"
+      :loading="loading"
+      :isEdit="isEdit"
+      :confirmCb="(file)=>{this._comfirm(file)}"
+      :cancelCb="cancel"
+    ></featureDialog>
   </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
-import heltable from "components/hl_table";
+// import heltable from "components/hl_table";
+import featureDialog from "./featureDialog";
 
 const defaultFormData = {
   fsName: null
@@ -121,7 +129,8 @@ const rowAdapter = list => {
 export default {
   name: "feature",
   components: {
-    heltable
+    // heltable,
+    featureDialog
   },
   data() {
     return {
@@ -133,7 +142,13 @@ export default {
       tableHeader: defaulttableHeader,
       showOverflowTooltip: true,
       Dict,
-      visible: false
+      visible: false,
+      /**特色管理的对象*/
+      featureData: Object.create(null),
+      /**弹窗的loading*/
+      loading: false,
+      /**弹窗编辑还是新增*/
+      isEdit: false
     };
   },
   methods: {
@@ -162,7 +177,8 @@ export default {
     toggle(item) {
       let that = this;
       const { isBan, id, fsName } = item;
-      const text = isBan === Dict.FEATURE_NOT_BAN ? "禁用特色服务" : "激活特色服务";
+      const text =
+        isBan === Dict.FEATURE_NOT_BAN ? "禁用特色服务" : "激活特色服务";
       const serverUrl =
         isBan === Dict.FEATURE_NOT_BAN ? "banFeature" : "activeFeature";
       this.$confirm(`确定${text}${fsName}`, "提示", {
@@ -206,17 +222,34 @@ export default {
       }
     },
     add() {
-      this.setIsEdit(false);
-      this.setMemberId(null);
-      this.$router.push({
-        path: "/web/yc/member/member/addmemberForm"
-      });
+      this.featureData = Object.create(null);
+      this.isEdit = false;
+      this.visible = true;
     },
     edit(item) {
-      const { userId } = item;
-      this.setIsEdit(true);
-      this.setMemberId(userId);
+      this.featureData = item;
+      this.isEdit = true;
       this.visible = true;
+    },
+    async _comfirm(item){
+      const serverUrl = this.isEdit ? 'updateFeature':'addFeature';
+      const text = this.isEdit ? '更新':'新增';
+      this.loading = true;
+      const res = await this.$api[serverUrl](item)
+      this.loading = false
+      switch (res.code) {
+            case Dict.SUCCESS:
+              this.$messageSuccess(`${text}成功`);
+              this.cancel()
+              this.getListData();
+              break;
+            default:
+              this.$messageError(`${text}失败,${res.mesg}`);
+              break;
+          }
+    },
+    cancel(){
+      this.visible = false;
     },
     init() {
       setTimeout(() => {
