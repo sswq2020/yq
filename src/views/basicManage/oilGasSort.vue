@@ -27,7 +27,7 @@
         <el-button size="small" @click="clearListParams">重置</el-button>
       </div>
     </div>
-    <heltable
+    <HletongTable
       ref="tb"
       @sizeChange="changePageSize"
       @pageChange="changePage"
@@ -65,7 +65,7 @@
           >设置展示默认</el-button>
         </template>
       </el-table-column>
-    </heltable>
+    </HletongTable>
     <oilGasSortDialog
       :data="oilGasSortData"
       :visible="visible"
@@ -80,7 +80,7 @@
 <script>
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
-import heltable from "components/hl_table";
+// import heltable from "components/hl_table";
 import oilGasSortDialog from "./oilGasSortDialog";
 
 const defaultFormData = {
@@ -140,7 +140,7 @@ const rowAdapter = list => {
 export default {
   name: "oilGasSort",
   components: {
-    heltable,
+    //heltable,
     oilGasSortDialog
   },
   data() {
