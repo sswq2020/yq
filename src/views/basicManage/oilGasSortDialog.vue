@@ -5,33 +5,53 @@
     :show-close="showClose"
     :center="true"
     width="600px"
-    title="特色服务"
+    title="油气品分类"
   >
     <el-form :model="form" ref="form" label-position="right" label-width="150px">
       <el-form-item
-        label="特色服务名称"
-        prop="fsName"
+        label="油气品单位"
+        prop="oilUnit"
+        :rules="[{ required: true, message: '必填', trigger: 'blur' }]"
+      >
+        <el-select style="width:100%" v-model="form.oilUnit" placeholder="请选择" size="small">
+            <el-option
+                v-for="(item,index) in ModelUnitList"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+            ></el-option>
+        </el-select>
+      </el-form-item>     
+      <el-form-item
+        label="油气品分类名称"
+        prop="oilModelName"
         :rules="[
             { required: true, message: '必填', trigger: 'blur' },
             { max: 10, message: '最长10个之内', trigger: 'blur' }
           ]"
       >
-        <el-input placeholder="请输入特色服务名称" v-model="form.fsName" size="small"></el-input>
+        <el-input placeholder="请输入" v-model="form.oilModelName" size="small"></el-input>
       </el-form-item>
 
       <el-form-item
-        label="特色服务ICON"
-        prop="fsIcon"
-        :rules="[{ required: true, message: '未上传,请上传特色服务Icon' }]"
+        label="油气品分类描述"
+        prop="oilModelDesc"
+        :rules="[{ max: 500, message: '最长500个之内', trigger: 'blur' }]"
       >
-        <div class="imgBox" :key="index" v-show="form.fsIcon">
-          <ImageBox :url="url" :onDelete="()=>{uploadDelete(index)}"></ImageBox>
-        </div>
-        <div class="imgBox" v-show="!(form.fsIcon)">
-          <ImageUpload :maxSize="maxSize" :onSuccess="(file)=>{this.uploadSuceess(file)}"></ImageUpload>
-        </div>
-        <el-input type="hidden" :value="form.fsIcon" style="display:inline;height:0"></el-input>
+        <el-input placeholder="请输入" type="textarea" v-model="form.oilModelDesc" size="small"></el-input>
       </el-form-item>
+
+    <el-form-item label="是否默认展示" prop="isDefault">
+        <el-radio-group v-model="form.isDefault">
+              <el-radio
+                v-for="item in ModelDefaultList"
+                :key="item.value"
+                :label="item.value"
+              >{{item.label}}</el-radio>
+        </el-radio-group>
+    </el-form-item>
+
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="cancle()">取 消</el-button>
@@ -43,25 +63,25 @@
 <script>
 // import _ from "lodash";
 import Dict from "util/dict.js";
-import ImageBox from "components/ImageBox";
-import ImageUpload from "components/ImageUpload";
+import { DICT_SELECT_ARR } from "common/util";
+const ModelUnitList = DICT_SELECT_ARR(Dict.MODEL_UNIT_TYPE);
+const ModelDefaultList = DICT_SELECT_ARR(Dict.MODEL_TOGGLE_DEFAULT);
+
 const defaultApplyFormParams = {
+  /**油气品单位*/
+  oilUnit: null,
   /**油气品分类名称*/
-  fsName: null,
-  /**图片fileId */
-
-  fsIcon: null,
-  /**图片url*/
-
-  fsIconUrl: "#",
+  oilModelName: null,
+  /**油气品分类描述*/
+  oilModelDesc: null,
+  /**是否默认展示*/
+  isDefault:Dict.MODEL_IS_DEFAULT,
   id: null
 };
 
 export default {
-  name: "featureDialog",
+  name: "oilGasSortDialog",
   components: {
-    ImageBox,
-    ImageUpload
   },
   props: {
     data: {
@@ -96,29 +116,12 @@ export default {
       showClose: false,
       form: { ...defaultApplyFormParams },
       Dict,
+      ModelUnitList,
+      ModelDefaultList,
       maxSize: 10
     };
   },
   methods: {
-    uploadDelete() {
-      this.form.fsIconUrl = "#";
-      this.form.fsIcon = null;
-    },
-    uploadSuceess(res) {
-      this.form.fsIconUrl = res.data.url;
-      this.form.fsIcon = res.data.id;
-    },
-    async _getFilesInfo(fileId) {
-      const res = await this.$api.getFilesInfo({ fileId });
-      switch (res.code) {
-        case Dict.SUCCESS:
-          this.form.fsIconUrl = res.data.url;
-          break;
-        default:
-          this.$messageError(res.mesg);
-          break;
-      }
-    },
     cancle() {
       this.cancelCb();
     },
@@ -140,15 +143,6 @@ export default {
         } else {
           this.$refs.form.clearValidate();
           this.form = { ...defaultApplyFormParams };
-        }
-      }
-    },
-    "form.fsIcon": {
-      handler(newV, oldV) {
-        if (newV) {
-          if (newV !== oldV && this.form.fsIconUrl === "#") {
-            this._getFilesInfo(newV);
-          }
         }
       }
     }

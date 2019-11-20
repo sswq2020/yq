@@ -66,14 +66,14 @@
         </template>
       </el-table-column>
     </heltable>
-    <featureDialog
-      :data="featureData"
+    <oilGasSortDialog
+      :data="oilGasSortData"
       :visible="visible"
       :loading="loading"
       :isEdit="isEdit"
       :confirmCb="(file)=>{this._comfirm(file)}"
       :cancelCb="cancel"
-    ></featureDialog>
+    ></oilGasSortDialog>
   </div>
 </template>
 
@@ -81,7 +81,7 @@
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
 import heltable from "components/hl_table";
-import featureDialog from "./featureDialog";
+import oilGasSortDialog from "./oilGasSortDialog";
 
 const defaultFormData = {
   fsName: null
@@ -138,10 +138,10 @@ const rowAdapter = list => {
 };
 
 export default {
-  name: "feature",
+  name: "oilGasSort",
   components: {
     heltable,
-    featureDialog
+    oilGasSortDialog
   },
   data() {
     return {
@@ -155,7 +155,7 @@ export default {
       Dict,
       visible: false,
       /**特色管理的对象*/
-      featureData: Object.create(null),
+      oilGasSortData: Object.create(null),
       /**弹窗的loading*/
       loading: false,
       /**弹窗编辑还是新增*/
@@ -191,7 +191,7 @@ export default {
       const text =
         isBan === Dict.MODEL_NOT_BAN ? "禁用油气品分类" : "激活油气品分类";
       const serverUrl =
-        isBan === Dict.MODEL_NOT_BAN ? "banFeature" : "activeFeature";
+        isBan === Dict.MODEL_NOT_BAN ? "banModel" : "activeModel";
       this.$confirm(`确定${text}${oilModelName}`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -260,17 +260,17 @@ export default {
       }
     },
     add() {
-      this.featureData = Object.create(null);
+      this.oilGasSortData = Object.create(null);
       this.isEdit = false;
       this.visible = true;
     },
     edit(item) {
-      this.featureData = item;
+      this.oilGasSortData = item;
       this.isEdit = true;
       this.visible = true;
     },
     async _comfirm(item){
-      const serverUrl = this.isEdit ? 'updateFeature':'addFeature';
+      const serverUrl = this.isEdit ? 'updateModel':'addModel';
       const text = this.isEdit ? '更新':'新增';
       this.loading = true;
       const res = await this.$api[serverUrl](item)
