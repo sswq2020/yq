@@ -25,6 +25,12 @@ const Feature = () => import('views/basicManage/feature.vue')
 const OilGasSort = () => import('views/basicManage/oilGasSort.vue')
 // #endregion
 
+// #region 会员管理
+/**会员管理列表*/
+const VipManage = () => import('views/vipManage/index.vue')
+// #endregion
+
+
 // #region 预警管理
 /**协议到期预警*/
 const DealDueforeWarn = () => import('views/foreWarnManage/dealDueforeWarn.vue')
@@ -94,7 +100,6 @@ let commonRoutes = {
         },        
         // #endregion  
 
-
         // #region  财务管理    
         {
             path: '/web/base/invoiceAddress/getInvoiceAddress',
@@ -108,6 +113,13 @@ let commonRoutes = {
         },
         // #endregion     
 
+        // #region  会员管理  
+        {
+            path: '/web/member/member/page',
+            name: 'vipManage',
+            component: VipManage
+        },
+        // #endregion     
 
         // #region  预警管理      
         {
@@ -116,7 +128,6 @@ let commonRoutes = {
             component: DealDueforeWarn
         },
         // #endregion  
-
 
     ]
 }

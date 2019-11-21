@@ -383,13 +383,6 @@ export default {
     getAdjustOilHistory(params){
         return fetch(hhgsURL + '/web/base/oilHistory/page', params)
     },
-    /**
-     * @author sswq
-     * @description 油气站分页查询
-     * */
-    queryGasStation(params){
-        return fetch(hhgsURL + '/web/base/gas/page', params)
-    },
     // #endregion    
 
     // #region 基础信息
@@ -546,6 +539,13 @@ export default {
      * */
     getVIPList(params) {
         return fetch(hhgsURL + '/web/member/member/page', params)
+    },
+    /**
+     * @author sswq
+     * @description 油气站分页查询
+     * */
+    queryGasStation(params){
+        return fetch(hhgsURL + '/web/base/gas/page', params)
     },
     /**
       * @author sswq
