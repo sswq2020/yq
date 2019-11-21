@@ -1,24 +1,36 @@
 <template>
   <div class="container single-page">
-    <!-- <HletongBreadcrumb :data="breadTitle">
-    </HletongBreadcrumb> -->
+    <!-- <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb> -->
     <div class="search-box">
       <div class="form-item">
-        <label>用户名</label>
+        <label>公司名称</label>
         <div class="form-control">
           <el-input v-model="form.username" placeholder="请输入" size="small"></el-input>
         </div>
       </div>
       <div class="form-item">
-        <label>手机号</label>
+        <label>油气站名称</label>
         <div class="form-control">
-          <el-input v-model="form.phone" placeholder="请输入" size="small"></el-input>
+          <el-input v-model="form.gsName" placeholder="请输入" size="small"></el-input>
         </div>
-      </div>         
+      </div>
       <div class="form-item">
-        <label>公司名称</label>
+        <label>油气站编号</label>
         <div class="form-control">
-          <el-input v-model="form.name" placeholder="请输入" size="small"></el-input>
+          <el-input v-model="form.gsCode" placeholder="请输入" size="small"></el-input>
+        </div>
+      </div>
+      <div class="form-item">
+        <label>油气站状态</label>
+        <div class="form-control">
+          <el-select v-model="form.isBan" placeholder="请选择" size="small">
+            <el-option
+              v-for="(item,index) in gasStationStatustList"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
         </div>
       </div>
       <div class="form-item">
@@ -54,10 +66,18 @@
           <span>{{listData.list[scope.$index][item.prop]}}</span>
         </template>
       </el-table-column>
-
+      <el-table-column label="收款二维码" width="220px" align="left">
+        <template slot-scope="scope">
+          <el-button type="text">点击查看</el-button>
+          <el-button type="text">下载二维码</el-button>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="120px" align="left">
         <template slot-scope="scope">
-          <el-button type="text" @click="go(listData.list[scope.$index])">油气站管理</el-button>
+          <el-button
+            type="text"
+            @click="edit(listData.list[scope.$index])"
+          >{{listData.list[scope.$index].isBan === Dict.GAS_STATION_STATUS_NORMAL ? "禁用" : "正常"}}</el-button>
         </template>
       </el-table-column>
     </heltable>
@@ -65,13 +85,15 @@
       <el-tab-pane label="入会协议" v-if="visible">
         <editMemberForm @agreemtClose="updateVisible(false)"/>
       </el-tab-pane>
-    </UserDialog> -->
+    </UserDialog>-->
   </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
+import { DICT_SELECT_ARR } from "common/util";
+const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 import heltable from "components/hl_table";
 // import UserDialog from 'components/userDialog';
 // import editMemberForm from './editMemberForm.vue'
@@ -79,7 +101,7 @@ import heltable from "components/hl_table";
 const defaultFormData = {
   name: null,
   phone: null,
-  username:null
+  username: null
 };
 const defaultListParams = {
   pageSize: 20,
@@ -94,30 +116,40 @@ const defaultListData = {
 };
 const defaulttableHeader = [
   {
-    prop: "username",
-    label: "用户名"
-  },
-  {
-    prop: "phone",
-    label: "手机号"
-  },
-  {
     prop: "name",
     label: "公司名称"
   },
   {
-    prop: "telNo",
-    label: "公司电话"
+    prop: "gsName",
+    label: "油气站名称"
   },
   {
-    prop: "addressText",
-    label: "公司地址",
-    width:"300px"
+    prop: "gsCode",
+    label: "油气站编号"
   },
   {
-    prop: "grantTime",
-    label: "授权日期",
-    align:"right"
+    prop: "gsPhone",
+    label: "油气站电话"
+  },
+  {
+    prop: "gsContact",
+    label: "油气站联系人"
+  },
+  {
+    prop: "contactPhone",
+    label: "联系人手机"
+  },
+  {
+    prop: "gsEmail",
+    label: "联系邮箱"
+  },
+  {
+    prop: "AddressText",
+    label: "油气站地址"
+  },
+  {
+    prop: "isBanText",
+    label: "油气站状态"
   }
 ];
 
@@ -129,8 +161,8 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        addressText:`${row.province || ''}${row.city || ''}${row.county || ''}${row.address || ''}`,
-        stateText: `${Dict.VIP_STATUS[row.state]}`
+        AddressTest: `${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`,
+        isBanText: `${Dict.GAS_STATION_STATUS[row.isBan]}`
       });
     });
   }
@@ -140,7 +172,7 @@ const rowAdapter = list => {
 export default {
   name: "vipManage",
   components: {
-      heltable
+    heltable
     // UserDialog,
     // editMemberForm
   },
@@ -153,16 +185,14 @@ export default {
       listData: { ...defaultListData }, // 返回list的数据结构
       tableHeader: defaulttableHeader,
       showOverflowTooltip: true,
-      VIP_STATUS_NORMAL: Dict.VIP_STATUS_NORMAL,
-      visible:false
+      visible: false,
+      gasStationStatustList,
+      Dict
     };
   },
   methods: {
-    ...mapMutations("memberForm", [
-      "setIsEdit",
-      "setMemberId"
-    ]),
-    updateVisible(bol){
+    ...mapMutations("memberForm", ["setIsEdit", "setMemberId"]),
+    updateVisible(bol) {
       this.visible = bol;
     },
     clearListParams() {
@@ -183,9 +213,16 @@ export default {
       this.listParams = { ...defaultListParams };
       this.getListData();
     },
+    filter(){
+      const username = this.$route.params.name || null
+      if(username) {
+        this.form.username = username
+      }
+    },
     async getListData() {
+      this.filter();
       this.isListDataLoading = true;
-      const res = await this.$api.getVIPList({
+      const res = await this.$api.queryGasStation({
         ...this.listParams,
         ...this.form
       });
@@ -198,12 +235,6 @@ export default {
           this.$messageError(res.mesg);
           break;
       }
-    },
-    go(item){
-      this.$router.push({
-         name:"gasStationManage",
-         params:item
-      })
     },
     add() {
       this.setIsEdit(false);

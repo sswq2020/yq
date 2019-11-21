@@ -182,7 +182,7 @@ const gasStationList = {
     createTime: 1561071704000,
     deleted: 0,
     editTime: 1562223626000,
-    isBan: "0",
+    isBan: '@PICK("0", "1")',
     isBanText: "激活",
     memberName: "18021219822",
 }

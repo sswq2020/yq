@@ -28,6 +28,8 @@ const OilGasSort = () => import('views/basicManage/oilGasSort.vue')
 // #region 会员管理
 /**会员管理列表*/
 const VipManage = () => import('views/vipManage/index.vue')
+/**油气站管理列表*/
+const GasStationManage = () => import('views/vipManage/gasStation.vue')
 // #endregion
 
 
@@ -119,6 +121,13 @@ let commonRoutes = {
             name: 'vipManage',
             component: VipManage
         },
+        {
+            path: '/web/base/gas/page',
+            name: 'gasStationManage',
+            component: GasStationManage
+        },
+
+
         // #endregion     
 
         // #region  预警管理      
