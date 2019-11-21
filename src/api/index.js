@@ -538,6 +538,85 @@ export default {
     },
     // #endregion
 
+    // #region 会员管理
+    /**
+     * @author sswq
+     * @param params
+     * @description 会员管理列表
+     * */
+    getVIPList(params) {
+        return fetch(hhgsURL + '/web/member/member/page', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 激活加油站
+      * */
+     activeGas(params) {
+        return fetch(hhgsURL + '/web/base/gas/active', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 禁用加油站
+      * */
+     banGas(params) {
+        return fetch(hhgsURL + '/web/base/gas/ban', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 新增加油站
+      * */
+    AddGas(params) {
+        return fetch(hhgsURL + '/web/base/gas/add', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 更新加油站
+      * */
+    UpdateGas(params) {
+        return fetch(hhgsURL + '/web/base/gas/update', params)
+    }, 
+    /**
+     * @author sswq
+     * @param params
+     * @description 入会协议分页
+     * */
+    getAgreementList(params) {
+        return fetch(hhgsURL + '/web/agreement/page', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 新增入会协议
+      * */
+     AddAgreement(params) {
+        return fetch(hhgsURL + '/web/agreement/add', params)
+    },        
+    /**
+      * @author sswq
+      * @param params
+      * @description 编辑入会协议
+      * */
+     UpdateAgreement(params) {
+        return fetch(hhgsURL + '/web/agreement/update', params)
+    },  
+    /**
+      * @author sswq
+      * @param params
+      * @description 删除入会协议
+      * */
+     DelAgreement(params) {
+        return fetch(hhgsURL + '/web/agreement/delete', params)
+    }, 
+    // #endregion 
+
+
+
+
+
     // #region  字典项
     /**
      * @author sswq

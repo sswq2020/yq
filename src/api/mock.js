@@ -50,6 +50,17 @@ const body_fail = {
     "mesg": "系统错误"
 }
 
+const pageMemberList = {
+    "id|+1": "@INTEGER(1,2019690999)",
+    "phone": "@INTEGER(13012819898,18912819898)",
+    "name": "@CTITLE(7,9)公司",
+    "username": "@CNAME(2,3)",
+    "telNo": "@INTEGER(13012819898,18912819898)",
+    "address": '@PROVINCE()@CITY()@CTITLE(2,10)@INTEGER(1,100)号',
+    "grantTime": '@DATE("yyyy-MM-dd HH:mm:ss")',
+    "state": "@PICK('0','1')",  // 1正常 0禁止
+    "userId": "@INTEGER(1,2019690999)",  // 会员id
+}
 
 const InfoList = {
     "id|+1": "@INTEGER(1,2019690999)",
@@ -832,11 +843,33 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  会员启用禁用
+        // #region  会员管理列表
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/member/member/updateState',
+            router: '/web/member/member/page',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|10-20': [pageMemberList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion
+
+        // #region  激活加油站
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/gas/active',
             result() {
                 return {
                     ...body
@@ -845,38 +878,37 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  获取会员信息
+        // #region  禁用加油站
         {
             isMock: IS_MOCK,
-            methods: 'get',
-            router: '/web/hyw/member/member/get',
-            result(params) {
+            methods: 'post',
+            router: '/web/base/gas/ban',
+            result() {
                 return {
-                    ...body,
-                    data: { ...VIPInfoData, userId: params.userId }
+                    ...body
                 };
             }
         },
         // #endregion
 
-        // #region  新增会员
+        // #region  新增加油站
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/gas/add',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  更新加油站
         {
             isMock: IS_MOCK,
             methods: 'post',
             router: '/web/hyw/member/member/add',
-            result() {
-                return {
-                    ...body
-                };
-            }
-        },
-        // #endregion
-
-        // #region  更新会员
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/hyw/member/member/update',
             result() {
                 return {
                     ...body
