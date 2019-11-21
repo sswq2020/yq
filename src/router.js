@@ -25,6 +25,14 @@ const Feature = () => import('views/basicManage/feature.vue')
 const OilGasSort = () => import('views/basicManage/oilGasSort.vue')
 // #endregion
 
+// #region 预警管理
+/**协议到期预警*/
+const DealDueforeWarn = () => import('views/foreWarnManage/dealDueforeWarn.vue')
+// #endregion
+
+
+
+
 Vue.use(Router)
 
 let globelRoutes = [
@@ -97,8 +105,17 @@ let commonRoutes = {
             path: '/web/base/receiptBill/getBillCheckList',
             name: 'billCheck',
             component: BillCheck
-        }
+        },
         // #endregion     
+
+
+        // #region  预警管理      
+        {
+            path: '/web/agreement/pageWarn',
+            name: 'dealDueforeWarn',
+            component: DealDueforeWarn
+        },
+        // #endregion  
 
 
     ]

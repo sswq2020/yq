@@ -179,9 +179,11 @@ const gasStationList = {
 const dealDueForeWarnList = {
     "id|+1": "@INTEGER(1,2019690999)",
     "mock1": "@INTEGER(13012819898,18912819898)",
-    "mock2": "@CTITLE(7,9)公司",
-    "mock3": "@PICK('买家','采购','卖家')入会协议",
-    "mock4": '@DATE("yyyy-MM-dd")'
+    "name": "@CTITLE(7,9)公司",
+    "username": "@CNAME()",
+    "gsName":"@CTITLE(7,9)加油站",
+    "agreementName": "@PICK('买家','采购','卖家')入会协议",
+    "dueTime": '@DATE("yyyy-MM-dd")'
 
 }
 
@@ -887,7 +889,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/member/agreement/pageWarn',
+            router: '/web/agreement/pageWarn',
             result(params) {
                 return {
                     ...body,

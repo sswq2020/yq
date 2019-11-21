@@ -515,7 +515,7 @@ export default {
      * @description 协议到期预警列表
      * */
     getDealDueForeWarnList(params) {
-        return fetch(hhgsURL + '/web/hyw/agreement/pageWarn', params)
+        return fetch(hhgsURL + '/web/agreement/pageWarn', params)
     },
     // #endregion 
 
