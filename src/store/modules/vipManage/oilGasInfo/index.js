@@ -8,7 +8,7 @@ const defaultOilGasInfoFormParams = {
     /**调价方式,默认为折扣比例*/
     oilChangeType: Dict.ADJUST_BY_DISCOUNT,
     /**油气型号名*/
-    oilModelName:null,
+    // oilModelName:null,
     /**零售价*/
     oilRetailPrice:null,
     /**会员价*/
@@ -18,7 +18,7 @@ const defaultOilGasInfoFormParams = {
     /**会员优惠,调价方式为Dict.ADJUST_BY_CHEAP时，只有会员优惠*/
     oilMemberDiscount:null,
     /**单位*/
-    oilUnit:null,
+    //oilUnit:null,
     gsId:null, // 加油站ID 新增的没有,编辑有,通过外部差值进来
 }
 
@@ -58,7 +58,7 @@ const store = {
         openAddAgreeDialog({ commit }) {
             commit("overrideStateProps", { oilgasinfodialogEdit: false });
             commit("overrideStateProps", {
-                agreeFormParams: {
+                oilgasinfoFormParams: {
                     ...defaultOilGasInfoFormParams
                 },
             });
@@ -66,7 +66,7 @@ const store = {
         },
         clearAll({ commit }){
             commit("overrideStateProps", {
-                agreeFormParams: {
+                oilgasinfoFormParams: {
                     ...defaultOilGasInfoFormParams
                 },
             });
@@ -76,11 +76,19 @@ const store = {
             // const {fileIdList,picUrlList,...params} = payload
             commit("overrideStateProps", { agreedialogEdit: true });
             commit("overrideStateProps", {
-                agreeFormParams: payload
+                oilgasinfoFormParams: payload
             });
             commit("overrideStateProps", { agreedialogVisible: true });
         },
-
+        // 计算会员价
+        computedOilMemberPrice({ commit }, payload){
+            commit("updateStateProps", {
+                name: "oilgasinfoFormParams",
+                value: {
+                    oilMemberPrice: payload
+                }
+            });
+        }
 
     }
 
