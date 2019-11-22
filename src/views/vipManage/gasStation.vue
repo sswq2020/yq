@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page">
-    <!-- <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb> -->
+    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
         <label>公司名称</label>
