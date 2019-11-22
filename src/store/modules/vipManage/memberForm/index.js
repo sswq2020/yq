@@ -7,7 +7,6 @@ const store = {
         setMemberId(state,payload){
             state.memberId = payload
         }
-
     },
     actions: {
 
