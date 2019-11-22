@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import app from "./modules/app";
-import {memberForm,agreement} from "./modules/vipManage";
+import {memberForm,agreement,gasStationForm,oilGasInfo} from "./modules/vipManage";
 
 Vue.use(Vuex);
 
@@ -21,7 +21,9 @@ const store = new Vuex.Store({
   modules: {
     app,
     memberForm,
-    agreement
+    agreement,
+    gasStationForm,
+    oilGasInfo
   }
 });
 
