@@ -4,9 +4,10 @@ import _ from "lodash";
 import { _toArray_ } from './util'
 
 const _DICT_SERVE_ = [
-    "HywEmissionStandard",
-    "HywSellState",
-    "HywManufacturer"
+    // "HywEmissionStandard",
+    // "HywSellState",
+    // "HywManufacturer",
+    "HywContractCompany"
 ]
 
 
@@ -76,9 +77,10 @@ export const bankMixin = {
 export const dictMixin = {
     data() {
         return {
-            HywEmissionStandardList: [],
-            HywSellStateList: [],
-            HywManufacturerList:[]
+            // HywEmissionStandardList: [],
+            // HywSellStateList: [],
+            // HywManufacturerList:[],
+            HywContractCompanyList:[],
         }
     },
     methods: {
@@ -93,8 +95,8 @@ export const dictMixin = {
                    res.data.forEach((obj)=>{
                        that[obj.entryCode+'List'] =  obj.items.map((item)=>{
                            return {
-                            id:item.id,
-                            name:item.text
+                            value: item.id,
+                            label: item.text
                            }
                        })
                    })
@@ -106,7 +108,6 @@ export const dictMixin = {
     },
     created() {
         this._getValidList()
-
     }    
 }
 

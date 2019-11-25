@@ -1,6 +1,8 @@
 <template>
   <div class="container single-page">
-    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
+    <HletongBreadcrumb :data="breadTitle">
+      <el-button type="primary"  size="small" icon="el-icon-plus" @click="add" plain class="text-btn">新增</el-button>
+    </HletongBreadcrumb>
     <div class="search-box">
       <div class="form-item">
         <label>公司名称</label>
@@ -191,7 +193,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("memberForm", ["setIsEdit", "setMemberId"]),
+    ...mapMutations("gasStationForm", ["setFormEdit", "setGsId"]),
     updateVisible(bol) {
       this.visible = bol;
     },
@@ -237,16 +239,16 @@ export default {
       }
     },
     add() {
-      this.setIsEdit(false);
-      this.setMemberId(null);
+      this.setFormEdit(false);
+      this.setGsId(null);
       this.$router.push({
-        path: "/web/yc/member/member/addmemberForm"
+        path: "/web/base/gas/addGasStation"
       });
     },
     edit(item) {
       const { userId } = item;
-      this.setIsEdit(true);
-      this.setMemberId(userId);
+      this.setFormEdit(true);
+      this.setGsId(userId);
       this.visible = true;
     },
     init() {

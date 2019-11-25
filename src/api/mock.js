@@ -1054,62 +1054,22 @@ const mockRouterMap = {
                     ...body,
                     "data": [
                         {
-                            "entryCode": "HywManufacturer",
-                            "entryName": "生产商",
+                            "entryCode": "HywContractCompany",
+                            "entryName": "签约公司",
                             "items": [
                                 {
                                     "disabled": false,
                                     "id": "0",
                                     "orderBy": 0,
                                     "selected": 0,
-                                    "text": "生产商1"
+                                    "text": "签约公司1"
                                 },
                                 {
                                     "disabled": false,
                                     "id": "1",
                                     "orderBy": 1,
                                     "selected": 0,
-                                    "text": "生产商2"
-                                }
-                            ]
-                        },
-                        {
-                            "entryCode": "HywEmissionStandard",
-                            "entryName": "排放标准",
-                            "items": [
-                                {
-                                    "disabled": false,
-                                    "id": "0",
-                                    "orderBy": 0,
-                                    "selected": 0,
-                                    "text": "排放标准1"
-                                },
-                                {
-                                    "disabled": false,
-                                    "id": "1",
-                                    "orderBy": 1,
-                                    "selected": 0,
-                                    "text": "排放标准2"
-                                }
-                            ]
-                        },
-                        {
-                            "entryCode": "HywSellState",
-                            "entryName": "销售状态",
-                            "items": [
-                                {
-                                    "disabled": false,
-                                    "id": "0",
-                                    "orderBy": 0,
-                                    "selected": 0,
-                                    "text": "待售中"
-                                },
-                                {
-                                    "disabled": false,
-                                    "id": "1",
-                                    "orderBy": 1,
-                                    "selected": 0,
-                                    "text": "出售中"
+                                    "text": "签约公司2"
                                 }
                             ]
                         }

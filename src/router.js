@@ -30,6 +30,8 @@ const OilGasSort = () => import('views/basicManage/oilGasSort.vue')
 const VipManage = () => import('views/vipManage/index.vue')
 /**油气站管理列表*/
 const GasStationManage = () => import('views/vipManage/gasStation.vue')
+/**新增加油站表单模块*/
+const AddGasStationForm = () => import('views/vipManage/addGasStationForm.vue')
 // #endregion
 
 
@@ -126,7 +128,11 @@ let commonRoutes = {
             name: 'gasStationManage',
             component: GasStationManage
         },
-
+        {
+            path: '/web/base/gas/addGasStation',
+            name: 'addGasStationForm',
+            component: AddGasStationForm
+        },   
 
         // #endregion     
 
