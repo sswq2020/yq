@@ -55,7 +55,7 @@ const store = {
     },
     actions:{
         // 打开新增弹窗
-        openAddAgreeDialog({ commit }) {
+        openAddOilGasInfoDialog({ commit }) {
             commit("overrideStateProps", { oilgasinfodialogEdit: false });
             commit("overrideStateProps", {
                 oilgasinfoFormParams: {
@@ -72,13 +72,13 @@ const store = {
             });
         },
         // 打开编辑弹窗
-        openEditAgreeDialog({ commit }, payload) {
+        openEditOilGasInfoDialog({ commit }, payload) {
             // const {fileIdList,picUrlList,...params} = payload
-            commit("overrideStateProps", { agreedialogEdit: true });
+            commit("overrideStateProps", { oilgasinfodialogEdit: true });
             commit("overrideStateProps", {
                 oilgasinfoFormParams: payload
             });
-            commit("overrideStateProps", { agreedialogVisible: true });
+            commit("overrideStateProps", { oilgasinfodialogEdit: true });
         },
         // 计算会员价
         computedOilMemberPrice({ commit }, payload){

@@ -27,7 +27,7 @@
         <el-input v-model="oilgasinfoFormParams.oilRetailPrice" size="small"></el-input>
       </el-form-item>
 
-      <el-form-item label="会员折扣(%)" prop="oilMemberAgio" :rules="validateAgioPrice" v-if="oilgasinfoFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT">
+      <el-form-item label="会员折扣(%)" prop="oilMemberAgio" :rules="validateAgioPrice()" v-if="oilgasinfoFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT">
          <el-input v-model="oilgasinfoFormParams.oilMemberAgio" size="small"></el-input>
       </el-form-item>
 
@@ -56,7 +56,7 @@ import NP from "number-precision";
 
 const AdjustPriceTypeList = DICT_SELECT_ARR(Dict.ADJUST_PRICE_TYPE);
 export default {
-  name: "agreedialog",
+  name: "oilGasInfodialog",
   props: {
     loading:{
       type:Boolean,
@@ -80,6 +80,7 @@ export default {
     return {
       /**调价方式数据源*/
       AdjustPriceTypeList,
+      Dict
     };
   },
   computed: {
