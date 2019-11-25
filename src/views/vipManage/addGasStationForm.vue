@@ -285,18 +285,15 @@ const defaulttableHeader_two = [
   },  
   {
     prop: "oilMemberAgioText",
-    label: "会员折扣(%)",
-    align: "right"
+    label: "会员折扣(%)"
   },
   {
     prop: "oilMemberDiscountText",
-    label: "会员优惠(元)",
-    align: "right"
+    label: "会员优惠(元)"
   },
   {
     prop: "oilMemberPriceText",
-    label: "会员价",
-    align: "right"
+    label: "会员价"
   },  
 ];
 
@@ -345,6 +342,17 @@ const Adapter = obj => {
   });
 };
 
+const AdapterOil = obj => {
+  return Object.assign({}, obj, {
+    oilRetailPriceText: `${obj.oilRetailPrice}元/${obj.oilUnit}`,
+    oilMemberAgioText: `${obj.oilMemberAgio ? obj.oilMemberAgio : "/"}`,
+    oilMemberDiscountText: `${obj.oilMemberDiscount ? obj.oilMemberDiscount : "/"}`,
+    oilMemberPriceText: `${obj.oilMemberPrice}${obj.oilUnit}/元`,
+    oilChangeTypeText: `${Dict.ADJUST_PRICE_TYPE[obj.oilChangeType]}`
+
+  });
+};
+
 export default {
   name: "addGasStationForm",
   data() {
@@ -369,6 +377,13 @@ export default {
     ImageUpload,
     AreaCascader
   },
+  computed: {
+    ...mapState("gasStationForm", ["gsFormEdit", "gsId"]),
+    breadTitle() {
+      const EditText = this.gsFormEdit ? "编辑" : "新增";
+      return ["会员管理", "油气站管理", `${EditText}油气站`];
+    }
+  },  
   methods: {
     ...mapMutations("agreement", [
       "setAgreeDialogVisible"
@@ -412,6 +427,7 @@ export default {
     },
     /**打开编辑油品信息弹窗*/
     editOilGasInfoDeal(item, index){
+      debugger
       this.editIndex = index;
       this.openEditOilGasInfoDialog(item);
     },
@@ -439,12 +455,12 @@ export default {
     _updateOilGasInfo_(oilData) {
       let that = this;
       if (this.editIndex > -1) {
-        this.form.gasOilModelList.splice(this.editIndex, 1, oilData); // 不要直接使用array[index] = item,Vue无法观察数组的变化,必须用变异的函数,这也是弹窗里图片变化.使用了splice和push这种变异的方法
+        this.form.gasOilModelList.splice(this.editIndex, 1, AdapterOil(oilData)); // 不要直接使用array[index] = item,Vue无法观察数组的变化,必须用变异的函数,这也是弹窗里图片变化.使用了splice和push这种变异的方法
       } else {
-        this.form.gasOilModelList.push(oilData);
+        this.form.gasOilModelList.push(AdapterOil(oilData));
       }
       setTimeout(() => {
-        that.setAgreeDialogVisible(false);
+        that.setOilGasInfoDialogVisible(false);
       }, 50);
     },    
     _filter() {
@@ -500,7 +516,6 @@ export default {
           break;
       }
     },
-
     submitForm() {
       let that = this;
       this.$refs.form.validate(valid => {
@@ -542,18 +557,11 @@ export default {
       }, 500);
     },
     // 修改table header的背景色
-    tableHeaderColor({ rowIndex }) {
-      if (rowIndex === 0) {
-        return "background-color: #F6F8FA;color: #262626;font-weight: 500;";
-      }
-    }
-  },
-  computed: {
-    ...mapState("gasStationForm", ["gsFormEdit", "gsId"]),
-    breadTitle() {
-      const EditText = this.gsFormEdit ? "编辑" : "新增";
-      return ["会员管理", "油气站管理", `${EditText}油气站`];
-    }
+    // tableHeaderColor({ rowIndex }) {
+    //   if (rowIndex === 0) {
+    //     return "background-color: #F6F8FA;color: #262626;font-weight: 500;";
+    //   }
+    // }
   },
   created(){
     this._getFeatureList().then(()=>{

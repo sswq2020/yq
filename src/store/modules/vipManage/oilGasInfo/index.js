@@ -78,7 +78,7 @@ const store = {
             commit("overrideStateProps", {
                 oilgasinfoFormParams: payload
             });
-            commit("overrideStateProps", { oilgasinfodialogEdit: true });
+            commit("overrideStateProps", { oilgasinfodialogVisible: true });
         },
         // 计算会员价
         computedOilMemberPrice({ commit }, payload){
