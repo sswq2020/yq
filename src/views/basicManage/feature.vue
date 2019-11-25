@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
 // import heltable from "components/hl_table";
 import featureDialog from "./featureDialog";
@@ -152,7 +151,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("memberForm", ["setIsEdit", "setMemberId"]),
     updateVisible(bol) {
       this.visible = bol;
     },

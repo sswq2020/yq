@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import Dict from "util/dict.js";
 // import heltable from "components/hl_table";
 import moment from "moment";
@@ -211,11 +211,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("memberForm", [
-      "setIsEdit",
-      "setMemberType",
-      "setMemberId"
-    ]),
     clearListParams() {
       this.form = { ...defaultFormData };
       this.listParams = { ...defaultListParams };

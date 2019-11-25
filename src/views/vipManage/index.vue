@@ -158,10 +158,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("memberForm", [
-      "setIsEdit",
-      "setMemberId"
-    ]),
     updateVisible(bol){
       this.visible = bol;
     },
@@ -204,19 +200,6 @@ export default {
          name:"gasStationManage",
          params:item
       })
-    },
-    add() {
-      this.setIsEdit(false);
-      this.setMemberId(null);
-      this.$router.push({
-        path: "/web/yc/member/member/addmemberForm"
-      });
-    },
-    edit(item) {
-      const { userId } = item;
-      this.setIsEdit(true);
-      this.setMemberId(userId);
-      this.visible = true;
     },
     init() {
       setTimeout(() => {
