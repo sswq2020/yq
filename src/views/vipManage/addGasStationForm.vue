@@ -46,10 +46,10 @@
                 <el-form-item
                   label="油气站照片(门头)"
                   prop="fileIdsLen"
-                  :rules="[{ required: true, message: '请正确上传图片,最多3张' }]"
+                  :rules="validPic()"
                 >
                   <div style="display:inline-block;" v-show="form.fileIds.length">
-                    <ImageBox :key="index" v-for="(item,index) in form.fileIds" :url="url" :onDelete="uploadDelete(index)"></ImageBox>
+                    <ImageBox :key="index" v-for="(item,index) in form.fileIds" :url="form.filepicUrlList[index]" :onDelete="uploadDelete(index)"></ImageBox>
                   </div>
                   <div style="display:inline-block;" v-show="form.fileIds.length < 3">
                     <ImageUpload  :onSuccess="(file)=>{this.uploadSuceess(file)}"></ImageUpload>
@@ -123,8 +123,8 @@
                     <el-option
                       v-for="item in featureServiceList"
                       :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      :label="item.fsName"
+                      :value="item.fsId"
                     ></el-option>
                   </el-select>
                   </el-form-item>
@@ -225,7 +225,6 @@
               <i class="el-icon-plus"></i>新增油气品信息
             </div>
           </div>
-
         </el-form>
       </div>
     </div>
@@ -253,6 +252,7 @@ import _ from "lodash";
 import moment from "moment";
 import { mapState, mapMutations, mapActions } from "vuex";
 import Dict from "util/dict.js";
+import {deleteProps} from 'util/util'
 import AreaCascader from "components/areaCascader";
 import ImageBox from "components/ImageBox";
 import ImageUpload from "components/ImageUpload";
@@ -327,6 +327,7 @@ const defualtFormParams = {
 	gsBusinessTime: "", // 营业开始时间
 	isMemberOnline: "", // 是否开通e商茂通(1开通，0未开通)
   fileIds: [], //加油站图片fileId集合
+  filepicUrlList:[], //加油站图片url集合
   fileIdsLen:0,
 
 // endregion
@@ -427,7 +428,6 @@ export default {
     },
     /**打开编辑油品信息弹窗*/
     editOilGasInfoDeal(item, index){
-      debugger
       this.editIndex = index;
       this.openEditOilGasInfoDialog(item);
     },
@@ -464,10 +464,15 @@ export default {
       }, 50);
     },    
     _filter() {
+      const group = _.groupBy(this.featureServiceList,'fsId')
       let params = _.cloneDeep(this.form);
       params.agreementList = params.agreementList.map(item => {
         return { ...item, userId: this.form.userId };
       });
+      params.gsFeatureServiceList = params.gsFeatureService.map(item => {
+        return group[item][0];
+      })
+      deleteProps(params,...['gsFeatureService','gsAddress','filepicUrlList','fileIdsLen'])
       return params;
     },
     /**
@@ -487,8 +492,8 @@ export default {
         case Dict.SUCCESS:
           this.featureServiceList = res.data.map(item=>{
             return {
-              label:item.fsName,
-              value:item.id,
+              fsName:item.fsName,
+              fsId:item.id,
               fsIcon:item.fsIcon
             }
           })
@@ -524,20 +529,20 @@ export default {
             that.$messageError("必须上传一个协议列表");
             return;
           }
-          if (that.form.agreementList.length === 0) {
+          if (that.form.gasOilModelList.length === 0) {
             that.$messageError("必须上传一个协议列表");
             return;
           }          
           const params = this._filter();
-          this._addVIP_(params);
+          this._addGAS_(params);
         } else {
           return false;
         }
       });
     },
-    async _addVIP_(params) {
+    async _addGAS_(params) {
       this.loading = true;
-      const res = await this.$api.AddVIP(params);
+      const res = await this.$api.AddGas(params);
       this.loading = false;
       switch (res.code) {
         case Dict.SUCCESS:
@@ -548,6 +553,32 @@ export default {
           this.$messageError(res.mesg);
           break;
       }
+    },
+    validPic() {
+      return [
+        {
+          required: true,
+          message: "必上传"
+        },
+        {
+          validator(rule, value, callback) {
+            if (value > 0 && value <4) {
+              callback(new Error("至少上传一张,最多三张"));
+            }
+            callback();
+          }
+        }
+      ];
+    },
+    uploadSuceess(res){
+      this.form.fileIds.push(res.data.id)
+      this.form.filepicUrlList.push(res.data.url);
+      this.form.fileIdsLen = this.fileIds.length;      
+    },
+    uploadDelete(index){
+      this.form.fileIds.splice(index,1)
+      this.form.filepicUrlList.splice(index,1); 
+      this.form.fileIdsLen = this.fileIds.length;       
     },
     openImage(item) {
       this.images = item.picUrlList;

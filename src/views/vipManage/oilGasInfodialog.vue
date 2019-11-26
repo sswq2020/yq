@@ -105,7 +105,7 @@ export default {
         },
         {
           pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,
-          message: "最多保留2位小数"
+          message: "只能输入数字,最多保留2位小数"
         },
         {
           validator(rule, value, callback) {
@@ -133,7 +133,7 @@ export default {
         },
         {
           pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,
-          message: "最多保留2位小数"
+          message: "只能输入数字,最多保留2位小数"
         },
       ];
     },
@@ -147,7 +147,7 @@ export default {
         },
         {
           pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,
-          message: "最多保留2位小数"
+          message: "只能输入数字,最多保留2位小数"
         },
         {
           validator(rule, value, callback) {
@@ -226,14 +226,16 @@ export default {
         if (newV && number2(newV)) {
           //按折扣  
           if (this.oilgasinfoFormParams.oilChangeType === this.Dict.ADJUST_BY_DISCOUNT) {
-            if(!this.oilgasinfoFormParams.oilMemberAgio) return;
+            if(!this.oilgasinfoFormParams.oilMemberAgio){
+              return
+            } 
             let num1 = NP.times(Number(newV),this.oilgasinfoFormParams.oilMemberAgio,100);
             let num2 = NP.divide(num1, 100, 100);
             let num3 = NP.round(num2, 2);
             this.computedOilMemberPrice(num3);
           } else {
             //按优惠    
-            if(!this.oilgasinfoFormParams.oilMemberDiscount){
+            if(!this.oilgasinfoFormParams.oilMemberDiscount){              
               return
             }
             if (Number(newV) <= this.oilgasinfoFormParams.oilMemberDiscount) {
@@ -253,7 +255,7 @@ export default {
         if (newV && number2(newV)) { 
             /**零售价*/ 
             const oilRetailPrice = this.oilgasinfoFormParams.oilRetailPrice
-            if(!oilRetailPrice){
+            if(!oilRetailPrice){                
                 return
             }
             if (Number(newV) >= Number(oilRetailPrice)) {
