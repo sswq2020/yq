@@ -83,11 +83,11 @@
         </template>
       </el-table-column>
     </heltable>
-    <!-- <UserDialog :visible.sync="visible"  @updateVisible="updateVisible">
+    <UserDialog :visible.sync="visible"  @updateVisible="updateVisible">
       <el-tab-pane label="入会协议" v-if="visible">
         <editMemberForm @agreemtClose="updateVisible(false)"/>
       </el-tab-pane>
-    </UserDialog>-->
+    </UserDialog>
   </div>
 </template>
 
@@ -97,8 +97,8 @@ import Dict from "util/dict.js";
 import { DICT_SELECT_ARR } from "common/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 import heltable from "components/hl_table";
-// import UserDialog from 'components/userDialog';
-// import editMemberForm from './editMemberForm.vue'
+import UserDialog from 'components/userDialog';
+import editMemberForm from './editMemberForm.vue'
 
 const defaultFormData = {
   name: null,
@@ -174,9 +174,9 @@ const rowAdapter = list => {
 export default {
   name: "vipManage",
   components: {
-    heltable
-    // UserDialog,
-    // editMemberForm
+    heltable,
+    UserDialog,
+    editMemberForm
   },
   data() {
     return {
@@ -194,7 +194,11 @@ export default {
   },
   methods: {
     ...mapMutations("gasStationForm", ["setFormEdit", "setGsId"]),
+    ...mapMutations("memberForm", ["setMemberId"]),
     updateVisible(bol) {
+      if(!bol) {
+        this.getListData();
+      }
       this.visible = bol;
     },
     clearListParams() {
@@ -246,9 +250,10 @@ export default {
       });
     },
     edit(item) {
-      const { userId } = item;
+      const { id,userId } = item;
       this.setFormEdit(true);
-      this.setGsId(userId);
+      this.setGsId(id); // 加油站id
+      this.setMemberId(userId); // // 公司id
       this.visible = true;
     },
     init() {
