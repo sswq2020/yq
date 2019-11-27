@@ -50,12 +50,11 @@ import _ from "lodash";
 import { mapState, mapActions } from "vuex";
 import {findLabelByValue,findIndexByValue} from "common/util";
 import Dict from "util/dict.js";
-import { DICT_SELECT_ARR } from "common/util.js";
+import { DICT_SELECT_ARR,deepMerge,ByDiscount,ByCheap } from "common/util.js";
 import { number2 } from "util/validate.js";
-import {deepMerge} from "util/util.js";
-import NP from "number-precision";
 
 const AdjustPriceTypeList = DICT_SELECT_ARR(Dict.ADJUST_PRICE_TYPE);
+
 export default {
   name: "oilGasInfodialog",
   props: {
@@ -199,7 +198,10 @@ export default {
           return false;
         }
       });
-    }
+    },
+    /* @description 按折扣的算法
+    *  @returns {number}
+    * */
   },
   watch: {
     "oilgasinfodialogVisible":{
@@ -215,71 +217,43 @@ export default {
     },
     "oilgasinfoFormParams.oilRetailPrice": {
       handler(newV) {
-        //零售价存在才可计算
-        if (newV && number2(newV)) {
-          //按折扣  
-          if (this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_DISCOUNT) {
-            if(!this.oilgasinfoFormParams.oilMemberAgio){
-              return
-            } 
-            let num1 = NP.times(Number(newV),this.oilgasinfoFormParams.oilMemberAgio,100);
-            let num2 = NP.divide(num1, 100, 100);
-            let num3 = NP.round(num2, 2);
-            this.computedOilMemberPrice(num3);
-          } else {
-            //按优惠    
-            if(!this.oilgasinfoFormParams.oilMemberDiscount){              
-              return
-            }
-            if (Number(newV) <= this.oilgasinfoFormParams.oilMemberDiscount) {
-              return;
-            } else {
-              let num1 = NP.minus(Number(newV),this.oilgasinfoFormParams.oilMemberDiscount);
-              let num2= NP.round(num1, 2);
-              this.computedOilMemberPrice(num2);
-            }
-          }
+        const {oilChangeType,oilMemberAgio,oilMemberDiscount} = this.oilgasinfoFormParams
+        let num = null
+        if(!(newV && number2(newV))) return
+        switch (oilChangeType){
+          case Dict.ADJUST_BY_DISCOUNT:
+            if(!oilMemberAgio) return
+            num = ByDiscount(Number(newV),oilMemberAgio)
+            this.computedOilMemberPrice(num);
+            break;
+          case Dict.ADJUST_BY_CHEAP:
+            if(!oilMemberDiscount || Number(newV) <= oilMemberDiscount) return
+            num = ByCheap(Number(newV),oilMemberDiscount)
+            this.computedOilMemberPrice(num);
+            break; 
+          default:
+            break;             
         }
       }
     },
     "oilgasinfoFormParams.oilMemberDiscount": {
       handler(newV) {
-        if(this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_DISCOUNT){
-          return
-        }
-        //按优惠存在才可计算
-        if (newV && number2(newV)) { 
-            /**零售价*/ 
-            const oilRetailPrice = this.oilgasinfoFormParams.oilRetailPrice
-            if(!oilRetailPrice){                
-                return
-            }
-            if (Number(newV) >= Number(oilRetailPrice)) {
-              return;
-            } else {
-              let num1 = NP.minus(oilRetailPrice,Number(newV));
-              let num2= NP.round(num1, 2);
-              this.computedOilMemberPrice(num2);
-            }
-        }        
+        const {oilChangeType,oilRetailPrice} = this.oilgasinfoFormParams
+        if(!(newV && number2(newV))) return
+        if(oilChangeType === Dict.ADJUST_BY_DISCOUNT || !oilRetailPrice) return
+        if(Number(newV) >= Number(oilRetailPrice)) return;
+        let num = ByCheap(Number(oilRetailPrice),Number(newV))
+        this.computedOilMemberPrice(num);                  
       }
     },
     "oilgasinfoFormParams.oilMemberAgio":{
       handler(newV) {
-        if(this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_CHEAP){
-          return
-        }
-        //折扣 存在才可计算
-        if (newV && number2(newV)) {
-            const oilRetailPrice = this.oilgasinfoFormParams.oilRetailPrice
-            if(!oilRetailPrice){
-                return
-            }
-            let num1 = NP.times(Number(newV),oilRetailPrice,100);
-            let num2 = NP.divide(num1, 100, 100);
-            let num3 = NP.round(num2, 2);
-            this.computedOilMemberPrice(num3);
-        }
+        const {oilChangeType,oilRetailPrice} = this.oilgasinfoFormParams
+        if(oilChangeType === Dict.ADJUST_BY_CHEAP) return
+        if(!(newV && number2(newV))) return
+        if(!oilRetailPrice) return
+        let num = ByDiscount(Number(newV),oilRetailPrice)
+        this.computedOilMemberPrice(num);
       }        
     }
   }

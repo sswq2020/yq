@@ -67,7 +67,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import Dict from "util/dict.js";
-import {deepMerge} from "util/util.js";
+import {deepMerge} from "common/util.js";
 import oilGasInfodialog from "./oilGasInfodialog";
 const defaultListParams = {
   pageSize: 20,
@@ -217,7 +217,6 @@ export default {
       switch (res.code) {
         case Dict.SUCCESS:
           this.listData = res.data;
-          debugger
           this.gasOilModelList = rowAdapter(res.data.list);
           break;
         default:

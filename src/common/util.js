@@ -1,5 +1,6 @@
 import { MessageBox  } from 'element-ui';
 import _ from 'lodash'
+import NP from "number-precision";
 
 export const _toArray_ = obj =>{
     let arr = []
@@ -162,4 +163,54 @@ export const findLabelByValue = (arr,id) => {
     } else {
       return null;
     }
+}
+
+/**
+ * @description 判断普通对象
+ */
+export function isPlainObject(val) {
+    return Object.prototype.toString.call(val) === '[object Object]'
+}
+
+/**
+ * @description 这里只实现普通对象的深度拷贝,Lodash考虑得到太复杂,所以自己实现更方便一些
+ */
+export function deepMerge(...objs) {
+    const result = Object.create(null)
+    objs.forEach(obj => {
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                const val = obj[key]
+                if (isPlainObject(val)) {
+                    if (isPlainObject(result[key])) {
+                        result[key] = deepMerge(result[key], val)
+                    } else {
+                        result[key] = deepMerge(val)
+                    }
+                } else {
+                    result[key] = val
+                }
+
+            })
+        }
+    })
+    return result
+}
+
+/**
+ * @description 乘法保留2位小数
+ */
+export const ByDiscount = (m, n) => {
+    let num1 = NP.times(m, n, 100);
+    let num2 = NP.divide(num1, 100, 100);
+    let num3 = NP.round(num2, 2);
+    return num3
+}
+/**
+* @description 减法保留2位小数
+*/
+export const ByCheap = (m, n) => {
+    let num1 = NP.minus(m, n);
+    let num2 = NP.round(num1, 2);
+    return num2
 }
