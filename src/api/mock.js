@@ -917,6 +917,67 @@ const mockRouterMap = {
         },
         // #endregion
 
+        // #region  新增协议
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/add',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  更新协议
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/update',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  删除协议
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/delete',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion        
+
+        // #region  入会协议分页
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/page',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|3-4': [agreementList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion
+
         // #region  协议到期预警列表
         {
             isMock: IS_MOCK,

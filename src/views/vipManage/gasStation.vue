@@ -78,8 +78,12 @@
         <template slot-scope="scope">
           <el-button
             type="text"
-            @click="edit(listData.list[scope.$index])"
+            @click="toggle(listData.list[scope.$index])"
           >{{listData.list[scope.$index].isBan === Dict.GAS_STATION_STATUS_NORMAL ? "禁用" : "正常"}}</el-button>
+          <el-button
+            type="text"
+            @click="edit(listData.list[scope.$index])"
+          >编辑</el-button>
         </template>
       </el-table-column>
     </heltable>
@@ -255,6 +259,37 @@ export default {
       this.setGsId(id); // 加油站id
       this.setMemberId(userId); // // 公司id
       this.visible = true;
+    },
+    toggle(item) {
+      let that = this;
+      const { isBan, id, gsName } = item;
+      const text =
+        isBan === Dict.GAS_STATION_STATUS_NORMAL ? "禁用油气站" : "激活油气站";
+      const serverUrl =
+        isBan === Dict.GAS_STATION_STATUS_NORMAL ? "banGas" : "activeGas";
+      this.$confirm(`确定${text}${gsName}`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          const res = await that.$api[serverUrl]({ id });
+          switch (res.code) {
+            case Dict.SUCCESS:
+              this.$messageSuccess(`${text}成功`);
+              this.getListData();
+              break;
+            default:
+              this.$messageError(`${text}失败,${res.mesg}`);
+              break;
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     init() {
       setTimeout(() => {

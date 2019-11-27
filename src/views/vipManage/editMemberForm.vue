@@ -1,6 +1,5 @@
 <template>
   <div class="memberForm">
-    <el-form ref="form" :model="form" label-width="150px" size="small">
       <div class="form-block">
         <div class="head">入会协议</div>
         <div class="dialogtb">
@@ -58,7 +57,6 @@
           </div>
         </div>
       </div>
-    </el-form>
     <div class="footer">
       <el-button @click="GoMember" size="small">
         <span>取消</span>
