@@ -92,8 +92,8 @@ const adjustOilHistoryList = {
 }
 
 const ModelList = {
-    "id|+1": "@INTEGER(1,2019690999)",
-    "oilModelName": "@INTEGER(92,98)#V",
+    "id": "0",
+    "oilModelName": "@PICK('92')#V",
     "oilModelDesc": "@CTITLE(8)",
     "oilUnit": "@PICK('kg','L')",
     "isDefault":"@PICK('0','1')",
@@ -125,7 +125,7 @@ const OilPriceList = {
     oilMemberAgio: "@INTEGER(1,99)", //会员折扣
     oilMemberDiscount: "@INTEGER(1,99)", //会员优惠
     oilMemberPrice: 9, //会员价
-    oilModelId: "@INTEGER(1,2019690999)",
+    oilModelId: "0",
     oilModelName: "@PICK('0号','气1','气2')", // 油气品分类
     oilRetailPrice: "@INTEGER(200,300)", //  零售价
     oilUnit: "L", //单位
@@ -648,7 +648,7 @@ const mockRouterMap = {
                 return {
                     ...body,
                     data: {
-                        'list|4-5': [ModelList],
+                        'list': [ModelList],
                         "paginator": {
                             "currentPage": params.page,
                             "pageSize": params.pageSize,
@@ -669,7 +669,7 @@ const mockRouterMap = {
             result() {
                 return {
                     ...body,
-                    'data|4-5':[ModelList]
+                    'data':[ModelList]
                     ,
                 };
             }
@@ -964,7 +964,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/agreement/update',
+            router: '/web/base/gas/oilPrice/edit',
             result() {
                 return {
                     ...body
@@ -977,7 +977,7 @@ const mockRouterMap = {
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/agreement/delete',
+            router: '/web/base/gas/oilPrice/delete',
             result() {
                 return {
                     ...body

@@ -52,6 +52,7 @@ import {findLabelByValue,findIndexByValue} from "common/util";
 import Dict from "util/dict.js";
 import { DICT_SELECT_ARR } from "common/util.js";
 import { number2 } from "util/validate.js";
+import {deepMerge} from "util/util.js";
 import NP from "number-precision";
 
 const AdjustPriceTypeList = DICT_SELECT_ARR(Dict.ADJUST_PRICE_TYPE);
@@ -86,11 +87,11 @@ export default {
   computed: {
     ...mapState("oilGasInfo", [
       "oilgasinfoFormParams",
-      "agreedialogEdit",
+      "oilgasinfodialogEdit",
       "oilgasinfodialogVisible"
     ]),
     title() {
-      return this.agreedialogEdit ? "编辑油气品分类" : "新增油气品分类";
+      return this.oilgasinfodialogEdit ? "编辑油气品分类" : "新增油气品分类";
     }
   },
   methods: {
@@ -201,10 +202,11 @@ export default {
     },
     confirm() {
       let that = this;
+      console.log(this.oilgasinfoFormParams);
       this.$refs.oilgasinfoForm.validate(valid => {
         if (valid) {
           const params = that._filter()
-          that.confirmCb(_.cloneDeep(params));
+          that.confirmCb(deepMerge(params));
         } else {
           return false;
         }

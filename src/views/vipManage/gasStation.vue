@@ -91,6 +91,9 @@
       <el-tab-pane label="入会协议" v-if="visible">
         <editGasStationForAgree @agreemtClose="updateVisible(false)"/>
       </el-tab-pane>
+      <el-tab-pane label="油气品信息" v-if="visible">
+        <editGasStationForOilGasInfo @oilGasInfoClose="updateVisible(false)"/>
+      </el-tab-pane>      
     </UserDialog>
   </div>
 </template>
@@ -102,7 +105,8 @@ import { DICT_SELECT_ARR } from "common/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
-import editGasStationForAgree from './editGasStationForAgree.vue'
+import editGasStationForAgree from './editGasStationForAgree.vue';
+import editGasStationForOilGasInfo from './editGasStationForOilGasInfo.vue';
 
 const defaultFormData = {
   name: null,
@@ -180,7 +184,8 @@ export default {
   components: {
     heltable,
     UserDialog,
-    editGasStationForAgree
+    editGasStationForAgree,
+    editGasStationForOilGasInfo
   },
   data() {
     return {
