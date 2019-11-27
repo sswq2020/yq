@@ -89,7 +89,7 @@
     </heltable>
     <UserDialog :visible.sync="visible"  @updateVisible="updateVisible">
       <el-tab-pane label="入会协议" v-if="visible">
-        <editMemberForm @agreemtClose="updateVisible(false)"/>
+        <editGasStationForAgree @agreemtClose="updateVisible(false)"/>
       </el-tab-pane>
     </UserDialog>
   </div>
@@ -102,7 +102,7 @@ import { DICT_SELECT_ARR } from "common/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
-import editMemberForm from './editMemberForm.vue'
+import editGasStationForAgree from './editGasStationForAgree.vue'
 
 const defaultFormData = {
   name: null,
@@ -180,7 +180,7 @@ export default {
   components: {
     heltable,
     UserDialog,
-    editMemberForm
+    editGasStationForAgree
   },
   data() {
     return {
