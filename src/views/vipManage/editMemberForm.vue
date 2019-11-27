@@ -79,9 +79,7 @@
 import moment from "moment";
 import { mapState, mapMutations, mapActions } from "vuex";
 import Dict from "util/dict.js";
-import { DICT_SELECT_ARR } from "common/util.js";
 import agreedialog from "./agreedialog";
-const RetradestatusList = DICT_SELECT_ARR(Dict.RETRADE_STATUS);
 const defaultListParams = {
   pageSize: 20,
   page: 1
@@ -103,10 +101,6 @@ const defaulttableHeader = [
     label: "签约公司"
   }
 ];
-
-const defualtFormParams = {
-  isRetrade: Dict.RETRADE_DISABLE
-};
 
 const rowAdapter = list => {
   if (!list) {
@@ -135,10 +129,8 @@ export default {
       isLoading: false,
       listParams: { ...defaultListParams }, // 页数
       listData: { ...defaultListData }, // 返回list的数据结构
-      form: { ...defualtFormParams },
       agreementList: [],
       tableHeader: defaulttableHeader,
-      retradestatusList: RetradestatusList,
       images: []
     };
   },

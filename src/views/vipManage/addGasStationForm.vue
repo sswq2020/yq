@@ -530,7 +530,7 @@ export default {
             return;
           }
           if (that.form.gasOilModelList.length === 0) {
-            that.$messageError("必须上传一个协议列表");
+            that.$messageError("必须上传一个油气品列表");
             return;
           }          
           const params = this._filter();
