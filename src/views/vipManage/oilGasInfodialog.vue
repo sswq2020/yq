@@ -26,16 +26,16 @@
       <el-form-item label="挂牌零售价" prop="oilRetailPrice" :rules="validateRetailPrice(oilgasinfoFormParams.oilChangeType,oilgasinfoFormParams.oilMemberDiscount)">
         <el-input v-model="oilgasinfoFormParams.oilRetailPrice" size="small"></el-input>
       </el-form-item>
-
-      <el-form-item label="会员折扣(%)" prop="oilMemberAgio" :rules="validateAgioPrice()" v-if="oilgasinfoFormParams.oilChangeType===Dict.ADJUST_BY_DISCOUNT">
+      
+      <el-form-item label="会员折扣(%)" prop="oilMemberAgio" :rules="[{pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,message: '只能输入数字,最多保留2位小数'}]" v-if="showDiscount">
          <el-input v-model="oilgasinfoFormParams.oilMemberAgio" size="small"></el-input>
       </el-form-item>
 
-      <el-form-item label="会员优惠(元)" prop="oilMemberDiscount" :rules="validateDiscountPrice(oilgasinfoFormParams.oilRetailPrice)" v-if="oilgasinfoFormParams.oilChangeType===Dict.ADJUST_BY_CHEAP">
+      <el-form-item label="会员优惠(元)" prop="oilMemberDiscount" :rules="validateDiscountPrice(oilgasinfoFormParams.oilRetailPrice)" v-if="!showDiscount">
          <el-input v-model="oilgasinfoFormParams.oilMemberDiscount" size="small"></el-input>
       </el-form-item>
 
-      <el-form-item label="会员价" prop="oilMemberPrice">{{oilgasinfoFormParams.oilMemberPrice}}</el-form-item>
+      <el-form-item label="会员价">{{oilgasinfoFormParams.oilMemberPrice}}</el-form-item>
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -92,6 +92,9 @@ export default {
     ]),
     title() {
       return this.oilgasinfodialogEdit ? "编辑油气品分类" : "新增油气品分类";
+    },
+    showDiscount(){
+      return this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_DISCOUNT;
     }
   },
   methods: {
@@ -124,20 +127,6 @@ export default {
         }
       ];
     },
-    /**折扣的校验*/
-    validateAgioPrice() {
-      return [
-        {
-          required: true,
-          message: "必填",
-          trigger: "blur"
-        },
-        {
-          pattern: /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{0,2})?$/,
-          message: "只能输入数字,最多保留2位小数"
-        },
-      ];
-    },
     /**优惠价的校验*/   
     validateDiscountPrice(retailPrice) {
       return [
@@ -153,12 +142,12 @@ export default {
         {
           validator(rule, value, callback) {
                 if(!retailPrice){
-                    callback();
-                    return
+                  callback();
                 }
                 if(Number(retailPrice) <= Number(value)) {
                  callback(new Error(`会员优惠必须小于挂牌价`));
                }
+               callback()
           }
         }
       ];
@@ -202,8 +191,7 @@ export default {
     },
     confirm() {
       let that = this;
-      console.log(this.oilgasinfoFormParams);
-      this.$refs.oilgasinfoForm.validate(valid => {
+      this.$refs.oilgasinfoForm.validate((valid) => {
         if (valid) {
           const params = that._filter()
           that.confirmCb(deepMerge(params));
@@ -214,20 +202,23 @@ export default {
     }
   },
   watch: {
-    oilgasinfodialogVisible(newV) {
+    "oilgasinfodialogVisible":{
+     handler(newV){
+       let that = this;
       if (newV === false) {
         this.clearAll();
         setTimeout(() => {
-          this.$refs.oilgasinfoForm.clearValidate();
+          that.$refs.oilgasinfoForm.clearValidate();
         }, 50);
       }
+     }
     },
     "oilgasinfoFormParams.oilRetailPrice": {
       handler(newV) {
         //零售价存在才可计算
         if (newV && number2(newV)) {
           //按折扣  
-          if (this.oilgasinfoFormParams.oilChangeType === this.Dict.ADJUST_BY_DISCOUNT) {
+          if (this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_DISCOUNT) {
             if(!this.oilgasinfoFormParams.oilMemberAgio){
               return
             } 
@@ -253,6 +244,9 @@ export default {
     },
     "oilgasinfoFormParams.oilMemberDiscount": {
       handler(newV) {
+        if(this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_DISCOUNT){
+          return
+        }
         //按优惠存在才可计算
         if (newV && number2(newV)) { 
             /**零售价*/ 
@@ -272,6 +266,9 @@ export default {
     },
     "oilgasinfoFormParams.oilMemberAgio":{
       handler(newV) {
+        if(this.oilgasinfoFormParams.oilChangeType === Dict.ADJUST_BY_CHEAP){
+          return
+        }
         //折扣 存在才可计算
         if (newV && number2(newV)) {
             const oilRetailPrice = this.oilgasinfoFormParams.oilRetailPrice
