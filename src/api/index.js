@@ -580,6 +580,38 @@ export default {
         return fetch(hhgsURL + '/web/base/gas/update', params)
     }, 
     /**
+      * @author sswq
+      * @param params
+      * @description 新增油气品信息
+      * */
+    AddOilPrice(params) {
+        return fetch(hhgsURL + '/web/base/gas/oilPrice/add', params)
+    },
+    /**
+      * @author sswq
+      * @param params
+      * @description 更新油气品信息
+      * */
+    UpdateOilPrice(params) {
+        return fetch(hhgsURL + '/web/base/gas/oilPrice/edit', params)
+    }, 
+    /**
+      * @author sswq
+      * @param params
+      * @description 删除油气品信息
+      * */
+     DelOilPrice(params) {
+        return fetch(hhgsURL + '/web/base/gas/oilPrice/delete', params)
+    }, 
+    /**
+      * @author sswq
+      * @param params
+      * @description 查询油气品信息
+      * */
+     queryOilPrice(params) {
+        return fetch(hhgsURL + '/web/base/gas/oilPrice/get', params,'get')
+    }, 
+    /**
      * @author sswq
      * @param params
      * @description 入会协议分页

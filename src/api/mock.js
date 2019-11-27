@@ -118,6 +118,19 @@ const adjustApplyList = {
     oilUnit: "L", //单位
 }
 
+const OilPriceList = {
+    "id|+1": "@INTEGER(1,2019690999)",
+    gsId: "10699e52cd174cd0a8d7e1a4d699753d",
+    oilChangeType: "@PICK('0','1')", // 调价方式 0折扣比例 1折扣金额
+    oilMemberAgio: "@INTEGER(1,99)", //会员折扣
+    oilMemberDiscount: "@INTEGER(1,99)", //会员优惠
+    oilMemberPrice: 9, //会员价
+    oilModelId: "@INTEGER(1,2019690999)",
+    oilModelName: "@PICK('0号','气1','气2')", // 油气品分类
+    oilRetailPrice: "@INTEGER(200,300)", //  零售价
+    oilUnit: "L", //单位
+}
+
 const invoiceAddress = {
     invoiceDto: {
       // id:null,
@@ -799,50 +812,6 @@ const mockRouterMap = {
         },
         // #endregion 
 
-        // #region  卖家会员管理列表
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/hyw/member/member/pageSeller',
-            result(params) {
-                return {
-                    ...body,
-                    data: {
-                        'list|10-20': [pageSellerList],
-                        "paginator": {
-                            "currentPage": params.page,
-                            "pageSize": params.pageSize,
-                            "totalCount": 1000,
-                            "totalPage": 1000 / params.pageSize
-                        }
-                    },
-                };
-            }
-        },
-        // #endregion
-
-        // #region  买家会员管理列表
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/hyw/member/member/pageBuyer',
-            result(params) {
-                return {
-                    ...body,
-                    data: {
-                        'list|10-20': [pageSellerList],
-                        "paginator": {
-                            "currentPage": params.page,
-                            "pageSize": params.pageSize,
-                            "totalCount": 1000,
-                            "totalPage": 1000 / params.pageSize
-                        }
-                    },
-                };
-            }
-        },
-        // #endregion
-
         // #region  会员管理列表
         {
             isMock: IS_MOCK,
@@ -966,6 +935,67 @@ const mockRouterMap = {
                     ...body,
                     data: {
                         'list|3-4': [agreementList],
+                        "paginator": {
+                            "currentPage": params.page,
+                            "pageSize": params.pageSize,
+                            "totalCount": 1000,
+                            "totalPage": 1000 / params.pageSize
+                        }
+                    },
+                };
+            }
+        },
+        // #endregion
+
+        // #region  新增油气品信息
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/base/gas/oilPrice/add',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  更新油气品信息
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/update',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  删除油气品信息
+        {
+            isMock: IS_MOCK,
+            methods: 'post',
+            router: '/web/agreement/delete',
+            result() {
+                return {
+                    ...body
+                };
+            }
+        },
+        // #endregion        
+
+        // #region  油气品信息分页
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/gas/oilPrice/get',
+            result(params) {
+                return {
+                    ...body,
+                    data: {
+                        'list|3-4': [OilPriceList],
                         "paginator": {
                             "currentPage": params.page,
                             "pageSize": params.pageSize,
