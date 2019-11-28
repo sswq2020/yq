@@ -48,11 +48,11 @@
                   prop="fileIdsLen"
                   :rules="validPic()"
                 >
-                  <div style="display:inline-block;" v-show="form.fileIds.length">
-                    <ImageBox :key="index" v-for="(item,index) in form.fileIds" :url="form.filepicUrlList[index]" :onDelete="uploadDelete(index)"></ImageBox>
+                  <div style="display:inline-block;" v-show="fileIdsLen">
+                    <ImageBox :key="index" v-for="(item,index) in form.fileIds" :url="form.filepicUrlList[index]" :onDelete="()=>{uploadDelete(index)}"></ImageBox>
                   </div>
-                  <div style="display:inline-block;" v-show="form.fileIds.length < 3">
-                    <ImageUpload  :onSuccess="(file)=>{this.uploadSuceess(file)}"></ImageUpload>
+                  <div style="display:inline-block;" v-show="fileIdsLen< 3">
+                    <ImageUpload  :onSuccess="(file)=>{uploadSuceess(file)}"></ImageUpload>
                   </div>                    
                   <el-input type="hidden" :value="form.fileIdsLen" style="display:inline;height:0"></el-input>
                 </el-form-item>
@@ -367,7 +367,6 @@ export default {
       images: [],
       featureServiceList:[],
       ModelList:[],
-      items:[1,2,3]
     };
   },
   components: {
@@ -562,7 +561,7 @@ export default {
         },
         {
           validator(rule, value, callback) {
-            if (value > 0 && value <4) {
+            if (value === 0 && value > 3) {
               callback(new Error("至少上传一张,最多三张"));
             }
             callback();
@@ -573,12 +572,12 @@ export default {
     uploadSuceess(res){
       this.form.fileIds.push(res.data.id)
       this.form.filepicUrlList.push(res.data.url);
-      this.form.fileIdsLen = this.fileIds.length;      
+      this.form.fileIdsLen = this.form.fileIds.length;      
     },
     uploadDelete(index){
       this.form.fileIds.splice(index,1)
       this.form.filepicUrlList.splice(index,1); 
-      this.form.fileIdsLen = this.fileIds.length;       
+      this.form.fileIdsLen = this.form.fileIds.length;       
     },
     openImage(item) {
       this.images = item.picUrlList;

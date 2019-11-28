@@ -88,12 +88,15 @@
       </el-table-column>
     </heltable>
     <UserDialog :visible.sync="visible"  @updateVisible="updateVisible">
-      <el-tab-pane label="入会协议" v-if="visible">
-        <editGasStationForAgree @agreemtClose="updateVisible(false)"/>
-      </el-tab-pane>
+      <el-tab-pane label="油气站信息" v-if="visible">
+        <editGasStationForm @gasStationClose="updateVisible(false)"/>
+      </el-tab-pane>    
       <el-tab-pane label="油气品信息" v-if="visible">
         <editGasStationForOilGasInfo @oilGasInfoClose="updateVisible(false)"/>
-      </el-tab-pane>      
+      </el-tab-pane> 
+      <el-tab-pane label="入会协议" v-if="visible">
+        <editGasStationForAgree @agreemtClose="updateVisible(false)"/>
+      </el-tab-pane>                
     </UserDialog>
   </div>
 </template>
@@ -107,6 +110,7 @@ import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
 import editGasStationForAgree from './editGasStationForAgree.vue';
 import editGasStationForOilGasInfo from './editGasStationForOilGasInfo.vue';
+import editGasStationForm from './editGasStationForm.vue';
 
 const defaultFormData = {
   name: null,
@@ -185,7 +189,8 @@ export default {
     heltable,
     UserDialog,
     editGasStationForAgree,
-    editGasStationForOilGasInfo
+    editGasStationForOilGasInfo,
+    editGasStationForm
   },
   data() {
     return {

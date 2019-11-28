@@ -200,6 +200,45 @@ const gasStationList = {
     memberName: "18021219822",
 }
 
+const gsFeatureServiceList = [{
+    "fsId": "1",
+    "fsIcon":"6F515C38C1AE4ECEB31392300FCE2A2E", // 图片fileId
+    "fsName": "特色服务1",
+},{
+    "fsId": "2",
+    "fsIcon":"6F515C38C1AE4ECEB31392300FCE2A2E", // 图片fileId
+    "fsName": "特色服务2",            
+},
+{
+    "fsId": "3",
+    "fsIcon":"6F515C38C1AE4ECEB31392300FCE2A2E", // 图片fileId
+    "fsName": "特色服务3",            
+}
+]
+
+const gasStationDetail = {
+    "id": 0,
+    "userId": 0,
+    "gsName": "程清加油站",
+    "gsPhone": "18021219822",
+    "gsContact": "程清",
+    "gsEmail": "cq@hletong.com",
+    "gsQrCode": "0F770FEAD39D43C887A02164D2575303",
+    "gsLongitude": "32.172366",
+    "gsLatitude": "119.374228",
+    "contactPhone": "18021219822",
+    "gsProvinceName": "江苏省",
+    "gsCityName": "镇江市",
+    "gsRegionName": "润州区",
+    "gsDetailAddress": "金山物流园",
+    "gsBusinessTime": "全天",
+    "isMemberOnline": "",
+    "fileIds": ['12321','21312','12312321'],
+    "fileUrls": new Array(3).fill('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'),
+    "gsFeatureServiceList": gsFeatureServiceList
+}
+
+
 const dealDueForeWarnList = {
     "id|+1": "@INTEGER(1,2019690999)",
     "mock1": "@INTEGER(13012819898,18912819898)",
@@ -568,7 +607,7 @@ const mockRouterMap = {
             result() {
                 return {
                     ...body,
-                    'data|4-5': [FeaturePageList]                       
+                    'data': gsFeatureServiceList                     
                 };
             }
         },
@@ -754,63 +793,7 @@ const mockRouterMap = {
         },
         // #endregion 
 
-
-
         // #endregion  
-
-        // #region  修改商品
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/hyw/product/product/update',
-            result() {
-                return {
-                    ...body
-                };
-            }
-        },
-        // #endregion 
-
-        // #region  新增商品
-        {
-            isMock: IS_MOCK,
-            methods: 'post',
-            router: '/web/hyw/product/product/add',
-            result() {
-                return {
-                    ...body
-                };
-            }
-        },
-        // #endregion         
-
-        // #region  商品详情页/编辑查询
-        {
-            isMock: IS_MOCK,
-            methods: 'get',
-            router: '/web/hyw/product/product/get',
-            result(params) {
-                return {
-                    ...body,
-                    data: {
-                        id: params.id,
-                        fileId: '121212',
-                        firstCatalogId: 1,
-                        secondCatalogId: 10,
-                        emissionStandard: "0",
-                        density: 'mock',
-                        serialNumber: 'mock',
-                        addressProvince: "@PROVINCE()",
-                        manufacturerId: "0",
-                        price: '23',
-                        totalWeightInventory: "12",
-                        sellState: "1",
-                        'parameterList|3-4': [paraValue]
-                    }
-                };
-            }
-        },
-        // #endregion 
 
         // #region  会员管理列表
         {
@@ -834,7 +817,7 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  激活加油站
+        // #region  激活油气站
         {
             isMock: IS_MOCK,
             methods: 'post',
@@ -847,7 +830,7 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  禁用加油站
+        // #region  禁用油气站
         {
             isMock: IS_MOCK,
             methods: 'post',
@@ -860,7 +843,7 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  新增加油站
+        // #region  新增油气站
         {
             isMock: IS_MOCK,
             methods: 'post',
@@ -873,14 +856,28 @@ const mockRouterMap = {
         },
         // #endregion
 
-        // #region  更新加油站
+        // #region  更新油气站
         {
             isMock: IS_MOCK,
             methods: 'post',
-            router: '/web/hyw/member/member/add',
+            router: '/web/base/gas/oilStation/edit',
             result() {
                 return {
                     ...body
+                };
+            }
+        },
+        // #endregion
+
+        // #region  查询单个油气站详细
+        {
+            isMock: IS_MOCK,
+            methods: 'get',
+            router: '/web/base/gas/oilStation/get',
+            result() {
+                return {
+                    ...body,
+                    data:gasStationDetail
                 };
             }
         },
