@@ -24,8 +24,8 @@
         prop="fsIcon"
         :rules="[{ required: true, message: '未上传,请上传特色服务Icon' }]"
       >
-        <div class="imgBox" :key="index" v-show="form.fsIcon">
-          <ImageBox :url="url" :onDelete="()=>{uploadDelete(index)}"></ImageBox>
+        <div class="imgBox"  v-show="form.fsIcon">
+          <ImageBox :url="form.fsIconUrl" :onDelete="uploadDelete"></ImageBox>
         </div>
         <div class="imgBox" v-show="!(form.fsIcon)">
           <ImageUpload :maxSize="maxSize" :onSuccess="(file)=>{this.uploadSuceess(file)}"></ImageUpload>

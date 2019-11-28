@@ -408,14 +408,14 @@ export default {
      * @description 激活特色服务
      * */
     activeFeature(params) {
-        return fetch(hhgsURL + '/web/base/feature/active', params)
+        return fetch(hhgsURL + '/web/base/feature/active', params,'get')
     },
     /**
      * @author sswq
      * @description 禁用特色服务
      * */
     banFeature(params) {
-        return fetch(hhgsURL + '/web/base/feature/ban', params)
+        return fetch(hhgsURL + '/web/base/feature/ban', params,'get')
     },
     /**
      * @author sswq
@@ -460,14 +460,14 @@ export default {
      * @description 激活油气品分类
      * */
     activeModel(params) {
-        return fetch(hhgsURL + '/web/base/model/active', params)
+        return fetch(hhgsURL + '/web/base/model/active', params,'get')
     },
     /**
      * @author sswq
      * @description 禁用油气品分类
      * */
     banModel(params) {
-        return fetch(hhgsURL + '/web/base/model/ban', params)
+        return fetch(hhgsURL + '/web/base/model/ban', params,'get')
     },
     /**
      * @author sswq
@@ -495,7 +495,7 @@ export default {
      * @description 设置默认油气品分类
      * */
     defaultModel(params) {
-        return fetch(hhgsURL + '/web/base/model/default', params)
+        return fetch(hhgsURL + '/web/base/model/default', params,'get')
     },
      // #endregion 
 
@@ -548,9 +548,16 @@ export default {
         return fetch(hhgsURL + '/web/base/gas/page', params)
     },
     /**
+     * @author sswq
+     * @description 查询单个油气站详细
+     * */
+    queryGasStationDetail(params){
+        return fetch(hhgsURL + '/web/base/gas/oilStation/get', params,'get')
+    },
+    /**
       * @author sswq
       * @param params
-      * @description 激活加油站
+      * @description 激活油气站
       * */
      activeGas(params) {
         return fetch(hhgsURL + '/web/base/gas/active', params)
@@ -558,7 +565,7 @@ export default {
     /**
       * @author sswq
       * @param params
-      * @description 禁用加油站
+      * @description 禁用油气站
       * */
      banGas(params) {
         return fetch(hhgsURL + '/web/base/gas/ban', params)
@@ -566,7 +573,7 @@ export default {
     /**
       * @author sswq
       * @param params
-      * @description 新增加油站
+      * @description 新增油气站
       * */
     AddGas(params) {
         return fetch(hhgsURL + '/web/base/gas/add', params)
@@ -574,10 +581,10 @@ export default {
     /**
       * @author sswq
       * @param params
-      * @description 更新加油站
+      * @description 更新油气站
       * */
     UpdateGas(params) {
-        return fetch(hhgsURL + '/web/base/gas/update', params)
+        return fetch(hhgsURL + '/web/base/gas/oilStation/edit', params)
     }, 
     /**
       * @author sswq

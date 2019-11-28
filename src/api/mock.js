@@ -23,7 +23,7 @@ export const imgHost = {
 };
 
 
-const IS_MOCK = true;
+const IS_MOCK = false;
 const hhgsURL = ""
 
 const dict = { 'SUCCESS': "000000" }
@@ -616,7 +616,7 @@ const mockRouterMap = {
         // #region  激活特色服务
         {
             isMock: IS_MOCK,
-            methods: 'post',
+            methods: 'get',
             router: '/web/base/feature/active',
             result() {
                 return {
@@ -629,7 +629,7 @@ const mockRouterMap = {
         // #region  禁用特色服务
         {
             isMock: IS_MOCK,
-            methods: 'post',
+            methods: 'get',
             router: '/web/base/feature/ban',
             result() {
                 return {
@@ -718,7 +718,7 @@ const mockRouterMap = {
         // #region  激活油气品分类
         {
             isMock: IS_MOCK,
-            methods: 'post',
+            methods: 'get',
             router: '/web/base/model/active',
             result() {
                 return {
@@ -731,7 +731,7 @@ const mockRouterMap = {
         // #region  禁用油气品分类
         {
             isMock: IS_MOCK,
-            methods: 'post',
+            methods: 'get',
             router: '/web/base/model/ban',
             result() {
                 return {
@@ -783,7 +783,7 @@ const mockRouterMap = {
         // #region  设置默认油气品分类
         {
             isMock: IS_MOCK,
-            methods: 'post',
+            methods: 'get',
             router: '/web/base/model/default',
             result() {
                 return {

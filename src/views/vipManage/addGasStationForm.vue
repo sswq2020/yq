@@ -561,7 +561,7 @@ export default {
         },
         {
           validator(rule, value, callback) {
-            if (value === 0 && value > 3) {
+            if (value === 0 || value > 3) {
               callback(new Error("至少上传一张,最多三张"));
             }
             callback();
