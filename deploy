@@ -28,7 +28,7 @@ function testDeploy() {
   command('npm run test');
   shell.echo('copy to test server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/miracle/oilhui/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/miracle/yq/dist');
   command('rm ./dist -rf');
   shell.echo('TECH_TEST_ENV Deployed!');
 }
@@ -46,7 +46,7 @@ function YwTestDeploy() {
   command('npm run ywtest');
   shell.echo('copy to ywtest server');
   shell.echo(splitLine);
-  command('scp -r dist/*  root@10.20.129.28:/home/miracle-test/oilhui/dist');
+  command('scp -r dist/*  root@10.20.129.28:/home/miracle-test/yq/dist');
   command('rm ./dist -rf');
   command('git checkout public/index.html');
   shell.echo('YW_TEST_ENV Deployed!');
