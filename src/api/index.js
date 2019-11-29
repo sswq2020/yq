@@ -39,7 +39,7 @@ switch (env) {
         baseURL = 'http://test.hletong.com/apis/';
         redirectUrl = 'http://yq.hlet.com';
         loginUrl = 'http://login.hlet.com';
-        hhgsURL = 'hlyq'
+        hhgsURL = 'yq'
         break;
     case 'ywtest':
         baseURL = 'http://apis.hletown.com/';
@@ -81,7 +81,6 @@ let instance = axios.create({
 * */
 instance.interceptors.request.use((config) => {
     config.headers['Authorization'] = Authorization;
-    config.headers['X-Auth-Token'] = "DAF69A409CDD47A69AEB8FDD8E3503EF"   
     config.headers['Accept'] = '';
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     return config;
