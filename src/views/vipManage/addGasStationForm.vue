@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page">
-    <!-- <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb> -->
+    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="computedHeight">
       <div class="form">
         <el-form ref="form" :model="form" label-width="200px" size="small">
@@ -48,10 +48,10 @@
                   prop="fileIdsLen"
                   :rules="validPic()"
                 >
-                  <div style="display:inline-block;" v-show="fileIdsLen">
+                  <div style="display:inline-block;" v-show="form.fileIdsLen">
                     <ImageBox :key="index" v-for="(item,index) in form.fileIds" :url="form.filepicUrlList[index]" :onDelete="()=>{uploadDelete(index)}"></ImageBox>
                   </div>
-                  <div style="display:inline-block;" v-show="fileIdsLen< 3">
+                  <div style="display:inline-block;" v-show="form.fileIdsLen< 3">
                     <ImageUpload  :onSuccess="(file)=>{uploadSuceess(file)}"></ImageUpload>
                   </div>                    
                   <el-input type="hidden" :value="form.fileIdsLen" style="display:inline;height:0"></el-input>
