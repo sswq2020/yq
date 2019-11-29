@@ -3,17 +3,17 @@
     <div class="img" :style="{ backgroundImage: `url(${url})`, backgroundSize: bs }">
       <div class="marker" v-if="hasPreview || hasDelete">
         <div class="tools" v-if="hasPreview || hasDelete">
-            <i class="el-icon-view" v-if="hasPreview" @click.stop="open"></i>
-            <i class="el-icon-delete" v-if="hasDelete" @click.stop="onDelete"></i>
+          <i class="el-icon-view" v-if="hasPreview" @click.stop="open"></i>
+          <i class="el-icon-delete" v-if="hasDelete" @click.stop="onDelete"></i>
         </div>
       </div>
     </div>
-    <PreviewImage ref="previewimage" :dialogImageUrl="url"></PreviewImage>
+    <PreviewImage ref="previewimage" :images="urlArr"></PreviewImage>
   </div>
 </template>
 
 <script>
-import PreviewImage from './PreviewImage'
+import PreviewImage from "./PreviewImage";
 const backgroundSizeEnumerate = ["cover", "contain"];
 export default {
   props: {
@@ -28,30 +28,37 @@ export default {
     },
     hasPreview: {
       type: Boolean,
-      default: true    
+      default: true
     },
-    hasDelete:{
+    hasDelete: {
       type: Boolean,
-      default: true  
+      default: true
     },
-    onDelete:{
+    onDelete: {
       type: Function,
-      default: ()=>{}  
+      default: () => {}
     }
   },
-  components:{
+  computed: {
+    urlArr() {
+      let Arr = [];
+      Arr.push(this.url);
+      return Arr;
+    }
+  },
+  components: {
     PreviewImage
   },
   data() {
     return {
       bs: backgroundSizeEnumerate[0],
-      dialogVisible:false,
+      dialogVisible: false
     };
   },
-  methods:{
-    open(){
-      this.$refs.previewimage.open()
-    },
+  methods: {
+    open() {
+      this.$refs.previewimage.open();
+    }
   }
 };
 </script>
