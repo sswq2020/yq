@@ -1,9 +1,9 @@
 <template>
-  <div class="container single-page">
+  <div class="container single-page" style="display: block;background-color: white;height: 100%;position:relative">
     <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="computedHeight">
       <div class="form">
-        <el-form ref="form" :model="form" label-width="200px" size="small">
+        <el-form ref="form" :model="form" label-width="130px" size="small">
           <div class="form-block">
             <div class="head">公司信息</div>
             <el-row>
@@ -603,8 +603,8 @@ export default {
 
 <style scoped lang="less">
 .computedHeight {
-  // height: calc(100% + 70px);
-  // overflow: auto;
+  height: calc(100% - 101px);
+  overflow: auto;
   .form {
     .form-block {
       padding: 20px;
@@ -635,8 +635,9 @@ export default {
 }
 
 .bottom {
-  // position: fixed;
-  width: 86%;
+  position: absolute;
+  left: 0px;
+  right: 40px;
   bottom: 20px;
   height: 50px;
   background-color: #f6f8fa;

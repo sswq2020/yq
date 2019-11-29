@@ -22,7 +22,7 @@
       <el-form-item
         label="特色服务ICON"
         prop="fsIcon"
-        :rules="[{ required: true, message: '未上传,请上传特色服务Icon' }]"
+        :rules="[{ required: true, message: '未上传,请上传特色服务Icon',trigger: 'blur' }]"
       >
         <div class="imgBox"  v-show="form.fsIcon">
           <ImageBox :url="form.fsIconUrl" :onDelete="uploadDelete"></ImageBox>
@@ -138,8 +138,8 @@ export default {
             this.form = JSON.parse(JSON.stringify(this.data));
           }
         } else {
-          this.$refs.form.clearValidate();
           this.form = { ...defaultApplyFormParams };
+          this.$refs.form.clearValidate();
         }
       }
     },

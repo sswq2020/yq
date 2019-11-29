@@ -45,7 +45,7 @@
         <el-button size="small" @click="clearListParams">重置</el-button>
       </div>
     </div>
-    <heltable
+    <HletongTable
       ref="tb"
       @sizeChange="changePageSize"
       @pageChange="changePage"
@@ -86,7 +86,7 @@
           >编辑</el-button>
         </template>
       </el-table-column>
-    </heltable>
+    </HletongTable>
     <UserDialog :visible.sync="visible"  @updateVisible="updateVisible">
       <el-tab-pane label="油气站信息" v-if="visible">
         <editGasStationForm @gasStationClose="updateVisible(false)"/>
@@ -106,7 +106,7 @@ import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
 import { DICT_SELECT_ARR } from "common/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
-import heltable from "components/hl_table";
+// import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
 import editGasStationForAgree from './editGasStationForAgree.vue';
 import editGasStationForOilGasInfo from './editGasStationForOilGasInfo.vue';
@@ -186,7 +186,7 @@ const rowAdapter = list => {
 export default {
   name: "vipManage",
   components: {
-    heltable,
+    // heltable,
     UserDialog,
     editGasStationForAgree,
     editGasStationForOilGasInfo,
