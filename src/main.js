@@ -12,11 +12,13 @@ import {router} from './router';
 import api from '@/api';
 import store from "./store";
 import hlet from 'hlet'
+import hletComponents from 'hletComponents'
 
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(hlet);
+Vue.use(hletComponents);
 Vue.use(VueCropper);
 Vue.use(Viewer)
 Vue.prototype.$api = api;

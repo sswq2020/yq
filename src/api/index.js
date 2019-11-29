@@ -33,19 +33,19 @@ switch (env) {
     case 'production':
         loginUrl = 'https://login.hletong.com/';
         redirectUrl = 'https://cloudStorage.hletong.com/';
-        hhgsURL = 'yq'
+        hhgsURL = 'hlyq'
         break;
     case 'test':
         baseURL = 'http://test.hletong.com/apis/';
-        redirectUrl = 'http://oilhui.hlet.com';
+        redirectUrl = 'http://yq.hlet.com';
         loginUrl = 'http://login.hlet.com';
-        hhgsURL = 'yq'
+        hhgsURL = 'hlyq'
         break;
     case 'ywtest':
         baseURL = 'http://apis.hletown.com/';
-        redirectUrl = 'http://yc.hletown.com';
+        redirectUrl = 'http://yq.hletown.com';
         loginUrl = 'http://login.hletown.com';
-        hhgsURL = 'yq'
+        hhgsURL = 'hlyq'
         break;        
     default:
         break;
