@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page" style="display: block;background-color: white;height: 100%;position:relative">
-    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
+    <!-- <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb> -->
     <div class="computedHeight">
       <div class="form">
         <el-form ref="form" :model="form" label-width="130px" size="small">
@@ -147,8 +147,16 @@
                   >
                     <el-input v-model="form.gsDetailAddress" placeholder="请输入详细地址"></el-input>
                   </el-form-item>
-              </el-col>            
+              </el-col>  
+              <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
+                <el-form-item>
+                   <el-button size="small"  @click="getPosition">绘点</el-button>
+                </el-form-item>
+              </el-col>          
             </el-row>
+            <el-amap vid="amapDemo" :zoom="zoom" :center="center" class="amap-demo">
+              <el-amap-marker :key="index" v-for="(marker,index) in markers" :position="marker && marker.position || '' "></el-amap-marker>
+            </el-amap>
           </div>
           <div class="form-block">
             <div class="head">入会协议</div>
@@ -248,6 +256,7 @@
 </template>
 
 <script>
+import VueAMap from 'vue-amap';
 import _ from "lodash";
 import moment from "moment";
 import { mapState, mapMutations, mapActions } from "vuex";
@@ -259,6 +268,17 @@ import ImageUpload from "components/ImageUpload";
 import companyglass from "components/companyglass";
 import agreedialog from "./agreedialog";
 import oilGasInfodialog from "./oilGasInfodialog";
+
+// 初始化vue-amap
+VueAMap.initAMapApiLoader({
+  // 高德的key
+  key: '6bbfc7fcb64177761808580ae66c2d79',
+  // 插件集合
+  plugin: ['AMap.Autocomplete','AMap.Scale','AMap.MapType','Geocoder'],
+  // 高德 sdk 版本，默认为 1.4.4
+  v: '1.4.4'
+});
+
 const defaulttableHeader = [
   {
     prop: "agreementName",
@@ -367,6 +387,15 @@ export default {
       images: [],
       featureServiceList:[],
       ModelList:[],
+      zoom: 15,
+      center: [119.363801, 32.186228], // 默认大惠龙
+      markers: [
+        {
+          position: [119.363801, 32.186228],
+          visible: true,
+          draggable: false,
+        }
+      ]
     };
   },
   components: {
@@ -399,6 +428,38 @@ export default {
       "openAddOilGasInfoDialog",
       "openEditOilGasInfoDialog",
     ]),
+    getPosition() {
+      let that = this;
+      if(!this.form.gsDetailAddress || !this.form.gsCityName )  {
+        this.$messageError("绘点前须填写省市区和详细地址")
+        return
+      }
+
+      if (this.markers.length) {
+        this.markers = [];
+      }
+      // eslint-disable-next-line no-undef
+      var geocoder = new AMap.Geocoder({
+        // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+        city: that.form.gsCityName
+      });
+
+      geocoder.getLocation(that.form.gsDetailAddress, (status, result) => {
+        if (status === "complete" && result.info === "OK") {
+          // result中对应详细地理坐标信息
+          let location = result.geocodes[0].location;
+          const { lat, lng } = location;
+          that.markers.push({
+            position: [lng, lat],
+            visible: true,
+            template: "<span></span>"
+          });
+          that.center = [lng, lat]
+        }else{
+          this.$messageError("高德地图解析失败，绘点失败")
+        }
+      });
+    },
     back() {
       this.$router.push({
         path: "/web/base/gas/page"
@@ -602,6 +663,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.amap-demo{
+  height:300px;
+}
+
 .computedHeight {
   height: calc(100% - 101px);
   overflow: auto;

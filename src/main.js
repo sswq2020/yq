@@ -13,15 +13,19 @@ import api from '@/api';
 import store from "./store";
 import hlet from 'hlet'
 import hletComponents from 'hletComponents'
+import VueAMap from 'vue-amap';
 
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(hlet);
 Vue.use(hletComponents);
+Vue.use(VueAMap);
+
 Vue.use(VueCropper);
 Vue.use(Viewer)
 Vue.prototype.$api = api;
+
 
 Vue.prototype.$messageError = content => Vue.prototype.$message({
   message: content,
