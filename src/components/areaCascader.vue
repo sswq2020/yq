@@ -6,6 +6,7 @@
                   placeholder="请选择省市区"
                   :value="value"
                   size="small"
+                  :disabled="disabled"
                   :clearable="clearable"
                   :props="{ checkStrictly: false }">
         </el-cascader>
@@ -24,6 +25,10 @@
                 }
             },
             clearable: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
                 type: Boolean,
                 default: false
             },

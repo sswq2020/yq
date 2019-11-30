@@ -135,6 +135,7 @@
                     prop="gsAddress"
                   >
                   <AreaCascader 
+                      :disabled="disabled"
                       :value="form.gsAddress" 
                       :clearable="true"
                       @selection="selectArea"/>
@@ -145,12 +146,13 @@
                     label="详细地址:"
                     prop="gsDetailAddress"
                   >
-                    <el-input v-model="form.gsDetailAddress" placeholder="请输入详细地址"></el-input>
+                    <el-input :disabled="disabled" v-model="form.gsDetailAddress" placeholder="请输入详细地址"></el-input>
                   </el-form-item>
               </el-col>  
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
                 <el-form-item>
-                   <el-button size="small"  @click="getPosition">绘点</el-button>
+                   <el-button size="small" v-if="!disabled" type="primary" @click="getPosition">绘点</el-button>
+                   <el-button size="small" v-if="disabled"  @click="cancelPos">取消</el-button>
                 </el-form-item>
               </el-col>          
             </el-row>
@@ -387,6 +389,7 @@ export default {
       images: [],
       featureServiceList:[],
       ModelList:[],
+      disabled:false,
       zoom: 15,
       center: [119.363801, 32.186228], // 默认大惠龙
       markers: [
@@ -428,6 +431,12 @@ export default {
       "openAddOilGasInfoDialog",
       "openEditOilGasInfoDialog",
     ]),
+    cancelPos(){
+      this.disabled = false;
+     if (this.markers.length) {
+        this.markers = [];
+      }
+    },
     getPosition() {
       let that = this;
       if(!this.form.gsDetailAddress || !this.form.gsCityName )  {
@@ -455,8 +464,9 @@ export default {
             template: "<span></span>"
           });
           that.center = [lng, lat]
+          that.disabled = true
         }else{
-          this.$messageError("高德地图解析失败，绘点失败")
+          this.$messageError("输入的油气站位置无法在地图上展示，请重新输入")
         }
       });
     },
