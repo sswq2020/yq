@@ -1,6 +1,6 @@
 <template>
   <div class="container single-page" style="display: block;background-color: white;height: 100%;position:relative">
-    <!-- <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb> -->
+    <HletongBreadcrumb :data="breadTitle"></HletongBreadcrumb>
     <div class="computedHeight">
       <div class="form">
         <el-form ref="form" :model="form" label-width="130px" size="small">

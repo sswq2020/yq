@@ -295,7 +295,7 @@ export default {
 .footer {
   position: fixed;
   bottom: 0;
-  left: 116px;
+  left: 130px;
   right: 20px;
   z-index: 100;
   height: 50px;
