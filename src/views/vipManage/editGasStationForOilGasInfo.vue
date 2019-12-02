@@ -14,7 +14,7 @@
             :prop="item.prop"
             :label="item.label"
             :width="item.width || 'auto'"
-            :align="item.align || 'center'"
+            :align="item.align || 'left'"
             header-align="center"
             :key="index"
             v-for="(item,index) in tableHeader"
@@ -33,7 +33,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="right">
+        <!-- <div class="right">
           <el-pagination
             @current-change="changePage"
             :current-page="listParams.page"
@@ -41,7 +41,7 @@
             layout="total, prev, pager, next"
             :total="listData.paginator.totalCount"
           ></el-pagination>
-        </div>
+        </div> -->
         <div class="uploadDeal" @click="addDeal">
           <i class="el-icon-plus"></i>新增油气品信息
         </div>
@@ -69,16 +69,16 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import Dict from "util/dict.js";
 import {deepMerge} from "common/util.js";
 import oilGasInfodialog from "./oilGasInfodialog";
-const defaultListParams = {
-  pageSize: 20,
-  page: 1
-};
-const defaultListData = {
-  paginator: {
-    totalCount: 0,
-    totalPage: 1
-  }
-};
+// const defaultListParams = {
+//   pageSize: 20,
+//   page: 1
+// };
+// const defaultListData = {
+//   paginator: {
+//     totalCount: 0,
+//     totalPage: 1
+//   }
+// };
 
 const defaulttableHeader = [
   {
@@ -134,8 +134,8 @@ export default {
     return {
       loading: false,
       isLoading: false,
-      listParams: { ...defaultListParams }, // 页数
-      listData: { ...defaultListData }, // 返回list的数据结构
+      // listParams: { ...defaultListParams }, // 页数
+      listData: [], // 返回list的数据结构
       gasOilModelList: [],
       ModelList:[],
       tableHeader: defaulttableHeader,
@@ -210,14 +210,14 @@ export default {
     async _getOilGasStationList(gsId) {
       this.isLoading = true;
       const res = await this.$api.queryOilPrice({
-        ...this.listParams,
+        // ...this.listParams,
         gsId
       });
       this.isLoading = false;
       switch (res.code) {
         case Dict.SUCCESS:
           this.listData = res.data;
-          this.gasOilModelList = rowAdapter(res.data.list);
+          this.gasOilModelList = rowAdapter(res.data);
           break;
         default:
           this.$messageError(res.mesg);
@@ -243,10 +243,10 @@ export default {
           break;
       }
     },
-    changePage(page) {
-      this.listParams.page = page;
-      this._getOilGasStationList(this.gsId);
-    },
+    // changePage(page) {
+    //   this.listParams.page = page;
+    //   this._getOilGasStationList(this.gsId);
+    // },
     openImage(item) {
       this.images = item.picUrlList;
       setTimeout(() => {
@@ -318,8 +318,8 @@ export default {
 .footer {
   position: fixed;
   bottom: 0;
-  left: 142px;
-  right: 35px;
+  left: 116px;
+  right: 20px;
   z-index: 100;
   height: 50px;
   line-height: 50px;

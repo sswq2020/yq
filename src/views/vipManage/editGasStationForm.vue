@@ -329,8 +329,8 @@ export default {
 .footer {
   position: fixed;
   bottom: 0;
-  left: 142px;
-  right: 35px;
+  left: 116px;
+  right: 20px;
   z-index: 100;
   height: 50px;
   line-height: 50px;
