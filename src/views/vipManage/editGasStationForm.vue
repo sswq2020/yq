@@ -299,7 +299,9 @@ export default {
       this.GoMember();
       return;
     }
-    this._getGasStationDetail(this.gsId)
+    this._getGasStationDetail(this.gsId).then(()=>{
+      this._getFeatureList();
+    })
   }
 };
 </script>
