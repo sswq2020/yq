@@ -107,6 +107,21 @@ export const downloadExcel = (response, defualtitle) => {
 
 
 /** 
+ * @description 下载图片本地
+ * @returns void 
+*/
+export const downloadImage = (url) => {
+    let link = document.createElement('a')
+    link.style.display = 'none'
+    link.href = url
+    link.download = url
+    document.body.appendChild(link)
+    var event = new MouseEvent('click')
+    link.dispatchEvent(event)
+
+}
+
+/** 
  * @description 删除不需要的的属性
  * @param {any} obj 操作对象
  * @param {Array} keys 需要删除的对象属性数组

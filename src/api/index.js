@@ -559,7 +559,7 @@ export default {
       * @description 激活油气站
       * */
      activeGas(params) {
-        return fetch(hhgsURL + '/web/base/gas/active', params)
+        return fetch(hhgsURL + '/web/base/gas/active', params,'get')
     },
     /**
       * @author sswq
@@ -567,7 +567,7 @@ export default {
       * @description 禁用油气站
       * */
      banGas(params) {
-        return fetch(hhgsURL + '/web/base/gas/ban', params)
+        return fetch(hhgsURL + '/web/base/gas/ban', params,'get')
     },
     /**
       * @author sswq

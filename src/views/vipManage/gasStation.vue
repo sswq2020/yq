@@ -107,6 +107,7 @@
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
 import { DICT_SELECT_ARR } from "common/util";
+// import { downloadImage } from "util/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 // import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
@@ -323,12 +324,12 @@ export default {
 
     },
     download(item){
-      const {gsQrCodeUrl} = item;
+      const {gsQrCodeUrl} = item;    
       if(!gsQrCodeUrl){
         this.$messageError("当前加油站没有二维码")
         return
-      }      
-      window.open(`${gsQrCodeUrl}`);
+      }
+      window.open(gsQrCodeUrl)
     },
     init() {
       setTimeout(() => {
