@@ -80,7 +80,7 @@
           <el-button
             type="text"
             @click="toggle(listData.list[scope.$index])"
-          >{{listData.list[scope.$index].isBan === Dict.GAS_STATION_STATUS_NORMAL ? "禁用" : "正常"}}</el-button>
+          >{{listData.list[scope.$index].isBan === Dict.GAS_STATION_STATUS_NORMAL ? "禁用" : "激活"}}</el-button>
           <el-button
             type="text"
             @click="edit(listData.list[scope.$index])"
@@ -169,7 +169,7 @@ const defaulttableHeader = [
   {
     prop: "isBanText",
     label: "油气站状态",
-    width:"80"
+    width:"100"
   }
 ];
 
@@ -291,7 +291,7 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          const res = await that.$api[serverUrl]({ id });
+          const res = await that.$api[serverUrl]({ gsId:id });
           switch (res.code) {
             case Dict.SUCCESS:
               this.$messageSuccess(`${text}成功`);
