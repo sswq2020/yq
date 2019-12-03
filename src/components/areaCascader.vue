@@ -1,6 +1,7 @@
 <template>
-    <div class="areaCascader" :style="computedStyleWidth"   v-if="Areadata.length>0">
+    <div class="areaCascader"   v-if="Areadata.length>0">
         <el-cascader change-on-select
+                  :style="computedStyleWidth"
                   :options="Areadata"
                   @change="handleChange"
                   placeholder="请选择省市区"
