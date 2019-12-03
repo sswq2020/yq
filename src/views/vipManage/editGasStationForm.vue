@@ -83,6 +83,7 @@
               :rules="[{ required: true, message: '请选择特色服务', trigger: 'blur' }]"
             >
               <el-select
+                style="width:100%"
                 multiple
                 collapse-tags
                 v-model="form.gsFeatureService"
