@@ -53,6 +53,7 @@
       :currentPage="listParams.page"
       :pageSize="listParams.pageSize"
       :data="listData.list"
+      :blankCol="false"
       :loading="isListDataLoading"
     >
       <el-table-column
@@ -70,8 +71,8 @@
       </el-table-column>
       <el-table-column label="收款二维码" width="220px" align="left">
         <template slot-scope="scope">
-          <el-button type="text">点击查看</el-button>
-          <el-button type="text">下载二维码</el-button>
+          <el-button type="text" @click="open(listData.list[scope.$index])">点击查看</el-button>
+          <el-button type="text" @click="download(listData.list[scope.$index])">下载二维码</el-button>
         </template>
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="120px" align="left">
@@ -98,6 +99,7 @@
         <editGasStationForAgree @agreemtClose="updateVisible(false)"/>
       </el-tab-pane>                
     </UserDialog>
+    <PreviewImage ref="previewimage" :images="urlArr"></PreviewImage>
   </div>
 </template>
 
@@ -108,6 +110,7 @@ import { DICT_SELECT_ARR } from "common/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 // import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
+import PreviewImage from 'components/PreviewImage';
 import editGasStationForAgree from './editGasStationForAgree.vue';
 import editGasStationForOilGasInfo from './editGasStationForOilGasInfo.vue';
 import editGasStationForm from './editGasStationForm.vue';
@@ -131,7 +134,8 @@ const defaultListData = {
 const defaulttableHeader = [
   {
     prop: "name",
-    label: "公司名称"
+    label: "公司名称",
+    width:"150"
   },
   {
     prop: "gsName",
@@ -159,11 +163,13 @@ const defaulttableHeader = [
   },
   {
     prop: "AddressText",
-    label: "油气站地址"
+    label: "油气站地址",
+    width:"200"
   },
   {
     prop: "isBanText",
-    label: "油气站状态"
+    label: "油气站状态",
+    width:"80"
   }
 ];
 
@@ -175,7 +181,7 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        AddressTest: `${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`,
+        AddressText: `${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`,
         isBanText: `${Dict.GAS_STATION_STATUS[row.isBan]}`
       });
     });
@@ -188,6 +194,7 @@ export default {
   components: {
     // heltable,
     UserDialog,
+    PreviewImage,
     editGasStationForAgree,
     editGasStationForOilGasInfo,
     editGasStationForm
@@ -203,7 +210,8 @@ export default {
       showOverflowTooltip: true,
       visible: false,
       gasStationStatustList,
-      Dict
+      Dict,
+      urlArr:[]
     };
   },
   methods: {
@@ -300,6 +308,27 @@ export default {
             message: "已取消删除"
           });
         });
+    },
+    open(item){
+      this.urlArr = [];
+      const {gsQrCodeUrl} = item;
+      if(!gsQrCodeUrl){
+        this.$messageError("当前加油站没有二维码")
+        return
+      }
+      this.urlArr.push(gsQrCodeUrl);
+      setTimeout(()=>{
+        this.$refs.previewimage.open();
+      },50)
+
+    },
+    download(item){
+      const {gsQrCodeUrl} = item;
+      if(!gsQrCodeUrl){
+        this.$messageError("当前加油站没有二维码")
+        return
+      }      
+      window.open(`${gsQrCodeUrl}`);
     },
     init() {
       setTimeout(() => {

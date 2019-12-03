@@ -164,7 +164,7 @@ export default {
           switch (res.code) {
             case Dict.SUCCESS:
               that.$messageSuccess(`${text}成功`);
-              that._getAgreementList(that.memberId);
+              that._getAgreementList(that.memberId,that.gsId);
               break;
             default:
               that.$messageError(`${text}失败,${res.mesg}`);
@@ -185,11 +185,12 @@ export default {
       const { picUrlList } = item;
       this.openEditAgreeDialog({ ...item, picLength: picUrlList.length });
     },
-    async _getAgreementList(userId) {
+    async _getAgreementList(userId,gsId) {
       this.isLoading = true;
       const res = await this.$api.getAgreementList({
         ...this.listParams,
-        userId
+        userId,
+        gsId
       });
       this.isLoading = false;
       switch (res.code) {
@@ -212,7 +213,7 @@ export default {
       switch (res.code) {
         case Dict.SUCCESS:
           this.$messageSuccess(`${text}入会协议成功`);
-          this._getAgreementList(this.memberId);
+          this._getAgreementList(this.memberId,this.gsId);
           setTimeout(() => {
             this.setAgreeDialogVisible(false);
           }, 50);
@@ -224,7 +225,7 @@ export default {
     },
     changePage(page) {
       this.listParams.page = page;
-      this._getAgreementList(this.memberId);
+      this._getAgreementList(this.memberId,this.gsId);
     },
     openImage(item) {
       this.images = item.picUrlList;
@@ -245,7 +246,7 @@ export default {
       this.GoMember();
       return;
     }
-    this._getAgreementList(this.memberId);
+    this._getAgreementList(this.memberId,this.gsId);
   }
 };
 </script>
