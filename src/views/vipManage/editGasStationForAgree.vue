@@ -208,6 +208,7 @@ export default {
       const url = this.agreedialogEdit ? "UpdateAgreement" : "AddAgreement";
       this.loading = true;
       agreeData.userId = this.memberId;
+      agreeData.gsId = this.gsId;
       const res = await this.$api[url](agreeData);
       this.loading = false;
       switch (res.code) {
