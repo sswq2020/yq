@@ -381,7 +381,7 @@ export default {
   data() {
     return {
       loading: false,
-      form: { ...defualtFormParams},
+      form: _.cloneDeep(defualtFormParams),
       tableHeader: defaulttableHeader,
       tableHeader_two:defaulttableHeader_two,
       /**新增的时候是-1,编辑的时候就是数组的序号 */

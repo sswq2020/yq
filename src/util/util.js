@@ -110,15 +110,13 @@ export const downloadExcel = (response, defualtitle) => {
  * @description 下载图片本地
  * @returns void 
 */
-export const downloadImage = (url) => {
-    let link = document.createElement('a')
-    link.style.display = 'none'
-    link.href = url
-    link.download = url
-    document.body.appendChild(link)
-    var event = new MouseEvent('click')
-    link.dispatchEvent(event)
-
+export const downloadImage = (src) => {
+    var _a = document.createElement('a');
+    _a.setAttribute("href", src);
+    _a.setAttribute("download", "");
+    var evObj = document.createEvent('MouseEvents');
+    evObj.initMouseEvent( 'click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
+    _a.dispatchEvent(evObj);
 }
 
 /** 

@@ -107,7 +107,7 @@
 import { mapMutations } from "vuex";
 import Dict from "util/dict.js";
 import { DICT_SELECT_ARR } from "common/util";
-// import { downloadImage } from "util/util";
+import { downloadImage } from "util/util";
 const gasStationStatustList = DICT_SELECT_ARR(Dict.GAS_STATION_STATUS);
 // import heltable from "components/hl_table";
 import UserDialog from 'components/userDialog';
@@ -119,7 +119,8 @@ import editGasStationForm from './editGasStationForm.vue';
 const defaultFormData = {
   name: null,
   phone: null,
-  username: null
+  username: null,
+  isBan:Dict.GAS_STATION_STATUS_NORMAL
 };
 const defaultListParams = {
   pageSize: 20,
@@ -306,7 +307,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消"
           });
         });
     },
@@ -329,7 +330,7 @@ export default {
         this.$messageError("当前加油站没有二维码")
         return
       }
-      window.open(gsQrCodeUrl)
+      downloadImage(gsQrCodeUrl)
     },
     init() {
       setTimeout(() => {
