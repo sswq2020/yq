@@ -36,7 +36,7 @@
 // import _ from "lodash";
 import Dict from "util/dict.js";
 import { number2 } from "util/validate.js";
-import NP from "number-precision";
+import {ByDiscount,ByCheap } from "common/util.js";
 const defaultApplyFormParams = {
   oilModelName: null, //油气品分类名称
   oilRetailPrice: null, // 零售价
@@ -148,30 +148,25 @@ export default {
     },
     "applyFormParams.oilRetailPrice": {
       handler(newV) {
-        if (newV && number2(newV)) {
-          if (
-            this.applyFormParams.oilChangeType === this.Dict.ADJUST_BY_DISCOUNT
-          ) {
-            let num1 = NP.times(
-              Number(newV),
-              this.applyFormParams.oilMemberAgio,
-              100
-            );
-            let num2 = NP.divide(num1, 100, 100);
-            let num3 = NP.round(num2, 2);
-            this.applyFormParams.oilMemberPrice = num3;
-          } else {
-            if (Number(newV) <= this.applyFormParams.oilMemberDiscount) {
-              return;
-            } else {
-              this.applyFormParams.oilMemberPrice = NP.minus(
-                Number(newV),
-                this.applyFormParams.oilMemberDiscount
-              );
-            }
-          }
-        } else {
-          this.applyFormParams.oilMemberPrice = 0;
+        const {oilChangeType,oilMemberAgio,oilMemberDiscount} = this.oilgasinfoFormParams
+        let num = null
+        if(!(newV && number2(newV))) {
+            this.applyFormParams.oilMemberPrice = num;
+            return
+        }
+        switch (oilChangeType){
+          case Dict.ADJUST_BY_DISCOUNT:
+            if(!oilMemberAgio) return
+            num = ByDiscount(Number(newV),oilMemberAgio)
+            this.applyFormParams.oilMemberPrice = num;
+            break;
+          case Dict.ADJUST_BY_CHEAP:
+            if(!oilMemberDiscount || Number(newV) <= oilMemberDiscount) return
+            num = ByCheap(Number(newV),oilMemberDiscount)
+            this.applyFormParams.oilMemberPrice = num;
+            break; 
+          default:
+            break;             
         }
       }
     }
