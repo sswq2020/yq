@@ -11,15 +11,15 @@
       @close="cancel"
       :close-on-click-modal="false"
     >
-      <div class="search-box">
+      <div class="search-box" style="padding:0px;margin:0px 0px 10px 0px;">
         <div class="form-item">
-          <label>公司名称</label>
+          <label style="line-height:1">公司名称</label>
           <div class="form-control">
             <el-input v-model="form.name" placeholder="请输入" size="small"></el-input>
           </div>
         </div>
         <div class="form-item">
-          <label>业务联系人</label>
+          <label style="line-height:1">业务联系人</label>
           <div class="form-control">
             <el-input v-model="form.bizName" placeholder="请输入" size="small"></el-input>
           </div>
@@ -38,6 +38,7 @@
         stylestripe
         border
         highlight-current-row
+        v-loading="isListDataLoading"
         :data="listData.list"
         @current-change="handleCurrentChange"
       >
@@ -45,7 +46,7 @@
           :prop="item.prop"
           :label="item.label"
           :width="item.width || 'auto'"
-          :align="item.align || 'center'"
+          :align="item.align || 'left'"
           header-align="center"
           :key="index"
           v-for="(item,index) in tableHeader"
@@ -64,7 +65,7 @@
           :total="listData.paginator.totalCount"
         ></el-pagination>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer" style="float:right">
         <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="comfirm">确 定</el-button>
       </div>
@@ -94,12 +95,13 @@ const defaultAuditResultTableHeader = [
   {
     prop: "name",
     label: "公司名称",
-    width: "250"
+    width: "200"
+
   },
   {
     prop: "creditCode",
     label: "统一社会信用代码",
-    width: "150"
+    width: "200"
   },
   {
     prop: "legalPersonName",
@@ -217,7 +219,7 @@ export default {
     }
   },
   watch: {
-    visible(newV, oldV) {
+    visible(newV) {
       if (newV) {
         this.clearListParams();
       }
@@ -231,13 +233,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 0px 20px;
   background-color: white;
   font-size: 14px;
   .form-item {
     .el-button {
-      margin-top: 36px;
+      margin-top: 20px;
     }
   }
 }

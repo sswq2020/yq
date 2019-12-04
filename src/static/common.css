@@ -109,9 +109,14 @@
     height: 34px !important ;
     font-size: 12px;
 }
+
+.el-table th{
+    padding-left: 13px !important;
+}
+
 .el-table .cell{
-    /*line-height: 34px;*/
-    /* max-height: 34px !important; */
+    line-height: 34px;
+     max-height: 34px !important;
     padding: 0;
 }
 .breadcrumb-container .btns img{
@@ -195,8 +200,13 @@
     flex-direction:column;
 }
 .el-dialog__body{
-    overflow:auto
+    overflow:auto;
 }
+
+.el-dialog--center .el-dialog__body {
+    padding: 15px 25px 3px !important;
+}
+
 .tree-container .el-tree-node{
     /*max-height:calc(100% - 50px);*/
     overflow: auto;
@@ -215,8 +225,4 @@ textarea {
 .form .el-form-item__content, .form .el-form-item__label {
     height: auto;
     line-height: 32px;
-}
-
-.el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
-    padding: 0px;
 }

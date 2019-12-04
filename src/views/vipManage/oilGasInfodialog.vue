@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :show-close="false" :title="title" :visible="oilgasinfodialogVisible" width="600px" append-to-body>
+  <el-dialog :show-close="false" :title="title" :visible="oilgasinfodialogVisible" width="575px" append-to-body>
     <el-form :model="oilgasinfoFormParams" ref="oilgasinfoForm" label-position="right" label-width="150px">
       <el-form-item label="油气品分类" prop="oilModelId" :rules="[{ required: true, message: '必选' }]">
         <el-select style="width:100%" v-model="oilgasinfoFormParams.oilModelId" placeholder="请选择" size="small">

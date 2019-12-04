@@ -1,8 +1,7 @@
 <template>
   <div class="gsStationglass">
-    <el-input placeholder="请选择" :value="value" readonly class="input-with-select">
+    <el-input placeholder="请选择" :value="value" readonly>
       <el-button
-        style="margin: -10px -20px;"
         :disabled="disabled"
         slot="append"
         icon="el-icon-search"
@@ -17,9 +16,9 @@
       @close="cancel"
       :close-on-click-modal="false"
     >
-      <div class="search-box">
+      <div class="search-box" style="padding:0px;margin:0px 0px 10px 0px;">
         <div class="form-item">
-          <label>油气站名称</label>
+          <label style="line-height:1">油气站名称</label>
           <div class="form-control">
             <el-input v-model="form.gsName" placeholder="请输入" size="small"></el-input>
           </div>
@@ -46,7 +45,7 @@
           :prop="item.prop"
           :label="item.label"
           :width="item.width || 'auto'"
-          :align="item.align || 'center'"
+          :align="item.align || 'left'"
           header-align="center"
           :key="index"
           v-for="(item,index) in tableHeader"
@@ -65,7 +64,7 @@
           :total="listData.paginator.totalCount"
         ></el-pagination>
       </div>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer" style="float:right">
         <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="comfirm">确 定</el-button>
       </div>
@@ -222,10 +221,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 0px 20px;
   background-color: white;
   font-size: 14px;
+  .form-item {
+    .el-button {
+      margin-top: 20px;
+    }
+  }
 }
 .tb_pagination {
   text-align: right;

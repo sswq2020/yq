@@ -4,7 +4,7 @@
     :visible.sync="visible"
     :show-close="showClose"
     :center="true"
-    width="600px"
+    width="575px"
     title="特色服务"
   >
     <el-form :model="form" ref="form" label-position="right" label-width="150px">

@@ -57,6 +57,7 @@
   color: #333 !important;
   font-size: 12px;
   font-weight: bold !important;
+  padding-left: 13px !important;
   text-align: center;
 }
 .el-table .is-left .cell {
