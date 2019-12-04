@@ -116,7 +116,7 @@
 
 .el-table .cell{
     line-height: 34px;
-     max-height: 34px !important;
+    /* max-height: 34px !important; */
     padding: 0;
 }
 .breadcrumb-container .btns img{
