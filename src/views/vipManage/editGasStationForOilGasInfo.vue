@@ -228,6 +228,7 @@ export default {
       const text = this.oilgasinfodialogEdit ? "更新" : "新增";
       const url = this.oilgasinfodialogEdit ? "UpdateOilPrice" : "AddOilPrice";
       this.loading = true;
+      oilData.gsId = this.gsId;
       const res = await this.$api[url](oilData);
       this.loading = false;
       switch (res.code) {
