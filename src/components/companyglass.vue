@@ -136,7 +136,9 @@ const rowAdapter = list => {
         effectiveDt: row.extInfo.effectiveDt, // 营业生效日期
         expireDt: row.extInfo.expireDt, // 营业到期日期
         userId: row.extInfo.userId, // 公司id
-        entType_:row.extInfo.entType_ // 企业类型
+        entType_:row.extInfo.entType_, // 企业类型,
+        username_:row.userInfo.username, // 用户名
+        mobile_:row.userInfo.mobile, // 手机号码
       });
     });
   }

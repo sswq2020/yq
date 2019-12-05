@@ -29,6 +29,12 @@
                 <el-form-item label="公司地址">{{form.address}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
+                <el-form-item label="用户名">{{form.username_}}</el-form-item>
+              </el-col>
+              <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
+                <el-form-item label="手机号码">{{form.mobile_}}</el-form-item>
+              </el-col>
+              <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
                 <el-form-item label="公司类型">{{form.entType_}}</el-form-item>
               </el-col>
               <el-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
@@ -329,6 +335,8 @@ const defualtFormParams = {
   legalPersonName: null, // 法人
   effectiveDt: null, // 营业有效期开始
   expireDt: null, // 营业有效期结束
+  username_:null, // 用户名
+  mobile_:null, // 手机号码
 // endregion
 
 // region 加油加气站信息信息
@@ -476,9 +484,9 @@ export default {
       });
     },
     _getCompanyInfo(obj) {
-      const {userId,name,creditCode,legalPersonName,address,effectiveDt,expireDt,entType_
+      const {userId,name,creditCode,legalPersonName,address,effectiveDt,expireDt,entType_,username_,mobile_
       } = obj;
-      this.form = Object.assign({}, this.form, {userId,name,creditCode,legalPersonName,address,effectiveDt,expireDt,entType_
+      this.form = Object.assign({}, this.form, {userId,name,creditCode,legalPersonName,address,effectiveDt,expireDt,entType_,username_,mobile_
       });
     },
     /**打开编辑协议弹窗*/
