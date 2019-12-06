@@ -148,7 +148,7 @@ export default {
     },
     "applyFormParams.oilRetailPrice": {
       handler(newV) {
-        const {oilChangeType,oilMemberAgio,oilMemberDiscount} = this.oilgasinfoFormParams
+        const {oilChangeType,oilMemberAgio,oilMemberDiscount} = this.applyFormParams
         let num = null
         if(!(newV && number2(newV))) {
             this.applyFormParams.oilMemberPrice = num;
