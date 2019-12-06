@@ -17,6 +17,7 @@
       </el-form-item>
       <el-form-item label="协议生效日期" prop="effectTime" :rules="[{ required: true, message: '必选'  }]">
         <el-date-picker
+          style="width:100%"
           size="small"
           v-model="agreeFormParams.effectTime"
           type="date"
@@ -31,6 +32,7 @@
       >
         <el-date-picker
           size="small"
+          style="width:100%"
           v-model="agreeFormParams.dueTime"
           :disabled="dueTimeDisabled"
           type="date"
@@ -42,10 +44,10 @@
         <el-checkbox v-model="checked"></el-checkbox>
       </el-form-item>
       <el-form-item label="协议图片" prop="picLength" :rules="validPic()">
-        <div class="imgBox" :key="index" v-for="(url,index) in agreeFormParams.picUrlList">
+        <div class="imgBox" style="display:inline-block;margin-right:5px;" :key="index" v-for="(url,index) in agreeFormParams.picUrlList">
           <ImageBox :url="url" :onDelete="()=>{uploadDelete(index)}"></ImageBox>
         </div>
-        <div class="imgBox">
+        <div class="imgBox" style="display:inline-block;">
           <ImageUpload :onSuccess="(file)=>{this.uploadSuceess(file)}"></ImageUpload>
         </div>
         <el-input type="hidden" :value="agreeFormParams.picLength"></el-input>
