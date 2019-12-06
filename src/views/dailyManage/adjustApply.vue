@@ -33,6 +33,7 @@
       :currentPage="listParams.page"
       :pageSize="listParams.pageSize"
       :data="listData.list"
+      :blankCol="false"
       :loading="isListDataLoading"
     >
       <el-table-column
@@ -48,7 +49,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" fixed="right" width="150px" align="left">
+      <el-table-column label="操作" width="250px" align="left">
         <template slot-scope="scope">
           <el-button type="text" @click="apply(listData.list[scope.$index])">调价申请</el-button>
           <el-button type="text" @click="history(listData.list[scope.$index])">调价历史</el-button>
@@ -103,7 +104,6 @@ const defaulttableHeader = [
   {
     prop: "oilMemberPriceText",
     label: "会员价",
-    align: "right"
   },
   {
     prop: "oilMemberAgioText",

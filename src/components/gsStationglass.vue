@@ -109,7 +109,7 @@ const defaultAuditResultTableHeader = [
     label: "油气站地址"
   },
   {
-    prop: "isBan",
+    prop: "isBanText",
     label: "加油站状态"
   }
 ];
@@ -122,7 +122,8 @@ const rowAdapter = list => {
     list = list.map(row => {
       return (row = {
         ...row,
-        AddressTest:`${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`
+        AddressTest:`${row.gsProvinceName}${row.gsCityName}${row.gsRegionName}${row.gsDetailAddress}`,
+        isBanText: `${Dict.GAS_STATION_STATUS[row.isBan]}`
       });
     });
   }
