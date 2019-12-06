@@ -518,7 +518,7 @@ export default {
      * @description 开票信息、寄票地址信息
      * */
     getInvoiceAddress() {
-        return fetch(hhgsURL + '/web/base/invoiceAddress/getInvoiceAddress', '','get')
+        return fetch(hhgsURL + '/web/member/receiveInvoice/get', '','get')
     },
     /**
      * @author sswq

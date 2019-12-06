@@ -106,7 +106,7 @@ let commonRoutes = {
 
         // #region  财务管理    
         {
-            path: '/web/base/invoiceAddress/getInvoiceAddress',
+            path: '/web/member/receiveInvoice/get',
             name: 'billWithPost',
             component: BillWithPost
         },

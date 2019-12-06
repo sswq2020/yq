@@ -30,13 +30,13 @@
           <div class="head">寄票地址信息</div>
           <el-row>
             <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
-              <el-form-item label="寄票地址:">{{receiveAddressDto.receivingAddress}}</el-form-item>
+              <el-form-item label="寄票地址:">{{invoiceDto.receivingAddress}}</el-form-item>
             </el-col>
             <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
-              <el-form-item label="收票人:">{{receiveAddressDto.receivingAddressPerson}}</el-form-item>
+              <el-form-item label="收票人:">{{invoiceDto.receivingAddressPerson}}</el-form-item>
             </el-col>
             <el-col :xl="8" :lg="12" :md="24" :sm="24" :xs="24">
-              <el-form-item label="联系电话:">{{receiveAddressDto.receivingAddressTel}}</el-form-item>
+              <el-form-item label="联系电话:">{{invoiceDto.receivingAddressTel}}</el-form-item>
             </el-col>
           </el-row>
         </div>
@@ -54,23 +54,19 @@ const defaultInvoiceDtoParams = {
   invoiceAddress: null,
   invoiceTel: null,
   invoiceBank: null,
-  invoiceBankCode: null
-};
-
-const defaultReceiveAddressDtoParams = {
-  id: null,
+  invoiceBankCode: null,
   receivingAddressPerson: null,
   receivingAddressTel: null,
   receivingAddress: null
 };
+
 
 export default {
   name: "billWithPost",
   data() {
     return {
       breadTitle: ["财务管理", "开票信息、寄票地址信息"],
-      invoiceDto: { ...defaultInvoiceDtoParams },
-      receiveAddressDto: { ...defaultReceiveAddressDtoParams }
+      invoiceDto: { ...defaultInvoiceDtoParams }
     };
   },
   methods:{
@@ -78,11 +74,9 @@ export default {
       this.isListDataLoading = true;
       const res = await this.$api.getInvoiceAddress();
       this.isListDataLoading = false;
-      debugger
       switch (res.code) {
         case Dict.SUCCESS:
           this.invoiceDto = res.data.invoiceDto;
-          this.receiveAddressDto = res.data.receiveAddressDto;
           break;
         default:
           this.$messageError(res.mesg);
