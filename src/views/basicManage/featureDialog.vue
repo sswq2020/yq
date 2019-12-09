@@ -4,6 +4,7 @@
     :visible.sync="visible"
     :show-close="showClose"
     :center="true"
+    append-to-body
     width="575px"
     title="特色服务"
   >
