@@ -2,6 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 import { Base64 } from '@/util/base64.js'
 import { isMock } from "./mock";
+import {MessageBox} from 'element-ui';
+let sessionFlag = true;
 var cookie = require('cookie-parse');
 
 const env = process.env.NODE_ENV;
@@ -12,8 +14,6 @@ let loginUrl = '';
 let redirectUrl = ''; //跳转到登录页的路由
 let cookies = cookie.parse(document.cookie);
 let Authorization = cookies.HLETTYPE + ' ' + cookies.HLETID
-let uploadUrl = '/apis';
-let validUrl = 'http://10.1.15.106:8102';
 
 let hhgsURL = '';
 
@@ -52,15 +52,32 @@ switch (env) {
 
 }
 
-const goLogin = () => {
-    if (env == 'development') {
-        window.VueApp.$router.push({
-            name: 'login'
-        })
-    } else {
-        window.location.href = loginUrl + '?redirectUrl=' + redirectUrl;
-    }
-}
+const goLogin = (type) => {
+	switch(type){
+		case 'userClick':
+			if(env == 'development') {
+// 
+			} else {
+				window.location.href = loginUrl + '?redirectUrl=' + redirectUrl;
+			}
+			break;
+		default:
+			if(sessionFlag) {
+				MessageBox.confirm('您长时间未操作，会话已过期，咱们后会有期，江湖再见！','提示',{
+					confirmButtonText: '确定',
+					type:'warning'
+				}).then(() => {
+					if(env == 'development') {
+// 
+					} else {
+						window.location.href = loginUrl + '?redirectUrl=' + redirectUrl;
+					}
+				})
+				sessionFlag = false;
+			}
+			break;
+	}
+};
 
 
 /*
@@ -263,28 +280,28 @@ export default {
         // formData.append('client_id', params.client_id)
         // formData.append('client_secret', params.client_secret)
         Authorization = 'Basic ' + Base64.encode('hlet-system-center:123456');
-        return new Promise((resolve, reject) => {
-            instance({
-                url: "/auth/oauth/token",
-                method: 'post',
-                data: formData,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                    'Authorization': Authorization
-                }
-            }).then(res => {
-                /*
-                * 变量保存token，减少每次访问localstorage的消耗
-                * */
-                var cookie = 'HLETID=' + res.value + ';path=/;domain=hletong.com'
-                var cookie2 = 'HLETTYPE=' + res.tokenType + ';path=/;domain=hletong.com'
-                document.cookie = cookie
-                document.cookie = cookie2
-                resolve(res);
-            }).catch(err => {
-                reject(err);
-            })
-        })
+		return new Promise((resolve, reject) => {
+			instance({
+				url: baseURL + "/auth/oauth/token",
+				method: 'post',
+				data: formData,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+				}
+			}).then(res => {
+				/*
+				* 变量保存token，减少每次访问localstorage的消耗
+				* */
+				Authorization = res.tokenType + ' ' + res.value;
+				/*
+				* 存localstorage，方便刷新界面的时候获取到token
+				* */
+				localStorage.setItem('token', JSON.stringify(res));
+				resolve(res);
+			}).catch(err => {
+				reject(err);
+			})
+		})
     },
     goLogin() {
         goLogin();
