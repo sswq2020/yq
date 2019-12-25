@@ -65,7 +65,9 @@ const goLogin = (type) => {
 			if(sessionFlag) {
 				MessageBox.confirm('您长时间未操作，会话已过期，咱们后会有期，江湖再见！','提示',{
 					confirmButtonText: '确定',
-					type:'warning'
+                    type:'warning',
+                    showClose:false,
+                    showCancelButton:false
 				}).then(() => {
 					if(env == 'development') {
 // 
