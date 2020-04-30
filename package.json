@@ -16,7 +16,7 @@
   "dependencies": {
     "cookie-parse": "^0.4.0",
     "element-ui": "^2.7.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.5",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.24.0",
