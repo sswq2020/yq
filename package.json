@@ -17,7 +17,7 @@
     "cookie-parse": "^0.4.0",
     "element-ui": "^2.7.2",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.24.0",
     "numb-form": "^1.0.2",
